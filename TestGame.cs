@@ -4,21 +4,28 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TestGame
 {
-    public class Game1: Game
+    public class TestGame : Game
     {
+        const int SCREEN_WIDTH = 19 * 48;
+        const int SCREEN_HEIGHT = 13 * 48;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private Texture2D _playerAtlas;
+        private Player _player;
 
-        public Game1()
+        public TestGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            graphics.PreferredBackBufferWidth = SCREEN_WIDTH;
+            graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
+            graphics.ApplyChanges();
+            Window.Title = "Sween's Awesome Game";
 
             base.Initialize();
         }
@@ -26,8 +33,8 @@ namespace TestGame
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            _playerAtlas = Content.Load<Texture2D>("Sprites/dw_green_hero");
+            _player = new Player(_playerAtlas, 4, 8);
         }
 
         protected override void Update(GameTime gameTime)
@@ -35,7 +42,7 @@ namespace TestGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            _player.Update();
 
             base.Update(gameTime);
         }
@@ -44,7 +51,7 @@ namespace TestGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            _player.Draw(spriteBatch, new Vector2(256, 256));
 
             base.Draw(gameTime);
         }
