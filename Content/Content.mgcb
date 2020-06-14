@@ -24,3 +24,9 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/dw_green_hero.png
+
+#begin Music/mega_adventure.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/mega_adventure.wav

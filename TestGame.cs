@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace TestGame
 {
@@ -12,12 +13,12 @@ namespace TestGame
         SpriteBatch spriteBatch;
         private Texture2D _playerAtlas;
         private Player _player;
+        private Song _themeMusic;
 
         public TestGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
         }
 
         protected override void Initialize()
@@ -26,7 +27,6 @@ namespace TestGame
             graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
             graphics.ApplyChanges();
             Window.Title = "Sween's Awesome Game";
-
             base.Initialize();
         }
 
@@ -34,6 +34,7 @@ namespace TestGame
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             _playerAtlas = Content.Load<Texture2D>("Sprites/dw_green_hero");
+            _themeMusic = Content.Load<Song>("Music/mega_adventure");
             _player = new Player(_playerAtlas, 4, 8);
         }
 
@@ -43,6 +44,12 @@ namespace TestGame
                 Exit();
 
             _player.Update();
+
+            if (MediaPlayer.State == MediaState.Stopped)
+            {
+                MediaPlayer.Volume = 0.75f;
+                MediaPlayer.Play(_themeMusic);
+            }
 
             base.Update(gameTime);
         }
