@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using TestGame.Enums;
 using Microsoft.Xna.Framework;
@@ -46,8 +45,6 @@ namespace TestGame
                 {PlayerState.Shield, new List<Rectangle>()},
                 {PlayerState.Full, new List<Rectangle>()},
             };
-
-            Console.WriteLine($"Sprite Batch: {_spriteBatch.Name}");
         }
 
         public int Rows { get; set; }
@@ -57,7 +54,6 @@ namespace TestGame
 
         public override void Initialize()
         {
-            Console.WriteLine("Initializing Player");
             Rows = 4;
             Columns = 8;
             CurrentDirection = Direction.South;
@@ -71,7 +67,6 @@ namespace TestGame
 
         protected override void LoadContent()
         {
-            Console.WriteLine($"{nameof(Player)} got content loaded. How?");
             _playerAtlas = _contentManager.Load<Texture2D>("Sprites/dw_green_hero");
             _spriteWidth = (int)(_playerAtlas.Width / Columns);
             _spriteHeight = (int)(_playerAtlas.Height / Rows);

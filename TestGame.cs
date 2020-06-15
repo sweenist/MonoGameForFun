@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -31,7 +30,6 @@ namespace TestGame
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Console.WriteLine("New PLayer object");
             _player = new Player(this, spriteBatch, Content);
             Components.Add(_player);
 
@@ -40,7 +38,6 @@ namespace TestGame
 
         protected override void LoadContent()
         {
-            Console.WriteLine("Loading main content");
             _themeMusic = Content.Load<Song>("Music/mega_adventure");
 
             base.LoadContent();
