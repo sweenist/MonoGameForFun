@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -27,23 +28,28 @@ namespace TestGame
             graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
             graphics.ApplyChanges();
             Window.Title = "Sween's Awesome Game";
+
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            Console.WriteLine("New PLayer object");
+            _player = new Player(this, spriteBatch, Content);
+            Components.Add(_player);
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            _playerAtlas = Content.Load<Texture2D>("Sprites/dw_green_hero");
+            Console.WriteLine("Loading main content");
             _themeMusic = Content.Load<Song>("Music/mega_adventure");
-            _player = new Player(_playerAtlas, 4, 8);
+
+            base.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            _player.Update();
 
             if (MediaPlayer.State == MediaState.Stopped)
             {
@@ -56,10 +62,7 @@ namespace TestGame
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            _player.Draw(spriteBatch, new Vector2(256, 256));
-
+            GraphicsDevice.Clear(Color.Black);
             base.Draw(gameTime);
         }
     }
