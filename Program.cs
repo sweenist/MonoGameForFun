@@ -7,7 +7,7 @@ namespace TestGame
         [STAThread]
         static void Main()
         {
-            using (var game = new TestGame())
+            using (var game = new SweenGame())
                 game.Run();
         }
     }

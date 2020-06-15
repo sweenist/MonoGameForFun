@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace TestGame
 {
-    public class TestGame : Game
+    public class SweenGame : Game
     {
         const int SCREEN_WIDTH = 19 * 48;
         const int SCREEN_HEIGHT = 13 * 48;
@@ -15,7 +15,7 @@ namespace TestGame
         private Player _player;
         private Song _themeMusic;
 
-        public TestGame()
+        public SweenGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
