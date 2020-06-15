@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -11,7 +12,6 @@ namespace TestGame
         const int SCREEN_HEIGHT = 13 * 48;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private Texture2D _playerAtlas;
         private Player _player;
         private Song _themeMusic;
 
@@ -19,6 +19,7 @@ namespace TestGame
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            TargetElapsedTime = TimeSpan.FromMilliseconds(30);
         }
 
         protected override void Initialize()
