@@ -19,7 +19,7 @@ namespace TestGame
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            TargetElapsedTime = TimeSpan.FromMilliseconds(30);
+            TargetElapsedTime = TimeSpan.FromMilliseconds(25);
         }
 
         protected override void Initialize()
