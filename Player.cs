@@ -17,7 +17,7 @@ namespace TestGame
 
     public class Player : DrawableGameComponent
     {
-        const int DELAY = 5;
+        const int DELAY = 4;
 
         private readonly Vector2 scale = new Vector2(3, 3);
 
@@ -90,6 +90,8 @@ namespace TestGame
                 CurrentDirection = Direction.North;
             else if (Keyboard.GetState().IsKeyDown(Keys.Down))
                 CurrentDirection = Direction.South;
+            if(Keyboard.GetState().IsKeyDown(Keys.Space))
+                _playerState = PlayerState.Full;
 
             _delayCount++;
             if (_delayCount < DELAY)
