@@ -21,8 +21,6 @@ namespace TestGame
         const int MOVE_STEPS = 48;
         const int PACE = 4;
 
-        private readonly Vector2 scale = new Vector2(3, 3);
-
         private PlayerState _playerState;
         private Texture2D _playerAtlas;
         private Vector2 _playerLocation;
@@ -74,7 +72,7 @@ namespace TestGame
 
         protected override void LoadContent()
         {
-            _playerAtlas = _contentManager.Load<Texture2D>("Sprites/dw_green_hero");
+            _playerAtlas = _contentManager.Load<Texture2D>("Sprites/dw_green_hero_48");
             _spriteWidth = (int)(_playerAtlas.Width / Columns);
             _spriteHeight = (int)(_playerAtlas.Height / Rows);
 
@@ -167,12 +165,7 @@ namespace TestGame
             _spriteBatch.Draw(_playerAtlas,
                              _playerLocation,
                              sourceRectangle,
-                             Color.White,
-                             rotation: 0,
-                             origin: Vector2.Zero,
-                             scale,
-                             SpriteEffects.None,
-                             layerDepth: 0);
+                             Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);
