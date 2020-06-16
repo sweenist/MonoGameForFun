@@ -17,7 +17,9 @@ namespace TestGame
 
     public class Player : DrawableGameComponent
     {
-        const int DELAY = 4;
+        const int DELAY = 5;
+        const int MOVE_STEPS = 48;
+        const int PACE = 4;
 
         private readonly Vector2 scale = new Vector2(3, 3);
 
@@ -27,7 +29,8 @@ namespace TestGame
 
         private int _currentFrame;
         private int _totalFrames;
-        private int _delayCount = 0;
+        private int _remainingSteps;
+        private int _delayCount;
         private int _spriteWidth;
         private int _spriteHeight;
         private readonly Dictionary<PlayerState, List<Rectangle>> _playerSprites;
@@ -51,6 +54,10 @@ namespace TestGame
         public int Columns { get; set; }
 
         public Direction CurrentDirection { get; set; }
+
+        private bool IsMoving { get; set; }
+
+        private Vector2 MoveVector { get; set; } = Vector2.Zero;
 
         public override void Initialize()
         {
@@ -82,15 +89,24 @@ namespace TestGame
 
         public override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                CurrentDirection = Direction.East;
-            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                CurrentDirection = Direction.West;
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
-                CurrentDirection = Direction.North;
-            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
-                CurrentDirection = Direction.South;
-            if(Keyboard.GetState().IsKeyDown(Keys.Space))
+            UpdateMovement();
+            if (!IsMoving && Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
+                StartMovement(Direction.East);
+            }
+            else if (!IsMoving && Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
+                StartMovement(Direction.West);
+            }
+            if (!IsMoving && Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                StartMovement(Direction.North);
+            }
+            else if (!IsMoving && Keyboard.GetState().IsKeyDown(Keys.Down))
+            {
+                StartMovement(Direction.South);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 _playerState = PlayerState.Full;
 
             _delayCount++;
@@ -102,6 +118,44 @@ namespace TestGame
             _currentFrame = _currentFrame % 2;
 
             base.Update(gameTime);
+        }
+
+        private void StartMovement(Direction direction)
+        {
+            CurrentDirection = direction;
+            IsMoving = true;
+            _remainingSteps = MOVE_STEPS;
+            switch (direction)
+            {
+                case Direction.East:
+                    MoveVector = new Vector2(PACE, 0);
+                    break;
+
+                case Direction.South:
+                    MoveVector = new Vector2(0, PACE);
+                    break;
+
+                case Direction.West:
+                    MoveVector = new Vector2(-PACE, 0);
+                    break;
+
+                case Direction.North:
+                    MoveVector = new Vector2(0, -PACE);
+                    break;
+            }
+            UpdateMovement();
+        }
+
+        private void UpdateMovement()
+        {
+            if (!IsMoving)
+                return;
+
+            _remainingSteps -= PACE;
+            _playerLocation += MoveVector;
+
+            if (_remainingSteps.Equals(0))
+                IsMoving = false;
         }
 
         public override void Draw(GameTime gameTime)
