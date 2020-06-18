@@ -25,6 +25,17 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/dw_green_hero_48.png
 
+#begin Maps/loz_48.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Maps/loz_48.png
+
 #begin Music/mega_adventure.wav
 /importer:WavImporter
 /processor:SongProcessor

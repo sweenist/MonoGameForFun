@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.3.5" name="loz_48" tilewidth="48" tileheight="48" spacing="3" margin="3" tilecount="48" columns="6">
- <image source="../../../hero-game/assets/overworld_48.png" width="309" height="411"/>
+ <image source="loz_48.png" width="309" height="411"/>
  <tile id="0" type="Trigger">
   <properties>
    <property name="Collision" type="bool" value="false"/>

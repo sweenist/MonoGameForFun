@@ -8,12 +8,13 @@ namespace TestGame
 {
     public class SweenGame : Game
     {
-        const int SCREEN_WIDTH = 19 * 48;
-        const int SCREEN_HEIGHT = 13 * 48;
+        public static int SCREEN_WIDTH = 19 * 48;
+        public static int SCREEN_HEIGHT = 13 * 48;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private Player _player;
         private Song _themeMusic;
+        private Map _map;
 
         public SweenGame()
         {
@@ -30,6 +31,9 @@ namespace TestGame
             Window.Title = "Sween's Awesome Game";
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            _map = new Map(this, spriteBatch, Content);
+            Components.Add(_map);
 
             _player = new Player(this, spriteBatch, Content);
             Components.Add(_player);
