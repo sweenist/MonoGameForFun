@@ -11,8 +11,8 @@ namespace TestGame
     {
         public static int SCREEN_WIDTH = 19 * 48;
         public static int SCREEN_HEIGHT = 13 * 48;
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager _graphicsManager;
+        private SpriteBatch _spriteBatch;
         private MovementManager _movementManager;
         private Player _player;
         private Song _themeMusic;
@@ -20,28 +20,28 @@ namespace TestGame
 
         public SweenGame()
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphicsManager = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             TargetElapsedTime = TimeSpan.FromMilliseconds(25);
         }
 
         protected override void Initialize()
         {
-            graphics.PreferredBackBufferWidth = SCREEN_WIDTH;
-            graphics.PreferredBackBufferHeight = SCREEN_HEIGHT;
-            graphics.ApplyChanges();
+            _graphicsManager.PreferredBackBufferWidth = SCREEN_WIDTH;
+            _graphicsManager.PreferredBackBufferHeight = SCREEN_HEIGHT;
+            _graphicsManager.ApplyChanges();
             Window.Title = "Sween's Awesome Game";
 
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _movementManager = new MovementManager(this);
             Components.Add(_movementManager);
 
-            _map = new Map(this, spriteBatch, Content);
+            _map = new Map(this, _spriteBatch, Content);
             _movementManager.Add(_map);
             Components.Add(_map);
 
-            _player = new Player(this, spriteBatch, Content);
+            _player = new Player(this, _spriteBatch, Content);
             _movementManager.Add(_player);
             Components.Add(_player);
 
