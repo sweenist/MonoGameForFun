@@ -231,6 +231,7 @@
    <property name="Collision" type="bool" value="false"/>
   </properties>
  </tile>
+ <tile id="46" type="Collidable"/>
  <tile id="47">
   <properties>
    <property name="Collision" type="bool" value="false"/>

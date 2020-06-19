@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using TiledSharp;
 
-namespace TestGame
+namespace TestGame.Maps
 {
     public class Map : DrawableGameComponent
     {
@@ -23,20 +24,29 @@ namespace TestGame
         private int _spacing;
 
         private Vector2 ViewPortDimensions;
-        private bool _debugDraw;
 
         public Map(Game game, SpriteBatch spriteBatch, ContentManager content) : base(game)
         {
             _spriteBatch = spriteBatch;
             _content = content;
             ViewPortDimensions = new Vector2(SweenGame.SCREEN_WIDTH, SweenGame.SCREEN_HEIGHT);
-            _debugDraw = true;
+        }
+
+        public List<Tile> TileInfo { get; set; }
+        public List<MapTile> MapTiles { get; set; }
+
+        public Tile GetTileAt(Rectangle target)
+        {
+            Console.WriteLine($"Incoming Rect: {target}");
+            var tile = MapTiles.Single(tile => tile.DestinationRectangle.Intersects(target));
+            Console.WriteLine($"\t{tile.DestinationRectangle}");
+
+            return tile.Tile;
         }
 
         protected override void LoadContent()
         {
             _map = new TmxMap("Content/Maps/blah.tmx");
-            Console.WriteLine($"There are {_map.Tilesets.Count} tilesets");
 
             var currentSet = _map.Tilesets.First();
             _margin = currentSet.Margin;
@@ -47,13 +57,10 @@ namespace TestGame
             _tileWidth = currentSet.TileWidth;
             _tileHeight = currentSet.TileHeight;
 
-            // TODO: Maybe extract the row and column count from Layer[0]
             _tileColumns = GetTileCountFromDimension(_margin, _spacing, _tileset.Width, _tileWidth);
             _tileRows = GetTileCountFromDimension(_margin, _spacing, _tileset.Height, _tileHeight);
 
-            Console.WriteLine($"There are {_tileColumns} columns and {_tileRows} rows in this map.");
-
-            var layer = _map.TileLayers.First();
+            BuildTileInformation(currentSet, _map.TileLayers.First());
 
             int GetTileCountFromDimension(int margin, int spacing, int textureDimension, int tileDimension)
             {
@@ -64,16 +71,14 @@ namespace TestGame
             }
         }
 
-        public override void Draw(GameTime gameTime)
+        private void BuildTileInformation(TmxTileset tileset, TmxLayer layer)
         {
-            _spriteBatch.Begin();
+            var tileInfo = tileset.Tiles.ToDictionary(t => t.Key + 1, v => new Tile(v.Key, v.Value));
 
-            var layer = _map.TileLayers.First();
-            foreach (var tile in layer.Tiles)
+            MapTiles = layer.Tiles.Select(tile =>
             {
                 var sourceColumn = (tile.Gid - 1) % _tileColumns;
                 var sourceRow = (int)Math.Floor((decimal)(tile.Gid - 1) / _tileColumns);
-                //TODO load tiles in loadContent
                 var sourceRect = new Rectangle((_tileWidth * sourceColumn) + _margin + (sourceColumn * _spacing),
                                                (_tileHeight * sourceRow) + _margin + (sourceRow * _spacing),
                                                _tileWidth,
@@ -81,17 +86,18 @@ namespace TestGame
 
                 var tilePosition = new Vector2(tile.X * _tileWidth, tile.Y * _tileHeight);
 
-                if (_debugDraw)
-                {
-                    Console.WriteLine("Tile Properties");
-                    Console.WriteLine($"\tTile Id {tile.Gid}");
+                return new MapTile(sourceRect, tilePosition, tileInfo[tile.Gid]);
+            }).ToList();
+        }
 
-                    Console.WriteLine($"\tTile Column?: {sourceColumn}\tTile Row?: {sourceRow}");
-                    Console.WriteLine($"\tTile rectangle?: {sourceRect}");
-                }
-                _spriteBatch.Draw(_tileset, tilePosition, sourceRect, Color.White);
+        public override void Draw(GameTime gameTime)
+        {
+            _spriteBatch.Begin();
+
+            foreach (var tile in MapTiles)
+            {
+                _spriteBatch.Draw(_tileset, tile.Location, tile.SourceRectangle, Color.White);
             }
-            _debugDraw = false;
 
             _spriteBatch.End();
         }

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using TestGame.Maps;
 
 namespace TestGame
 {
@@ -12,6 +13,7 @@ namespace TestGame
         public static int SCREEN_HEIGHT = 13 * 48;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private MovementManager _movementManager;
         private Player _player;
         private Song _themeMusic;
         private Map _map;
@@ -32,10 +34,15 @@ namespace TestGame
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            _movementManager = new MovementManager(this);
+            Components.Add(_movementManager);
+
             _map = new Map(this, spriteBatch, Content);
+            _movementManager.Add(_map);
             Components.Add(_map);
 
             _player = new Player(this, spriteBatch, Content);
+            _movementManager.Add(_player);
             Components.Add(_player);
 
             base.Initialize();

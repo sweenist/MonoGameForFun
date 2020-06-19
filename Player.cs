@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace TestGame
 {
@@ -13,6 +14,16 @@ namespace TestGame
         Sword,
         Shield,
         Full
+    }
+
+    public class MovementEventArgs : EventArgs
+    {
+        public MovementEventArgs(Direction direction)
+        {
+            Direction = direction;
+        }
+
+        public Direction Direction { get; }
     }
 
     public class Player : DrawableGameComponent
@@ -48,14 +59,23 @@ namespace TestGame
             };
         }
 
+        public EventHandler<MovementEventArgs> HandlePlayerMovement;
+
         public int Rows { get; set; }
         public int Columns { get; set; }
+        public int Width => _spriteWidth;
+        public int Height => _spriteHeight;
 
         public Direction CurrentDirection { get; set; }
 
-        private bool IsMoving { get; set; }
+        public bool IsMoving { get; set; }
 
         private Vector2 MoveVector { get; set; } = Vector2.Zero;
+
+        public Rectangle Destination => new Rectangle((int)_playerLocation.X,
+                                                      (int)_playerLocation.Y,
+                                                      _spriteWidth,
+                                                      _spriteHeight);
 
         public override void Initialize()
         {
@@ -65,7 +85,7 @@ namespace TestGame
 
             _currentFrame = 0;
             _totalFrames = Columns;
-            _playerLocation = new Vector2(256, 312);
+            _playerLocation = new Vector2(480, 288);
 
             base.Initialize();
         }
@@ -121,8 +141,13 @@ namespace TestGame
         private void StartMovement(Direction direction)
         {
             CurrentDirection = direction;
-            IsMoving = true;
+            HandlePlayerMovement.Invoke(this, new MovementEventArgs(direction));
+
+            if (!IsMoving)
+                return;
+
             _remainingSteps = MOVE_STEPS;
+
             switch (direction)
             {
                 case Direction.East:
