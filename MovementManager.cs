@@ -38,25 +38,29 @@ namespace TestGame
             {
                 var currentPlayerSpace = player.Destination;
                 Rectangle targetRect = Rectangle.Empty;
+
                 switch (e.Direction)
                 {
                     case Direction.East:
                         targetRect = GetTargetTileSpace(deltaX: player.Width);
+                        _player.MoveVector = new Vector2(1, 0);
                         break;
                     case Direction.South:
                         targetRect = GetTargetTileSpace(deltaY: player.Height);
+                        _player.MoveVector = new Vector2(0, 1);
                         break;
                     case Direction.West:
                         targetRect = GetTargetTileSpace(deltaX: -player.Width);
+                        _player.MoveVector = new Vector2(-1, 0);
                         break;
                     case Direction.North:
                         targetRect = GetTargetTileSpace(deltaY: -player.Height);
+                        _player.MoveVector = new Vector2(0, -1);
                         break;
                 }
                 var targetTile = _map.GetTileAt(targetRect);
                 player.IsMoving = !targetTile.IsCollideable;
 
-                Console.WriteLine($"{targetTile}");
 
                 Rectangle GetTargetTileSpace(int deltaX = 0, int deltaY = 0)
                 {

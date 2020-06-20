@@ -60,6 +60,7 @@ namespace TestGame
         }
 
         public EventHandler<MovementEventArgs> HandlePlayerMovement;
+        private Vector2 _moveVector = Vector2.Zero;
 
         public int Rows { get; set; }
         public int Columns { get; set; }
@@ -70,8 +71,11 @@ namespace TestGame
 
         public bool IsMoving { get; set; }
 
-        private Vector2 MoveVector { get; set; } = Vector2.Zero;
-
+        public Vector2 MoveVector
+        {
+            get => _moveVector;
+            set => _moveVector = SetMoveVector(value);
+        }
         public Rectangle Destination => new Rectangle((int)_playerLocation.X,
                                                       (int)_playerLocation.Y,
                                                       _spriteWidth,
@@ -148,24 +152,6 @@ namespace TestGame
 
             _remainingSteps = MOVE_STEPS;
 
-            switch (direction)
-            {
-                case Direction.East:
-                    MoveVector = new Vector2(PACE, 0);
-                    break;
-
-                case Direction.South:
-                    MoveVector = new Vector2(0, PACE);
-                    break;
-
-                case Direction.West:
-                    MoveVector = new Vector2(-PACE, 0);
-                    break;
-
-                case Direction.North:
-                    MoveVector = new Vector2(0, -PACE);
-                    break;
-            }
             UpdateMovement();
         }
 
@@ -194,6 +180,11 @@ namespace TestGame
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        private Vector2 SetMoveVector(Vector2 value)
+        {
+            return new Vector2(value.X * PACE, value.Y * PACE);
         }
     }
 }
