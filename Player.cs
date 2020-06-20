@@ -4,28 +4,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 
 namespace TestGame
 {
-    enum PlayerState
-    {
-        Unequipped,
-        Sword,
-        Shield,
-        Full
-    }
-
-    public class MovementEventArgs : EventArgs
-    {
-        public MovementEventArgs(Direction direction)
-        {
-            Direction = direction;
-        }
-
-        public Direction Direction { get; }
-    }
-
     public class Player : DrawableGameComponent
     {
         const int DELAY = 5;
@@ -35,13 +16,16 @@ namespace TestGame
         private PlayerState _playerState;
         private Texture2D _playerAtlas;
         private Vector2 _playerLocation;
-
+        private Vector2 _moveVector = Vector2.Zero;
+        
+        private bool _isMoving;
         private int _currentFrame;
         private int _totalFrames;
         private int _remainingSteps;
         private int _delayCount;
         private int _spriteWidth;
         private int _spriteHeight;
+
         private readonly Dictionary<PlayerState, List<Rectangle>> _playerSprites;
         private readonly SpriteBatch _spriteBatch;
         private readonly ContentManager _contentManager;
@@ -59,9 +43,6 @@ namespace TestGame
             };
         }
 
-        public EventHandler<MovementEventArgs> HandlePlayerMovement;
-        private Vector2 _moveVector = Vector2.Zero;
-
         public int Rows { get; set; }
         public int Columns { get; set; }
         public int Width => _spriteWidth;
@@ -69,13 +50,23 @@ namespace TestGame
 
         public Direction CurrentDirection { get; set; }
 
-        public bool IsMoving { get; set; }
+        public bool IsMoving
+        {
+            get => _isMoving;
+            set
+            {
+                if (value)
+                    _remainingSteps = MOVE_STEPS;
+                _isMoving = value;
+            }
+        }
 
         public Vector2 MoveVector
         {
             get => _moveVector;
             set => _moveVector = SetMoveVector(value);
         }
+
         public Rectangle Destination => new Rectangle((int)_playerLocation.X,
                                                       (int)_playerLocation.Y,
                                                       _spriteWidth,
@@ -112,22 +103,7 @@ namespace TestGame
         public override void Update(GameTime gameTime)
         {
             UpdateMovement();
-            if (!IsMoving && Keyboard.GetState().IsKeyDown(Keys.Right))
-            {
-                StartMovement(Direction.East);
-            }
-            else if (!IsMoving && Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                StartMovement(Direction.West);
-            }
-            if (!IsMoving && Keyboard.GetState().IsKeyDown(Keys.Up))
-            {
-                StartMovement(Direction.North);
-            }
-            else if (!IsMoving && Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                StartMovement(Direction.South);
-            }
+
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 _playerState = PlayerState.Full;
 
@@ -140,19 +116,6 @@ namespace TestGame
             _currentFrame = _currentFrame % 2;
 
             base.Update(gameTime);
-        }
-
-        private void StartMovement(Direction direction)
-        {
-            CurrentDirection = direction;
-            HandlePlayerMovement.Invoke(this, new MovementEventArgs(direction));
-
-            if (!IsMoving)
-                return;
-
-            _remainingSteps = MOVE_STEPS;
-
-            UpdateMovement();
         }
 
         private void UpdateMovement()
