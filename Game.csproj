@@ -5,6 +5,8 @@
     <RootNamespace>TestGame</RootNamespace>
     <AssemblyName>TestGame</AssemblyName>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <OutputPath>output/bin/Debug</OutputPath>
+    <BaseIntermediateOutputPath>output/obj</BaseIntermediateOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
