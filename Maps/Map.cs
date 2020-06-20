@@ -34,16 +34,6 @@ namespace TestGame.Maps
 
         public List<Tile> TileInfo { get; set; }
         public List<MapTile> MapTiles { get; set; }
-
-        public Tile GetTileAt(Rectangle target)
-        {
-            Console.WriteLine($"Incoming Rect: {target}");
-            var tile = MapTiles.Single(tile => tile.DestinationRectangle.Intersects(target));
-            Console.WriteLine($"\t{tile.DestinationRectangle}");
-
-            return tile.Tile;
-        }
-
         protected override void LoadContent()
         {
             _map = new TmxMap("Content/Maps/blah.tmx");
@@ -101,5 +91,17 @@ namespace TestGame.Maps
 
             _spriteBatch.End();
         }
+
+
+        public Tile GetTileAt(Rectangle target)
+        {
+            Console.WriteLine($"Incoming Rect: {target}");
+            var tile = MapTiles.Single(tile => tile.DestinationRectangle.Intersects(target));
+            Console.WriteLine($"\t{tile.DestinationRectangle}");
+
+            return tile.Tile;
+        }
+
+
     }
 }
