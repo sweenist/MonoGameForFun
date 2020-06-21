@@ -16,8 +16,7 @@ namespace TestGame
         private PlayerState _playerState;
         private Texture2D _playerAtlas;
         private Vector2 _playerLocation;
-        private Vector2 _moveVector = Vector2.Zero;
-        
+
         private bool _isMoving;
         private int _currentFrame;
         private int _totalFrames;
@@ -61,11 +60,7 @@ namespace TestGame
             }
         }
 
-        public Vector2 MoveVector
-        {
-            get => _moveVector;
-            set => _moveVector = SetMoveVector(value);
-        }
+        public Vector2 MoveVector { get; set; } = Vector2.Zero;
 
         public Rectangle Destination => new Rectangle((int)_playerLocation.X,
                                                       (int)_playerLocation.Y,

@@ -31,7 +31,6 @@ namespace TestGame.Maps
         private bool _isScrolling;
 
         private Vector2 ViewPortDimensions;
-        private Vector2 _moveVector;
 
         public Map(Game game, SpriteBatch spriteBatch, ContentManager content) : base(game)
         {
@@ -73,11 +72,7 @@ namespace TestGame.Maps
                 _isScrolling = value;
             }
         }
-        public Vector2 MoveVector
-        {
-            get => _moveVector;
-            set => _moveVector = SetMoveVector(value);
-        }
+        public Vector2 MoveVector { get; set; } = Vector2.Zero;
 
         protected override void LoadContent()
         {
@@ -165,11 +160,6 @@ namespace TestGame.Maps
             var tile = MapTiles.Single(tile => tile.DestinationRectangle.Intersects(target));
             Console.WriteLine(tile.Tile.ToString());
             return tile.Tile;
-        }
-
-        private Vector2 SetMoveVector(Vector2 value)
-        {
-            return new Vector2(value.X * SCROLL_INCREMENT, value.Y * SCROLL_INCREMENT);
         }
 
         private void RaisePropertyChange([CallerMemberName] string propertyName = null)

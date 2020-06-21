@@ -8,6 +8,7 @@ namespace TestGame
 {
     public class MovementManager : GameComponent
     {
+        const int MOVE_INCREMENT = 4;
         private Player _player;
         private Map _map;
         private GameWindow _window;
@@ -98,36 +99,36 @@ namespace TestGame
                     playerMapMarginCheck = () => _player.Destination.X >= _window.ClientBounds.Width - _player.Width * 3;
                     mapSpaceRemaining = () => _map.Bounds.Width + _map.Offset.X > _window.ClientBounds.Width;
                     screenEdgeCheck = () => _player.Destination.X.Equals(_window.ClientBounds.Width - _player.Width);
-                    moveVector = new Vector2(1, 0);
+                    moveVector = new Vector2(MOVE_INCREMENT, 0);
                     break;
 
                 case Direction.South:
                     playerMapMarginCheck = () => _player.Destination.Y >= _window.ClientBounds.Height - _player.Height * 3;
                     mapSpaceRemaining = () => _map.Bounds.Height + _map.Offset.Y > _window.ClientBounds.Height;
                     screenEdgeCheck = () => _player.Destination.Y.Equals(_window.ClientBounds.Height - _player.Height);
-                    moveVector = new Vector2(0, 1);
+                    moveVector = new Vector2(0, MOVE_INCREMENT);
                     break;
 
                 case Direction.West:
                     playerMapMarginCheck = () => _player.Destination.X >= _player.Width * 3;
                     mapSpaceRemaining = () => _map.Bounds.X < 0;
                     screenEdgeCheck = () => _player.Destination.X == 0;
-                    moveVector = new Vector2(-1, 0);
+                    moveVector = new Vector2(-MOVE_INCREMENT, 0);
                     break;
 
                 case Direction.North:
                     playerMapMarginCheck = () => _player.Destination.Y >= _player.Height * 3;
                     mapSpaceRemaining = () => _map.Bounds.Y < 0;
                     screenEdgeCheck = () => _player.Destination.Y == 0;
-                    moveVector = new Vector2(0, -1);
+                    moveVector = new Vector2(0, -MOVE_INCREMENT);
                     break;
             }
 
             if (playerMapMarginCheck() && mapSpaceRemaining())
-                {
-                    _map.MoveVector = -moveVector;
-                    _map.IsScrolling = true;
-                }
+            {
+                _map.MoveVector = -moveVector;
+                _map.IsScrolling = true;
+            }
             else if (!screenEdgeCheck())
             {
                 _player.MoveVector = moveVector;
