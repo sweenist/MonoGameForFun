@@ -8,19 +8,18 @@ namespace TestGame.Maps
         public Tile(int id, TmxTilesetTile tileset)
         {
             Id = id;
-            if(tileset.Properties.ContainsKey("Collision"))
-            {
-                Console.WriteLine($"Tile: Id:{Id}; AltId: {tileset.Id}; Collidable: {tileset.Properties["Collision"]}");
-            }
+            Name = tileset.Properties.ContainsKey("Name")
+                ? tileset.Properties["Name"]
+                : "()null)";
             IsCollideable = tileset.Properties.ContainsKey("Collision")
                 ? Convert.ToBoolean(tileset.Properties["Collision"])
                 : false;
         }
 
         public int Id { get; }
-
+        public string Name{get;}
         public bool IsCollideable { get; }
 
-        public override string ToString() => $"Id: {Id}; Collide?: {IsCollideable}" ;
+        public override string ToString() => $"Id: {Id}; Name: {Name}; Collide?: {IsCollideable}" ;
     }
 }
