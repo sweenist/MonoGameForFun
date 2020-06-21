@@ -138,27 +138,21 @@ namespace TestGame.Maps
         public override void Draw(GameTime gameTime)
         {
             _spriteBatch.Begin();
-            var debug = IsScrolling;
             foreach (var tile in MapTiles)
             {
-                if (debug)
-                {
-                    Console.WriteLine($"Tile Location: {tile.Location}");
-                    Console.WriteLine($"Map Offset: {Offset}");
-                    Console.WriteLine($"Map Bounds: {Bounds}");
-                    Console.WriteLine();
-                    debug = false;
-                }
                 _spriteBatch.Draw(_tileset, tile.Location, tile.SourceRectangle, Color.White);
             }
 
             _spriteBatch.End();
         }
 
-        public Tile GetTileAt(Rectangle target)
+        public Tile GetTileAt(Rectangle target, bool debug = false)
         {
             var tile = MapTiles.Single(tile => tile.DestinationRectangle.Intersects(target));
-            Console.WriteLine(tile.Tile.ToString());
+            if (debug)
+            {
+                Console.WriteLine($"\tTileLocation: {tile.Location}; Player: {target}");
+            }
             return tile.Tile;
         }
 

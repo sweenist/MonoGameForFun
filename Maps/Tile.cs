@@ -10,7 +10,7 @@ namespace TestGame.Maps
             Id = id;
             Name = tileset.Properties.ContainsKey("Name")
                 ? tileset.Properties["Name"]
-                : "()null)";
+                : "(null)";
             IsCollideable = tileset.Properties.ContainsKey("Collision")
                 ? Convert.ToBoolean(tileset.Properties["Collision"])
                 : false;

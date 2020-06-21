@@ -12,6 +12,7 @@ namespace TestGame
         private Player _player;
         private Map _map;
         private GameWindow _window;
+        private bool _printDebug;
 
         public MovementManager(Game game) : base(game)
         {
@@ -25,25 +26,39 @@ namespace TestGame
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
-                CheckCollisions(Direction.East);
+                UpdateMovement(Direction.East);
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                CheckCollisions(Direction.West);
+                UpdateMovement(Direction.West);
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
-                CheckCollisions(Direction.North);
+                UpdateMovement(Direction.North);
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
-                CheckCollisions(Direction.South);
+                UpdateMovement(Direction.South);
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.M))
+                _printDebug = true;
+            if(_printDebug && Keyboard.GetState().IsKeyUp(Keys.M))
+            {
+                _printDebug = false;
+                var tile = _map.GetTileAt(GetAdjacentTileInDirection(_player.CurrentDirection), true);
+
+                Console.WriteLine($"Player Position: {_player.Destination}");
+                Console.WriteLine($"\tTile Info: {tile}");
+                Console.WriteLine($"\tMap Offset: {_map.Offset}");
+                Console.WriteLine($"\tMap Bounds: {_map.Bounds}");
+                Console.WriteLine();
+
+            }
             base.Update(gameTime);
         }
 
-        private void CheckCollisions(Direction direction)
+        private void UpdateMovement(Direction direction)
         {
             if (_player.IsMoving || _map.IsScrolling)
                 return;
@@ -110,14 +125,14 @@ namespace TestGame
                     break;
 
                 case Direction.West:
-                    playerMapMarginCheck = () => _player.Destination.X >= _player.Width * 3;
+                    playerMapMarginCheck = () => _player.Destination.X == _player.Width * 3;
                     mapSpaceRemaining = () => _map.Bounds.X < 0;
                     screenEdgeCheck = () => _player.Destination.X == 0;
                     moveVector = new Vector2(-MOVE_INCREMENT, 0);
                     break;
 
                 case Direction.North:
-                    playerMapMarginCheck = () => _player.Destination.Y >= _player.Height * 3;
+                    playerMapMarginCheck = () => _player.Destination.Y == _player.Height * 3;
                     mapSpaceRemaining = () => _map.Bounds.Y < 0;
                     screenEdgeCheck = () => _player.Destination.Y == 0;
                     moveVector = new Vector2(0, -MOVE_INCREMENT);
