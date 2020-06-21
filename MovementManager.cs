@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using TestGame.Enums;
@@ -9,9 +10,11 @@ namespace TestGame
     {
         private Player _player;
         private Map _map;
+        private GameWindow _window;
 
         public MovementManager(Game game) : base(game)
         {
+            _window = game.Window;
         }
 
         public void Add(Player player) => _player = player;
@@ -21,61 +24,114 @@ namespace TestGame
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
-                CheckPlayerCollisions(Direction.East);
+                CheckCollisions(Direction.East);
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                CheckPlayerCollisions(Direction.West);
+                CheckCollisions(Direction.West);
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
-                CheckPlayerCollisions(Direction.North);
+                CheckCollisions(Direction.North);
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
-                CheckPlayerCollisions(Direction.South);
+                CheckCollisions(Direction.South);
             }
 
             base.Update(gameTime);
         }
 
-        private void CheckPlayerCollisions(Direction direction)
+        private void CheckCollisions(Direction direction)
         {
-            if (_player.IsMoving)
+            if (_player.IsMoving || _map.IsScrolling)
                 return;
 
             _player.CurrentDirection = direction;
-            Rectangle targetRect = Rectangle.Empty;
 
+            var targetTile = _map.GetTileAt(GetAdjacentTileInDirection(direction));
+            var canMove = !targetTile.IsCollideable;
+            if (canMove)
+                SetupMovementBounds(direction);
+        }
+
+        private Rectangle GetAdjacentTileInDirection(Direction direction)
+        {
+            Rectangle targetRect = Rectangle.Empty;
             switch (direction)
             {
                 case Direction.East:
                     targetRect = GetTargetTileSpace(deltaX: _player.Width);
-                    _player.MoveVector = new Vector2(1, 0);
                     break;
                 case Direction.South:
                     targetRect = GetTargetTileSpace(deltaY: _player.Height);
-                    _player.MoveVector = new Vector2(0, 1);
                     break;
                 case Direction.West:
                     targetRect = GetTargetTileSpace(deltaX: -(_player.Width));
-                    _player.MoveVector = new Vector2(-1, 0);
                     break;
                 case Direction.North:
                     targetRect = GetTargetTileSpace(deltaY: -(_player.Height));
-                    _player.MoveVector = new Vector2(0, -1);
                     break;
             }
 
-            var targetTile = _map.GetTileAt(targetRect);
-            _player.IsMoving = !targetTile.IsCollideable;
+            return targetRect;
+        }
 
-            Rectangle GetTargetTileSpace(int deltaX = 0, int deltaY = 0)
+        private Rectangle GetTargetTileSpace(int deltaX = 0, int deltaY = 0)
+        {
+            return new Rectangle(_player.Destination.X + deltaX + (int)_map.Offset.X,
+                                 _player.Destination.Y + deltaY + (int)_map.Offset.Y,
+                                 _player.Width,
+                                 _player.Height);
+        }
+
+        private void SetupMovementBounds(Direction direction)
+        {
+            Func<bool> playerMapMarginCheck = () => false;
+            Func<bool> mapSpaceRemaining = () => false;
+            Func<bool> screenEdgeCheck = () => false;
+            Vector2 moveVector = Vector2.Zero;
+
+            switch (direction)
             {
-                return new Rectangle(_player.Destination.X + deltaX,
-                                     _player.Destination.Y + deltaY,
-                                     _player.Width,
-                                     _player.Height);
+                case Direction.East:
+                    playerMapMarginCheck = () => _player.Destination.X >= _window.ClientBounds.Width - _player.Width * 3;
+                    mapSpaceRemaining = () => _map.Bounds.Width + _map.Offset.X > _window.ClientBounds.Width;
+                    screenEdgeCheck = () => _player.Destination.X.Equals(_window.ClientBounds.Width - _player.Width);
+                    moveVector = new Vector2(1, 0);
+                    break;
+
+                case Direction.South:
+                    playerMapMarginCheck = () => _player.Destination.Y >= _window.ClientBounds.Height - _player.Height * 3;
+                    mapSpaceRemaining = () => _map.Bounds.Height + _map.Offset.Y > _window.ClientBounds.Height;
+                    screenEdgeCheck = () => _player.Destination.Y.Equals(_window.ClientBounds.Height - _player.Height);
+                    moveVector = new Vector2(0, 1);
+                    break;
+
+                case Direction.West:
+                    playerMapMarginCheck = () => _player.Destination.X >= _player.Width * 3;
+                    mapSpaceRemaining = () => _map.Bounds.X < 0;
+                    screenEdgeCheck = () => _player.Destination.X == 0;
+                    moveVector = new Vector2(-1, 0);
+                    break;
+
+                case Direction.North:
+                    playerMapMarginCheck = () => _player.Destination.Y >= _player.Height * 3;
+                    mapSpaceRemaining = () => _map.Bounds.Y < 0;
+                    screenEdgeCheck = () => _player.Destination.Y == 0;
+                    moveVector = new Vector2(0, -1);
+                    break;
+            }
+
+            if (playerMapMarginCheck() && mapSpaceRemaining())
+                {
+                    _map.MoveVector = -moveVector;
+                    _map.IsScrolling = true;
+                }
+            else if (!screenEdgeCheck())
+            {
+                _player.MoveVector = moveVector;
+                _player.IsMoving = true;
             }
         }
     }
