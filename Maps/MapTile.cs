@@ -13,13 +13,13 @@ namespace TestGame.Maps
             SourceRectangle = rectangle;
             Location = location;
             Tile = tile;
-            
+
             _map = map;
             _map.PropertyChanged += OnMapPropertyChanged;
         }
 
         public Rectangle SourceRectangle { get; }
-        public Vector2 Location { get; private set;}
+        public Vector2 Location { get; private set; }
         public Tile Tile { get; }
         public Rectangle DestinationRectangle => new Rectangle((int)Location.X,
                                                                    (int)Location.Y,
@@ -28,8 +28,10 @@ namespace TestGame.Maps
 
         public void OnMapPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName.Equals(nameof(Map.Offset)))
-                Location += _map.Offset;
+            if (e.PropertyName.Equals(nameof(Map.Offset)))
+            {
+                Location += _map.MoveVector;
+            }
         }
 
         public void Dispose()

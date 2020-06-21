@@ -54,7 +54,7 @@ namespace TestGame.Maps
                 if (_offset != value)
                 {
                     _offset = value;
-                    if(!_isScrolling)
+                    if (_isScrolling)
                         RaisePropertyChange();
                 }
             }
@@ -128,11 +128,11 @@ namespace TestGame.Maps
             if (!IsScrolling)
                 return;
 
+            Offset += MoveVector;
+
             _remainingScroll -= SCROLL_INCREMENT;
             if (_remainingScroll.Equals(0))
                 IsScrolling = false;
-                
-            Offset += MoveVector;
         }
 
         public override void Draw(GameTime gameTime)
