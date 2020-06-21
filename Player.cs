@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TestGame
 {
-    public class Player : DrawableGameComponent
+    public class Player : DrawableGameComponent, IFocusable
     {
         const int DELAY = 5;
         const int MOVE_STEPS = 48;
@@ -15,7 +15,7 @@ namespace TestGame
 
         private PlayerState _playerState;
         private Texture2D _playerAtlas;
-        private Vector2 _playerLocation;
+        private Vector2 _position;
         private Vector2 _moveVector = Vector2.Zero;
         
         private bool _isMoving;
@@ -67,8 +67,17 @@ namespace TestGame
             set => _moveVector = SetMoveVector(value);
         }
 
-        public Rectangle Destination => new Rectangle((int)_playerLocation.X,
-                                                      (int)_playerLocation.Y,
+        public Vector2 Position
+        {
+            get => _position;
+            set
+            {
+                _position = value;
+            }
+        }
+
+        public Rectangle Destination => new Rectangle((int)_position.X,
+                                                      (int)_position.Y,
                                                       _spriteWidth,
                                                       _spriteHeight);
 
@@ -80,7 +89,7 @@ namespace TestGame
 
             _currentFrame = 0;
             _totalFrames = Columns;
-            _playerLocation = new Vector2(480, 288);
+            _position = new Vector2(480, 288);
 
             base.Initialize();
         }
@@ -124,7 +133,7 @@ namespace TestGame
                 return;
 
             _remainingSteps -= PACE;
-            _playerLocation += MoveVector;
+            _position += MoveVector;
 
             if (_remainingSteps.Equals(0))
                 IsMoving = false;
@@ -133,11 +142,11 @@ namespace TestGame
         public override void Draw(GameTime gameTime)
         {
             var sourceRectangle = _playerSprites[_playerState][((int)CurrentDirection * 2) + _currentFrame];
-            var destinationRectangle = new Rectangle((int)_playerLocation.X, (int)_playerLocation.Y, _spriteWidth, _spriteHeight);
+            var destinationRectangle = new Rectangle((int)_position.X, (int)_position.Y, _spriteWidth, _spriteHeight);
 
             _spriteBatch.Begin();
             _spriteBatch.Draw(_playerAtlas,
-                             _playerLocation,
+                             _position,
                              sourceRectangle,
                              Color.White);
             _spriteBatch.End();

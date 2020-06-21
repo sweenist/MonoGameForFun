@@ -17,6 +17,7 @@ namespace TestGame
         private Player _player;
         private Song _themeMusic;
         private Map _map;
+        private Camera2D _camera;
 
         public SweenGame()
         {
@@ -44,6 +45,9 @@ namespace TestGame
             _player = new Player(this, _spriteBatch, Content);
             _movementManager.Add(_player);
             Components.Add(_player);
+
+            _camera = new Camera2D(this,_player);
+            Components.Add(_camera);
 
             base.Initialize();
         }
