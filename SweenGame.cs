@@ -9,8 +9,8 @@ namespace TestGame
 {
     public class SweenGame : Game
     {
-        public static int SCREEN_WIDTH = 19 * 48;
-        public static int SCREEN_HEIGHT = 13 * 48;
+        public static int SCREEN_WIDTH = 912; //19 * 48;
+        public static int SCREEN_HEIGHT = 624; //13 * 48;
         private GraphicsDeviceManager _graphicsManager;
         private SpriteBatch _spriteBatch;
         private MovementManager _movementManager;

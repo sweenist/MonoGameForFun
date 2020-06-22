@@ -36,20 +36,21 @@ namespace TestGame
 
             ScreenCenter = new Vector2(_viewportWidth / 2, _viewportHeight / 2);
             Scale = 1;
-            MoveSpeed = 2;
+            MoveSpeed = 4;
+            Origin = ScreenCenter / Scale;
 
             base.Initialize();
         }
 
         public override void Update(GameTime gameTime)
         {
-            Origin = ScreenCenter / Scale;
+            Transform = Matrix.Identity
+                        * Matrix.CreateTranslation(-Position.X, -Position.Y, 0)
+                        * Matrix.CreateRotationZ(Rotation)
+                        * Matrix.CreateTranslation(Origin.X, Origin.Y, 0)
+                        * Matrix.CreateScale(Scale);
 
-            Transform = Matrix.Identity *
-            Matrix.CreateTranslation(-Position.X, -Position.Y, 0) *
-            Matrix.CreateRotationZ(Rotation) *
-            Matrix.CreateTranslation(Origin.X, Origin.Y, 0) *
-            Matrix.CreateScale(Scale);
+            Origin = ScreenCenter / Scale;
 
             var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
             _position.X += (FocalPoint.Position.X - Position.X) * MoveSpeed * delta;
