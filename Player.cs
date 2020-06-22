@@ -145,11 +145,14 @@ namespace TestGame
             var sourceRectangle = _playerSprites[_playerState][((int)CurrentDirection * 2) + _currentFrame];
             var destinationRectangle = new Rectangle((int)_position.X, (int)_position.Y, _spriteWidth, _spriteHeight);
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.FrontToBack,
+                               BlendState.AlphaBlend,
+                               transformMatrix: _camera.Transform);
+
             _spriteBatch.Draw(_playerAtlas,
-                             _position,
-                             sourceRectangle,
-                             Color.White);
+                              _position,
+                              sourceRectangle,
+                              Color.White);
             _spriteBatch.End();
 
             base.Draw(gameTime);
