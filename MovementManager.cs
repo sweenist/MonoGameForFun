@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using TestGame.Enums;
@@ -36,6 +37,12 @@ namespace TestGame
             else if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
                 CheckPlayerCollisions(Direction.South);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.M))
+            {
+                Console.WriteLine($"Camera Origin: {_camera.Origin}");
+                Console.WriteLine($"\tCamera Position: {_camera.Position}");
+                Console.WriteLine($"\tPlayer Position: {_player.Position}");
             }
 
             base.Update(gameTime);

@@ -96,10 +96,7 @@ namespace TestGame.Maps
 
         public Tile GetTileAt(Rectangle target)
         {
-            Console.WriteLine($"Incoming Rect: {target}");
             var tile = MapTiles.Single(tile => tile.DestinationRectangle.Intersects(target));
-            Console.WriteLine($"\t{tile.DestinationRectangle}");
-
             return tile.Tile;
         }
 
