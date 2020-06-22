@@ -54,7 +54,6 @@ namespace TestGame
             var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
             _position.X += (FocalPoint.Position.X - Position.X) * MoveSpeed * delta;
 
-
             base.Update(gameTime);
         }
 

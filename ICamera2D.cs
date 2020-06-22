@@ -3,10 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TestGame
 {
-    public interface IFocusable 
-    {
-        Vector2 Position {get;}
-    }
     public interface ICamera2D
     {
         Vector2 Position { get; set; }

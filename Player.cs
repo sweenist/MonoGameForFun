@@ -17,7 +17,8 @@ namespace TestGame
         private Texture2D _playerAtlas;
         private Vector2 _position;
         private Vector2 _moveVector = Vector2.Zero;
-        
+        private ICamera2D _camera;
+
         private bool _isMoving;
         private int _currentFrame;
         private int _totalFrames;
@@ -152,6 +153,11 @@ namespace TestGame
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public void Add(ICamera2D camera)
+        {
+            _camera = camera;
         }
 
         private Vector2 SetMoveVector(Vector2 value)
