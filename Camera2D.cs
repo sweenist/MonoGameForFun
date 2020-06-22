@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -36,8 +37,9 @@ namespace TestGame
 
             ScreenCenter = new Vector2(_viewportWidth / 2, _viewportHeight / 2);
             Scale = 1;
-            MoveSpeed = 4;
+            MoveSpeed = 3;
             Origin = ScreenCenter / Scale;
+            Position = Origin;
 
             base.Initialize();
         }
@@ -53,8 +55,9 @@ namespace TestGame
             Origin = ScreenCenter / Scale;
 
             var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            _position.X += (FocalPoint.Position.X - Position.X) * MoveSpeed * delta;
-            _position.Y += (FocalPoint.Position.Y - Position.Y) * MoveSpeed * delta;
+
+            _position.X += (int)((FocalPoint.Position.X - Position.X) * MoveSpeed * delta);
+            _position.Y += (int)((FocalPoint.Position.Y - Position.Y) * MoveSpeed * delta);
 
             base.Update(gameTime);
         }

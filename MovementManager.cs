@@ -41,6 +41,7 @@ namespace TestGame
             if (Keyboard.GetState().IsKeyDown(Keys.M))
             {
                 Console.WriteLine($"Camera Origin: {_camera.Origin}");
+                Console.WriteLine($"\tCamera Transform Matrix: {_camera.Transform}");
                 Console.WriteLine($"\tCamera Position: {_camera.Position}");
                 Console.WriteLine($"\tPlayer Position: {_player.Position}");
             }
