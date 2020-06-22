@@ -14,10 +14,7 @@ namespace TestGame
         private GraphicsDeviceManager _graphicsManager;
         private SpriteBatch _spriteBatch;
         private MovementManager _movementManager;
-        private Player _player;
         private Song _themeMusic;
-        private Map _map;
-        private Camera2D _camera;
 
         public SweenGame()
         {
@@ -38,19 +35,19 @@ namespace TestGame
             _movementManager = new MovementManager(this);
             Components.Add(_movementManager);
 
-            _map = new Map(this, _spriteBatch, Content);
-            _movementManager.Add(_map);
-            Components.Add(_map);
+            var map = new Map(this, _spriteBatch, Content);
+            _movementManager.Add(map);
+            Components.Add(map);
 
-            _player = new Player(this, _spriteBatch, Content);
-            _movementManager.Add(_player);
-            Components.Add(_player);
+            var player = new Player(this, _spriteBatch, Content);
+            _movementManager.Add(player);
+            Components.Add(player);
 
-            _camera = new Camera2D(this,_player);
-            _movementManager.Add(_camera);
-            _player.Add(_camera);
-            _map.Add(_camera);
-            Components.Add(_camera);
+            var camera = new Camera2D(this,player);
+            _movementManager.Add(camera);
+            player.Add(camera);
+            map.Add(camera);
+            Components.Add(camera);
 
 
             base.Initialize();
