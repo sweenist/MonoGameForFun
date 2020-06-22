@@ -24,6 +24,7 @@ namespace TestGame.Maps
         private int _spacing;
 
         private Vector2 ViewPortDimensions;
+        private ICamera2D _camera;
 
         public Map(Game game, SpriteBatch spriteBatch, ContentManager content) : base(game)
         {
@@ -82,7 +83,7 @@ namespace TestGame.Maps
 
         public override void Draw(GameTime gameTime)
         {
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(transformMatrix: _camera.Transform);
 
             foreach (var tile in MapTiles)
             {
@@ -102,6 +103,6 @@ namespace TestGame.Maps
             return tile.Tile;
         }
 
-
+        public void Add(ICamera2D camera) => _camera = camera;
     }
 }
