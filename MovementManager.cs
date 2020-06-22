@@ -3,12 +3,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using TestGame.Enums;
 using TestGame.Maps;
+using static TestGame.Constants;
 
 namespace TestGame
 {
     public class MovementManager : GameComponent
     {
-        const int MOVE_INCREMENT = 4;
         private Player _player;
         private Map _map;
         private ICamera2D _camera;
@@ -62,19 +62,19 @@ namespace TestGame
             {
                 case Direction.East:
                     targetRect = GetTargetTileSpace(deltaX: _player.Width);
-                    _player.MoveVector = new Vector2(MOVE_INCREMENT, 0);
+                    _player.MoveVector = new Vector2(MoveIncrement, 0);
                     break;
                 case Direction.South:
                     targetRect = GetTargetTileSpace(deltaY: _player.Height);
-                    _player.MoveVector = new Vector2(0, MOVE_INCREMENT);
+                    _player.MoveVector = new Vector2(0, MoveIncrement);
                     break;
                 case Direction.West:
                     targetRect = GetTargetTileSpace(deltaX: -(_player.Width));
-                    _player.MoveVector = new Vector2(-MOVE_INCREMENT, 0);
+                    _player.MoveVector = new Vector2(-MoveIncrement, 0);
                     break;
                 case Direction.North:
                     targetRect = GetTargetTileSpace(deltaY: -(_player.Height));
-                    _player.MoveVector = new Vector2(0, -MOVE_INCREMENT);
+                    _player.MoveVector = new Vector2(0, -MoveIncrement);
                     break;
             }
 

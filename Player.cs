@@ -4,15 +4,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using static TestGame.Constants;
 
 namespace TestGame
 {
     public class Player : DrawableGameComponent, IFocusable
     {
-        const int DELAY = 5;
-        const int MOVE_STEPS = 48;
-        const int PACE = 4;
-
         private PlayerState _playerState;
         private Texture2D _playerAtlas;
         private Vector2 _position;
@@ -56,7 +53,7 @@ namespace TestGame
             set
             {
                 if (value)
-                    _remainingSteps = MOVE_STEPS;
+                    _remainingSteps = TotalStepsPerTile;
                 _isMoving = value;
             }
         }
@@ -113,7 +110,7 @@ namespace TestGame
                 _playerState = PlayerState.Full;
 
             _delayCount++;
-            if (_delayCount < DELAY)
+            if (_delayCount < AnimationDelay)
                 return;
 
             _delayCount = 0;
@@ -128,7 +125,7 @@ namespace TestGame
             if (!IsMoving)
                 return;
 
-            _remainingSteps -= PACE;
+            _remainingSteps -= MoveIncrement;
             _position += MoveVector;
 
             if (_remainingSteps.Equals(0))
