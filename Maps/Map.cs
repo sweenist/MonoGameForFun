@@ -35,6 +35,7 @@ namespace TestGame.Maps
 
         public List<Tile> TileInfo { get; set; }
         public List<MapTile> MapTiles { get; set; }
+
         protected override void LoadContent()
         {
             _map = new TmxMap("Content/Maps/blah.tmx");
@@ -60,6 +61,16 @@ namespace TestGame.Maps
 
                 return (int)(modifiedTextureDimension / modifiedTileDimension);
             }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            var firstTile = MapTiles.First();
+            var lastTile = MapTiles.Last();
+            var upperBound = new Point((int)lastTile.Location.X + lastTile.SourceRectangle.Width,
+                                       (int)lastTile.Location.Y + lastTile.SourceRectangle.Height);
+
+            _camera.ClampCamera(new Rectangle(firstTile.Location.ToPoint(), upperBound));
         }
 
         private void BuildTileInformation(TmxTileset tileset, TmxLayer layer)
@@ -92,7 +103,6 @@ namespace TestGame.Maps
 
             _spriteBatch.End();
         }
-
 
         public Tile GetTileAt(Rectangle target)
         {

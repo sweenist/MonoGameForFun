@@ -59,6 +59,15 @@ namespace TestGame
             base.Update(gameTime);
         }
 
+        public void ClampCamera(Rectangle bounds)
+        {
+            var maximumX = bounds.Width - ScreenCenter.X;
+            var maximumY = bounds.Height - ScreenCenter.Y;
+            var maxPosition = new Vector2(maximumX, maximumY);
+
+            Position = Vector2.Clamp(Position, ScreenCenter, maxPosition);
+        }
+
         public bool IsInView(Vector2 position, Texture2D texture)
         {
             if (position.X + texture.Width < Position.X - Origin.X || position.X > Position.X + Origin.X)
