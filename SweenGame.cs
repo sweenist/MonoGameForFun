@@ -47,6 +47,7 @@ namespace TestGame
             Components.Add(_player);
 
             _camera = new Camera2D(this,_player);
+            _movementManager.Add(_camera);
             Components.Add(_camera);
 
             base.Initialize();
