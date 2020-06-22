@@ -16,7 +16,6 @@ namespace TestGame
         private PlayerState _playerState;
         private Texture2D _playerAtlas;
         private Vector2 _position;
-        private Vector2 _moveVector = Vector2.Zero;
         private ICamera2D _camera;
 
         private bool _isMoving;
@@ -62,11 +61,7 @@ namespace TestGame
             }
         }
 
-        public Vector2 MoveVector
-        {
-            get => _moveVector;
-            set => _moveVector = SetMoveVector(value);
-        }
+        public Vector2 MoveVector { get; set; } = Vector2.Zero;
 
         public Vector2 Position
         {
@@ -161,11 +156,6 @@ namespace TestGame
         public void Add(ICamera2D camera)
         {
             _camera = camera;
-        }
-
-        private Vector2 SetMoveVector(Vector2 value)
-        {
-            return new Vector2(value.X * PACE, value.Y * PACE);
         }
     }
 }
