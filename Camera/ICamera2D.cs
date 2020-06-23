@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace TestGame
+namespace TestGame.Camera
 {
     public interface ICamera2D
     {
@@ -9,7 +9,7 @@ namespace TestGame
         Vector2 Origin { get; }
         Vector2 ScreenCenter { get; }
         Matrix Transform { get; }
-        IFocusable FocalPoint {get; set;}
+        IFocusable FocalPoint { get; set; }
         float MoveSpeed { get; set; }
         float Rotation { get; set; }
         float Scale { get; set; }

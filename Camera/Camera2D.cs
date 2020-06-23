@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace TestGame
+namespace TestGame.Camera
 {
     public class Camera2D : GameComponent, ICamera2D
     {

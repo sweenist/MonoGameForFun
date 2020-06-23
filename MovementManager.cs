@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using TestGame.Camera;
 using TestGame.Enums;
 using TestGame.Maps;
 using static TestGame.Constants;
