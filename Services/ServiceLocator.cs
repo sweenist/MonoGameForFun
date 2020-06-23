@@ -13,9 +13,9 @@ namespace TestGame.Services
             _services = new Dictionary<Type, object>();
         }
 
-        public void AddService<T>(object implementation, params object[] arguments)
+        public void AddService<T>(Type implementation, params object[] arguments)
         {
-            var constructor = implementation.GetType().GetConstructor(arguments.Select(arguments => arguments.GetType()).ToArray());
+            var constructor = implementation.GetConstructor(arguments.Select(arguments => arguments.GetType()).ToArray());
             var instance = constructor.Invoke(arguments);
 
             _services.Add(typeof(T), instance);
