@@ -40,7 +40,7 @@ namespace TestGame
             _movementManager = new MovementManager(this);
             Components.Add(_movementManager);
 
-            var map = new Map(this, _spriteBatch, Content);
+            var map = new Map(this, _spriteBatch, Content, _serviceLocator);
             _movementManager.Add(map);
             Components.Add(map);
 
@@ -50,10 +50,7 @@ namespace TestGame
 
             _serviceLocator.AddService<ICamera2D>(typeof(Camera2D), this, player);
             var camera = _serviceLocator.GetService<ICamera2D>();
-            _movementManager.Add(camera);
-            map.Add(camera);
             Components.Add(camera);
-
 
             base.Initialize();
         }

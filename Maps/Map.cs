@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using TestGame.Camera;
+using TestGame.Services;
 using TiledSharp;
 
 namespace TestGame.Maps
@@ -13,6 +14,7 @@ namespace TestGame.Maps
     {
         private readonly SpriteBatch _spriteBatch;
         private readonly ContentManager _content;
+        private readonly IServiceLocator _serviceLocator;
         private TmxMap _map;
         private Texture2D _tileset;
         private ICamera2D _camera;
@@ -25,15 +27,22 @@ namespace TestGame.Maps
         private int _margin;
         private int _spacing;
 
-        public Map(Game game, SpriteBatch spriteBatch, ContentManager content) : base(game)
+        public Map(Game game, SpriteBatch spriteBatch, ContentManager content, IServiceLocator serviceLocator) : base(game)
         {
             _spriteBatch = spriteBatch;
             _content = content;
+            _serviceLocator = serviceLocator;
         }
 
         public List<Tile> TileInfo { get; set; }
         public List<MapTile> MapTiles { get; set; }
 
+        public override void Initialize()
+        {
+            _camera = _serviceLocator.GetService<ICamera2D>();
+
+            base.Initialize();
+        }
         protected override void LoadContent()
         {
             _map = new TmxMap("Content/Maps/blah.tmx");
@@ -107,7 +116,5 @@ namespace TestGame.Maps
             var tile = MapTiles.Single(tile => tile.DestinationRectangle.Intersects(target));
             return tile.Tile;
         }
-
-        public void Add(ICamera2D camera) => _camera = camera;
     }
 }
