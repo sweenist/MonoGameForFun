@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using static TestGame.Constants;
 using TestGame.Camera;
+using TestGame.Services;
 
 namespace TestGame
 {
@@ -27,11 +28,13 @@ namespace TestGame
         private readonly Dictionary<PlayerState, List<Rectangle>> _playerSprites;
         private readonly SpriteBatch _spriteBatch;
         private readonly ContentManager _contentManager;
+        private readonly IServiceLocator _serviceLocator;
 
-        public Player(Game game, SpriteBatch spriteBatch, ContentManager contentManager) : base(game)
+        public Player(Game game, SpriteBatch spriteBatch, ContentManager contentManager, IServiceLocator serviceLocator) : base(game)
         {
-            this._spriteBatch = spriteBatch;
-            this._contentManager = contentManager;
+            _spriteBatch = spriteBatch;
+            _contentManager = contentManager;
+            _serviceLocator = serviceLocator;
 
             _playerSprites = new Dictionary<PlayerState, List<Rectangle>>{
                 {PlayerState.Unequipped, new List<Rectangle>()},
@@ -77,6 +80,8 @@ namespace TestGame
 
         public override void Initialize()
         {
+            _camera = _serviceLocator.GetService<ICamera2D>();
+
             Rows = 4;
             Columns = 8;
             CurrentDirection = Direction.South;
@@ -149,11 +154,6 @@ namespace TestGame
             _spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-
-        public void Add(ICamera2D camera)
-        {
-            _camera = camera;
         }
     }
 }

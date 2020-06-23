@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using TestGame.Camera;
 using TestGame.Maps;
+using TestGame.Services;
 
 namespace TestGame
 {
@@ -12,6 +13,7 @@ namespace TestGame
     {
         public static int SCREEN_WIDTH = 912; //19 * 48;
         public static int SCREEN_HEIGHT = 624; //13 * 48;
+        private readonly IServiceLocator _serviceLocator;
         private GraphicsDeviceManager _graphicsManager;
         private SpriteBatch _spriteBatch;
         private MovementManager _movementManager;
@@ -20,6 +22,8 @@ namespace TestGame
         public SweenGame()
         {
             _graphicsManager = new GraphicsDeviceManager(this);
+            _serviceLocator = new ServiceLocator();
+
             Content.RootDirectory = "Content";
             TargetElapsedTime = TimeSpan.FromMilliseconds(25);
         }
@@ -40,13 +44,13 @@ namespace TestGame
             _movementManager.Add(map);
             Components.Add(map);
 
-            var player = new Player(this, _spriteBatch, Content);
+            var player = new Player(this, _spriteBatch, Content, _serviceLocator);
             _movementManager.Add(player);
             Components.Add(player);
 
-            var camera = new Camera2D(this,player);
+            _serviceLocator.AddService<ICamera2D>(typeof(Camera2D), this, player);
+            var camera = _serviceLocator.GetService<ICamera2D>();
             _movementManager.Add(camera);
-            player.Add(camera);
             map.Add(camera);
             Components.Add(camera);
 

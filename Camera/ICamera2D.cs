@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TestGame.Camera
 {
-    public interface ICamera2D
+    public interface ICamera2D: IGameComponent
     {
         Vector2 Position { get; set; }
         Vector2 Origin { get; }
