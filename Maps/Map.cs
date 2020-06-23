@@ -10,7 +10,7 @@ using TiledSharp;
 
 namespace TestGame.Maps
 {
-    public class Map : DrawableGameComponent
+    public class Map : DrawableGameComponent, IMap
     {
         private readonly SpriteBatch _spriteBatch;
         private readonly ContentManager _content;
@@ -34,7 +34,6 @@ namespace TestGame.Maps
             _serviceLocator = serviceLocator;
         }
 
-        public List<Tile> TileInfo { get; set; }
         public List<MapTile> MapTiles { get; set; }
 
         public override void Initialize()

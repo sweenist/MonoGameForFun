@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using TestGame.Services;
 
 namespace TestGame.Camera
 {
@@ -8,10 +9,11 @@ namespace TestGame.Camera
         private Vector2 _position;
         private float _viewportHeight;
         private float _viewportWidth;
+        private readonly IServiceLocator _serviceLocator;
 
-        public Camera2D(Game game, IFocusable focalPoint) : base(game)
+        public Camera2D(Game game, IServiceLocator serviceLocator) : base(game)
         {
-            FocalPoint = focalPoint;
+            _serviceLocator = serviceLocator;
         }
 
         public Vector2 Position
@@ -31,6 +33,8 @@ namespace TestGame.Camera
 
         public override void Initialize()
         {
+            FocalPoint = _serviceLocator.GetService<IFocusable>();
+
             _viewportWidth = Game.GraphicsDevice.Viewport.Width;
             _viewportHeight = Game.GraphicsDevice.Viewport.Height;
 

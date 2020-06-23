@@ -21,6 +21,11 @@ namespace TestGame.Services
             _services.Add(typeof(T), instance);
         }
 
+        public void AddService<T>(object instance)
+        {
+            _services.Add(typeof(T), instance);
+        }
+
         public T GetService<T>()
         {
             try

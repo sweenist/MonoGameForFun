@@ -10,7 +10,7 @@ using TestGame.Services;
 
 namespace TestGame
 {
-    public class Player : DrawableGameComponent, IFocusable
+    public class Player : DrawableGameComponent, IPlayer, IFocusable
     {
         private PlayerState _playerState;
         private Texture2D _playerAtlas;

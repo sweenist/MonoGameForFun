@@ -37,20 +37,19 @@ namespace TestGame
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _movementManager = new MovementManager(this);
+            _movementManager = new MovementManager(this, _serviceLocator);
             Components.Add(_movementManager);
 
-            var map = new Map(this, _spriteBatch, Content, _serviceLocator);
-            _movementManager.Add(map);
-            Components.Add(map);
+            _serviceLocator.AddService<IMap>(typeof(Map), this, _spriteBatch, Content, _serviceLocator);
+            Components.Add(_serviceLocator.GetService<IMap>());
 
             var player = new Player(this, _spriteBatch, Content, _serviceLocator);
-            _movementManager.Add(player);
+            _serviceLocator.AddService<IPlayer>(player);
+            _serviceLocator.AddService<IFocusable>(player);
             Components.Add(player);
 
-            _serviceLocator.AddService<ICamera2D>(typeof(Camera2D), this, player);
-            var camera = _serviceLocator.GetService<ICamera2D>();
-            Components.Add(camera);
+            _serviceLocator.AddService<ICamera2D>(typeof(Camera2D), this, _serviceLocator);
+            Components.Add(_serviceLocator.GetService<ICamera2D>());
 
             base.Initialize();
         }

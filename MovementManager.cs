@@ -4,21 +4,29 @@ using Microsoft.Xna.Framework.Input;
 using TestGame.Camera;
 using TestGame.Enums;
 using TestGame.Maps;
+using TestGame.Services;
 using static TestGame.Constants;
 
 namespace TestGame
 {
     public class MovementManager : GameComponent
     {
-        private Player _player;
-        private Map _map;
+        private readonly IServiceLocator _serviceLocator;
+        private IPlayer _player;
+        private IMap _map;
 
-        public MovementManager(Game game) : base(game)
+        public MovementManager(Game game, IServiceLocator serviceLocator) : base(game)
         {
+            _serviceLocator = serviceLocator;
         }
 
-        public void Add(Player player) => _player = player;
-        public void Add(Map map) => _map = map;
+        public override void Initialize()
+        {
+            _player = _serviceLocator.GetService<IPlayer>();
+            _map = _serviceLocator.GetService<IMap>();
+
+            base.Initialize();
+        }
 
         public override void Update(GameTime gameTime)
         {
