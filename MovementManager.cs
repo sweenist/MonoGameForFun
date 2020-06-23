@@ -12,7 +12,6 @@ namespace TestGame
     {
         private Player _player;
         private Map _map;
-        private ICamera2D _camera;
 
         public MovementManager(Game game) : base(game)
         {
@@ -20,7 +19,6 @@ namespace TestGame
 
         public void Add(Player player) => _player = player;
         public void Add(Map map) => _map = map;
-        public void Add(ICamera2D camera) => _camera = camera;
 
         public override void Update(GameTime gameTime)
         {
@@ -42,9 +40,6 @@ namespace TestGame
             }
             if (Keyboard.GetState().IsKeyDown(Keys.M))
             {
-                Console.WriteLine($"Camera Origin: {_camera.Origin}");
-                Console.WriteLine($"\tCamera Transform Matrix: {_camera.Transform}");
-                Console.WriteLine($"\tCamera Position: {_camera.Position}");
                 Console.WriteLine($"\tPlayer Position: {_player.Position}");
             }
 

@@ -15,6 +15,7 @@ namespace TestGame.Maps
         private readonly ContentManager _content;
         private TmxMap _map;
         private Texture2D _tileset;
+        private ICamera2D _camera;
 
         private int _tileWidth;
         private int _tileHeight;
@@ -24,14 +25,10 @@ namespace TestGame.Maps
         private int _margin;
         private int _spacing;
 
-        private Vector2 ViewPortDimensions;
-        private ICamera2D _camera;
-
         public Map(Game game, SpriteBatch spriteBatch, ContentManager content) : base(game)
         {
             _spriteBatch = spriteBatch;
             _content = content;
-            ViewPortDimensions = new Vector2(SweenGame.SCREEN_WIDTH, SweenGame.SCREEN_HEIGHT);
         }
 
         public List<Tile> TileInfo { get; set; }
