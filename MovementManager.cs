@@ -48,7 +48,7 @@ namespace TestGame
             }
             if (Keyboard.GetState().IsKeyDown(Keys.M))
             {
-                Console.WriteLine($"\tPlayer Position: {_player.Position}");
+                Console.WriteLine($"\tPlayer Position: {_player.Destination}");
             }
 
             base.Update(gameTime);

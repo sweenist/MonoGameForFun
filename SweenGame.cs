@@ -33,6 +33,7 @@ namespace TestGame
             _graphicsManager.PreferredBackBufferWidth = SCREEN_WIDTH;
             _graphicsManager.PreferredBackBufferHeight = SCREEN_HEIGHT;
             _graphicsManager.ApplyChanges();
+
             Window.Title = "Sween's Awesome Game";
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
