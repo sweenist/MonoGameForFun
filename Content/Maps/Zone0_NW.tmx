@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.0" orientation="orthogonal" renderorder="right-down" width="25" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="loz_48.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="25" height="16">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACrWTwQqAIAyGDSMseoMO2cFuQe//dC1oIGMu1+zwgajz43fqnXOesAIbM19LqT40dCQgAoew53worY/CWg8MmScqs9KzOdcEzFme/eNdSTmsPavJYXVYz7a+K+y1NkdQ1OS91jo0nrf7ycf4tkMjpCytHdSH/2f5MQd1oa+2B5JD8ibGc+/vmDpNDorm36DjArbWqiBABgAA
+  </data>
+ </layer>
+</map>

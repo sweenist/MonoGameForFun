@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.3.5" name="loz_48" tilewidth="48" tileheight="48" spacing="3" margin="3" tilecount="48" columns="6">
+<tileset version="1.4" tiledversion="1.4.0" name="loz_48" tilewidth="48" tileheight="48" spacing="3" margin="3" tilecount="48" columns="6">
  <image source="loz_48.png" width="309" height="411"/>
  <tile id="0" type="Trigger">
   <properties>
@@ -277,8 +277,9 @@
    <property name="Name" value=""/>
   </properties>
  </tile>
- <tile id="46" type="Collidable">
+ <tile id="46">
   <properties>
+   <property name="Collision" type="bool" value="true"/>
    <property name="Name" value=""/>
   </properties>
  </tile>

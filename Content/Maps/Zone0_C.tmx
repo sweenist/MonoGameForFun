@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.0" orientation="orthogonal" renderorder="right-down" width="25" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="loz_48.tsx"/>
+ <layer id="1" name="Overworld_1" width="25" height="16">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACq2UwQrCMAyGs+6wiaiIikwPCsPtuPd/O1NIIMzUJsbDx0o7vr9J2HoA6A20Cnn/hJyJRawZi7vk13K8GZpvh+yRQ+F8UfK9fnk/zhmQJzEbM/i8Wb3P7qNYt+T+1kdP77nnW3peVhkp6M+MyFUwVuqwZOQ+35C74mcGMQNPHRtaP8QsJR2UZ+yt44VMFY8kGfy1eXiIfNMJPu/s9Udq8rh/yYr4Lf/dfxLJeAMgbAU+QAYAAA==
+  </data>
+ </layer>
+</map>

@@ -44,7 +44,7 @@ namespace TestGame.Maps
         }
         protected override void LoadContent()
         {
-            _map = new TmxMap("Content/Maps/blah.tmx");
+            _map = new TmxMap("Content/Maps/Zone0_C.tmx");
 
             var currentSet = _map.Tilesets.First();
             _margin = currentSet.Margin;
