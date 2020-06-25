@@ -44,7 +44,7 @@ namespace TestGame
             _serviceLocator.AddService<IMap>(typeof(Map), this, _serviceLocator);
             Components.Add(_serviceLocator.GetService<IMap>());
 
-            var player = new Player(this, _spriteBatch, Content, _serviceLocator);
+            var player = new Player(this, _serviceLocator);
             _serviceLocator.AddService<IPlayer>(player);
             _serviceLocator.AddService<IFocusable>(player);
             Components.Add(player);

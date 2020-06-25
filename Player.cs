@@ -30,10 +30,10 @@ namespace TestGame
         private readonly ContentManager _contentManager;
         private readonly IServiceLocator _serviceLocator;
 
-        public Player(Game game, SpriteBatch spriteBatch, ContentManager contentManager, IServiceLocator serviceLocator) : base(game)
+        public Player(Game game, IServiceLocator serviceLocator) : base(game)
         {
-            _spriteBatch = spriteBatch;
-            _contentManager = contentManager;
+            _spriteBatch = new SpriteBatch(game.GraphicsDevice);
+            _contentManager = game.Content;
             _serviceLocator = serviceLocator;
 
             _playerSprites = new Dictionary<PlayerState, List<Rectangle>>{
@@ -88,7 +88,7 @@ namespace TestGame
 
             _currentFrame = 0;
             _totalFrames = Columns;
-            _position = new Vector2(480, 288);
+            _position = new Vector2(720, 432);
 
             base.Initialize();
         }
