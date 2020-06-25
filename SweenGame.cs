@@ -14,9 +14,9 @@ namespace TestGame
         public static int SCREEN_WIDTH = 912; //19 * 48;
         public static int SCREEN_HEIGHT = 624; //13 * 48;
         private GraphicsDeviceManager _graphicsManager;
-        private SpriteBatch _spriteBatch;
         private MovementManager _movementManager;
         private Song _themeMusic;
+        private IMapManager _mapManager;
 
         public SweenGame()
         {
@@ -34,13 +34,10 @@ namespace TestGame
 
             Window.Title = "Sween's Awesome Game";
 
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            ServiceLocator.Instance.AddService<IMapManager>(typeof(MapManager), this);
 
             _movementManager = new MovementManager(this);
             Components.Add(_movementManager);
-
-            ServiceLocator.Instance.AddService<IMap>(typeof(Map), this);
-            Components.Add(ServiceLocator.Instance.GetService<IMap>());
 
             var player = new Player(this);
             ServiceLocator.Instance.AddService<IPlayer>(player);

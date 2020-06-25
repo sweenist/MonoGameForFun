@@ -14,6 +14,8 @@ namespace TestGame.Maps
     {
         private readonly SpriteBatch _spriteBatch;
         private readonly ContentManager _content;
+        private readonly string _tmxFilename;
+
         private TmxMap _map;
         private Texture2D _tileset;
         private ICamera2D _camera;
@@ -26,10 +28,11 @@ namespace TestGame.Maps
         private int _margin;
         private int _spacing;
 
-        public Map(Game game) : base(game)
+        public Map(Game game, string tmxFilename) : base(game)
         {
             _spriteBatch = new SpriteBatch(game.GraphicsDevice);
             _content = game.Content;
+            _tmxFilename = tmxFilename;
         }
 
         public List<MapTile> MapTiles { get; set; }
