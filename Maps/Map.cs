@@ -14,7 +14,6 @@ namespace TestGame.Maps
     {
         private readonly SpriteBatch _spriteBatch;
         private readonly ContentManager _content;
-        private readonly IServiceLocator _serviceLocator;
         private TmxMap _map;
         private Texture2D _tileset;
         private ICamera2D _camera;
@@ -27,18 +26,17 @@ namespace TestGame.Maps
         private int _margin;
         private int _spacing;
 
-        public Map(Game game, IServiceLocator serviceLocator) : base(game)
+        public Map(Game game) : base(game)
         {
             _spriteBatch = new SpriteBatch(game.GraphicsDevice);
             _content = game.Content;
-            _serviceLocator = serviceLocator;
         }
 
         public List<MapTile> MapTiles { get; set; }
 
         public override void Initialize()
         {
-            _camera = _serviceLocator.GetService<ICamera2D>();
+            _camera = ServiceLocator.Instance.GetService<ICamera2D>();
 
             base.Initialize();
         }

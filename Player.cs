@@ -28,13 +28,11 @@ namespace TestGame
         private readonly Dictionary<PlayerState, List<Rectangle>> _playerSprites;
         private readonly SpriteBatch _spriteBatch;
         private readonly ContentManager _contentManager;
-        private readonly IServiceLocator _serviceLocator;
 
-        public Player(Game game, IServiceLocator serviceLocator) : base(game)
+        public Player(Game game) : base(game)
         {
             _spriteBatch = new SpriteBatch(game.GraphicsDevice);
             _contentManager = game.Content;
-            _serviceLocator = serviceLocator;
 
             _playerSprites = new Dictionary<PlayerState, List<Rectangle>>{
                 {PlayerState.Unequipped, new List<Rectangle>()},
@@ -80,7 +78,7 @@ namespace TestGame
 
         public override void Initialize()
         {
-            _camera = _serviceLocator.GetService<ICamera2D>();
+            _camera = ServiceLocator.Instance.GetService<ICamera2D>();
 
             Rows = 4;
             Columns = 8;

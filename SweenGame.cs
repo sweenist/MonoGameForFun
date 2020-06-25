@@ -13,7 +13,6 @@ namespace TestGame
     {
         public static int SCREEN_WIDTH = 912; //19 * 48;
         public static int SCREEN_HEIGHT = 624; //13 * 48;
-        private readonly IServiceLocator _serviceLocator;
         private GraphicsDeviceManager _graphicsManager;
         private SpriteBatch _spriteBatch;
         private MovementManager _movementManager;
@@ -22,7 +21,6 @@ namespace TestGame
         public SweenGame()
         {
             _graphicsManager = new GraphicsDeviceManager(this);
-            _serviceLocator = new ServiceLocator();
 
             Content.RootDirectory = "Content";
             TargetElapsedTime = TimeSpan.FromMilliseconds(25);
@@ -38,19 +36,19 @@ namespace TestGame
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _movementManager = new MovementManager(this, _serviceLocator);
+            _movementManager = new MovementManager(this);
             Components.Add(_movementManager);
 
-            _serviceLocator.AddService<IMap>(typeof(Map), this, _serviceLocator);
-            Components.Add(_serviceLocator.GetService<IMap>());
+            ServiceLocator.Instance.AddService<IMap>(typeof(Map), this);
+            Components.Add(ServiceLocator.Instance.GetService<IMap>());
 
-            var player = new Player(this, _serviceLocator);
-            _serviceLocator.AddService<IPlayer>(player);
-            _serviceLocator.AddService<IFocusable>(player);
+            var player = new Player(this);
+            ServiceLocator.Instance.AddService<IPlayer>(player);
+            ServiceLocator.Instance.AddService<IFocusable>(player);
             Components.Add(player);
 
-            _serviceLocator.AddService<ICamera2D>(typeof(Camera2D), this, _serviceLocator);
-            Components.Add(_serviceLocator.GetService<ICamera2D>());
+            ServiceLocator.Instance.AddService<ICamera2D>(typeof(Camera2D), this);
+            Components.Add(ServiceLocator.Instance.GetService<ICamera2D>());
 
             base.Initialize();
         }

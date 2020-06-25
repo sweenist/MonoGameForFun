@@ -7,10 +7,21 @@ namespace TestGame.Services
     public class ServiceLocator : IServiceLocator
     {
         private IDictionary<Type, object> _services;
+        private readonly static object _lock = new Object();
+        private static IServiceLocator _instance;
 
         public ServiceLocator()
         {
             _services = new Dictionary<Type, object>();
+        }
+
+        public static IServiceLocator Instance
+        {
+            get
+            {
+                lock (_lock)
+                    return _instance ?? (_instance = new ServiceLocator());
+            }
         }
 
         public void AddService<T>(Type implementation, params object[] arguments)

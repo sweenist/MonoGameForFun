@@ -11,19 +11,17 @@ namespace TestGame
 {
     public class MovementManager : GameComponent
     {
-        private readonly IServiceLocator _serviceLocator;
         private IPlayer _player;
         private IMap _map;
 
-        public MovementManager(Game game, IServiceLocator serviceLocator) : base(game)
+        public MovementManager(Game game) : base(game)
         {
-            _serviceLocator = serviceLocator;
         }
 
         public override void Initialize()
         {
-            _player = _serviceLocator.GetService<IPlayer>();
-            _map = _serviceLocator.GetService<IMap>();
+            _player = ServiceLocator.Instance.GetService<IPlayer>();
+            _map = ServiceLocator.Instance.GetService<IMap>();
 
             base.Initialize();
         }
