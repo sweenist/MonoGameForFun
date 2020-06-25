@@ -27,10 +27,10 @@ namespace TestGame.Maps
         private int _margin;
         private int _spacing;
 
-        public Map(Game game, SpriteBatch spriteBatch, ContentManager content, IServiceLocator serviceLocator) : base(game)
+        public Map(Game game, IServiceLocator serviceLocator) : base(game)
         {
-            _spriteBatch = spriteBatch;
-            _content = content;
+            _spriteBatch = new SpriteBatch(game.GraphicsDevice);
+            _content = game.Content;
             _serviceLocator = serviceLocator;
         }
 

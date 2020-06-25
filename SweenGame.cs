@@ -41,7 +41,7 @@ namespace TestGame
             _movementManager = new MovementManager(this, _serviceLocator);
             Components.Add(_movementManager);
 
-            _serviceLocator.AddService<IMap>(typeof(Map), this, _spriteBatch, Content, _serviceLocator);
+            _serviceLocator.AddService<IMap>(typeof(Map), this, _serviceLocator);
             Components.Add(_serviceLocator.GetService<IMap>());
 
             var player = new Player(this, _spriteBatch, Content, _serviceLocator);
