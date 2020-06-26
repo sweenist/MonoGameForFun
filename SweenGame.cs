@@ -16,7 +16,6 @@ namespace TestGame
         private GraphicsDeviceManager _graphicsManager;
         private MovementManager _movementManager;
         private Song _themeMusic;
-        private IMapManager _mapManager;
 
         public SweenGame()
         {
