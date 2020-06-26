@@ -1,5 +1,7 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using TestGame.Services;
 
 namespace TestGame.Camera
@@ -14,13 +16,14 @@ namespace TestGame.Camera
         {
         }
 
+        ///<summary>The tracking position of the camera. Follows a focal point</summary>
         public Vector2 Position
         {
             get => _position;
             set { _position = value; }
         }
 
-        public Vector2 Origin { get; private set; }
+        public Vector2 Origin { get; set; }
         public Vector2 ScreenCenter { get; private set; }
         public Matrix Transform { get; private set; }
         public IFocusable FocalPoint { get; set; }
@@ -40,7 +43,7 @@ namespace TestGame.Camera
             Scale = 1;
             MoveSpeed = 3;
             Origin = ScreenCenter / Scale;
-            Position = Origin;
+            Position = FocalPoint.Position;
 
             base.Initialize();
         }
@@ -59,6 +62,14 @@ namespace TestGame.Camera
 
             _position.X += (int)((FocalPoint.Position.X - Position.X) * MoveSpeed * delta);
             _position.Y += (int)((FocalPoint.Position.Y - Position.Y) * MoveSpeed * delta);
+
+            if (Keyboard.GetState().IsKeyDown(Keys.M))
+            {
+                Console.WriteLine($"Class: {GetType().Name}");
+                Console.WriteLine($"\tCamera Origin: {Origin}");
+                Console.WriteLine($"\tCamera Position: {Position}");
+                Console.WriteLine();
+            }
 
             base.Update(gameTime);
         }

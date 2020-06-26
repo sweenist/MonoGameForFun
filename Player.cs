@@ -1,13 +1,13 @@
+using System;
 using System.Collections.Generic;
-using TestGame.Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using static TestGame.Constants;
 using TestGame.Camera;
+using TestGame.Enums;
 using TestGame.Services;
-using System;
+using static TestGame.Constants;
 
 namespace TestGame
 {
@@ -116,8 +116,10 @@ namespace TestGame
 
             if (Keyboard.GetState().IsKeyDown(Keys.M))
             {
+                Console.WriteLine($"Class: {GetType().FullName}");
                 Console.WriteLine($"\tPlayer Position: {Position}");
                 Console.WriteLine($"\tPlayer Location: {Destination}");
+                Console.WriteLine();
             }
 
             _delayCount++;

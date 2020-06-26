@@ -1,7 +1,5 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using TestGame.Camera;
 using TestGame.Enums;
 using TestGame.Maps;
 using TestGame.Services;
@@ -43,10 +41,6 @@ namespace TestGame
             else if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
                 CheckPlayerCollisions(Direction.South);
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.M))
-            {
-                Console.WriteLine($"\tPlayer Position: {_player.Destination}");
             }
 
             base.Update(gameTime);

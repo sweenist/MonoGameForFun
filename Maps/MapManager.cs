@@ -35,10 +35,7 @@ namespace TestGame.Maps
         private IEnumerable<IMap> GetAdjacentMaps()
         {
             foreach (var point in CurrentMap.GetOpenEdges())
-            {
-                Console.WriteLine($"Map Point: {point}");
                 yield return new Map(_game, point);
-            }
         }
 
         public IMap CurrentMap
