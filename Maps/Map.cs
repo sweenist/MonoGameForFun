@@ -14,6 +14,7 @@ namespace TestGame.Maps
     {
         private readonly SpriteBatch _spriteBatch;
         private readonly ContentManager _content;
+        private readonly Point _mapIndex;
         private readonly string _tmxFilename;
 
         private TmxMap _map;
@@ -28,11 +29,12 @@ namespace TestGame.Maps
         private int _margin;
         private int _spacing;
 
-        public Map(Game game, string tmxFilename) : base(game)
+        public Map(Game game, Point mapIndex) : base(game)
         {
             _spriteBatch = new SpriteBatch(game.GraphicsDevice);
             _content = game.Content;
-            _tmxFilename = tmxFilename;
+            _mapIndex = mapIndex;
+            _tmxFilename = $"Overworld_{_mapIndex.X}_{_mapIndex.Y}.tmx";
         }
 
         public List<MapTile> MapTiles { get; set; }
@@ -45,7 +47,7 @@ namespace TestGame.Maps
         }
         protected override void LoadContent()
         {
-            _map = new TmxMap("Content/Maps/Zone0_C.tmx");
+            _map = new TmxMap($"Content/Maps/{_tmxFilename}");
 
             var currentSet = _map.Tilesets.First();
             _margin = currentSet.Margin;
