@@ -111,10 +111,10 @@ namespace TestGame.Maps
             _spriteBatch.End();
         }
 
-        public Tile GetTileAt(Rectangle target)
+        public MapTile GetTileAt(Rectangle target)
         {
             var tile = MapTiles.Single(tile => tile.DestinationRectangle.Intersects(target));
-            return tile.Tile;
+            return tile;
         }
     }
 }
