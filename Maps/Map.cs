@@ -82,7 +82,7 @@ namespace TestGame.Maps
 
         private void BuildTileInformation(TmxTileset tileset, TmxLayer layer)
         {
-            var tileInfo = tileset.Tiles.ToDictionary(t => t.Key + 1, v => new Tile(v.Key, v.Value));
+            var tileInfo = tileset.Tiles.ToDictionary(t => t.Key + 1, v => v.Value);
 
             MapTiles = layer.Tiles.Select(tile =>
             {

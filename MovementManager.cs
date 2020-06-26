@@ -81,7 +81,7 @@ namespace TestGame
             }
 
             var targetTile = _map.GetTileAt(targetRect);
-            _player.IsMoving = !targetTile.Tile.IsCollideable;
+            _player.IsMoving = !targetTile.IsCollideable;
 
             Rectangle GetTargetTileSpace(int deltaX = 0, int deltaY = 0)
             {
