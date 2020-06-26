@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using TestGame.Enums;
@@ -13,6 +15,7 @@ namespace TestGame.Maps
         private int _zone;
         private MapLocations _mapLocation;
         private IMap _currentMap;
+        private IList<IMap> _adjacentMaps;
         private readonly ContentManager _content;
         private readonly GameComponentCollection _component;
 
@@ -25,16 +28,27 @@ namespace TestGame.Maps
 
             _component.ComponentAdded += OnComponentAdded;
             _component.ComponentRemoved += OnComponentRemoved;
-            CurrentMap = new Map(game, $"Zone{_zone}_{GetMapLocationDescription()}.tmx");
+            CurrentMap = new Map(game, $"Zone{_zone}_{GetMapLocationDescription(_mapLocation)}.tmx");
+            _adjacentMaps = new List<IMap>(GetAdjacentMaps(game));
         }
 
-        private object GetMapLocationDescription()
+        private object GetMapLocationDescription(MapLocations location)
         {
-            return typeof(MapLocations).GetMember(_mapLocation.ToString())
+            return typeof(MapLocations).GetMember(location.ToString())
                 .First(m => m.DeclaringType == typeof(MapLocations))
                 .GetCustomAttributes(typeof(DescriptionAttribute), false)
                 .Cast<DescriptionAttribute>()
                 .First().Description;
+        }
+
+        private IEnumerable<IMap> GetAdjacentMaps(Game game)
+        {
+            foreach(var field in typeof(MapLocations).GetMembers()
+                                                     .Where(m => !(m.Name.Equals(_mapLocation.ToString()) || m.Name.Equals("value__"))
+                                                         && m.MemberType == MemberTypes.Field))
+            {
+                yield return new Map(game, field.Name);
+            }
         }
 
         public IMap CurrentMap

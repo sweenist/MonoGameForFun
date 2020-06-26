@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using static TestGame.Constants;
 using TestGame.Camera;
 using TestGame.Services;
+using System;
 
 namespace TestGame
 {
@@ -112,6 +113,12 @@ namespace TestGame
 
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 _playerState = PlayerState.Full;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.M))
+            {
+                Console.WriteLine($"\tPlayer Position: {Position}");
+                Console.WriteLine($"\tPlayer Location: {Destination}");
+            }
 
             _delayCount++;
             if (_delayCount < AnimationDelay)
