@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using TestGame.Camera;
+using TestGame.Enums;
 using TestGame.Services;
 using TiledSharp;
 
@@ -37,6 +38,8 @@ namespace TestGame.Maps
             _tmxFilename = $"Overworld_{_mapIndex.X}_{_mapIndex.Y}.tmx";
         }
 
+        public event EventHandler ContentLoaded;
+
         public List<MapTile> MapTiles { get; set; }
 
         public override void Initialize()
@@ -62,6 +65,7 @@ namespace TestGame.Maps
             _tileRows = GetTileCountFromDimension(_margin, _spacing, _tileset.Height, _tileHeight);
 
             BuildTileInformation(currentSet, _map.TileLayers.First());
+            ContentLoaded?.Invoke(this, new EventArgs());
 
             int GetTileCountFromDimension(int margin, int spacing, int textureDimension, int tileDimension)
             {
@@ -117,6 +121,31 @@ namespace TestGame.Maps
         {
             var tile = MapTiles.Single(tile => tile.DestinationRectangle.Intersects(target));
             return tile;
+        }
+
+        public IEnumerable<Point> GetOpenEdges()
+        {
+            var maxLocation = MapTiles.Last().DestinationRectangle.Location;
+
+            var borderTiles = MapTiles.Where(tile =>
+            {
+                var rect = tile.DestinationRectangle;
+                return !tile.IsCollideable
+                    && (rect.X.Equals(0)
+                    || rect.Y.Equals(0)
+                    || rect.X.Equals(maxLocation.X)
+                    || rect.Y.Equals(maxLocation.Y));
+            })
+            .ToList();
+
+            if (borderTiles.Any(tile => tile.DestinationRectangle.X.Equals(0)))
+                yield return new Point(_mapIndex.X - 1, _mapIndex.Y);
+            if (borderTiles.Any(tile => tile.DestinationRectangle.Y.Equals(0)))
+                yield return new Point(_mapIndex.X, _mapIndex.Y - 1);
+            if (borderTiles.Any(tile => tile.DestinationRectangle.X.Equals(maxLocation.X)))
+                yield return new Point(_mapIndex.X + 1, _mapIndex.Y);
+            if (borderTiles.Any(tile => tile.DestinationRectangle.Y.Equals(maxLocation.Y)))
+                yield return new Point(_mapIndex.X, _mapIndex.Y + 1);
         }
     }
 }
