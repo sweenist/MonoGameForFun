@@ -88,6 +88,8 @@ namespace TestGame.Maps
         private void BuildTileInformation(TmxTileset tileset, TmxLayer layer)
         {
             var tileInfo = tileset.Tiles.ToDictionary(t => t.Key + 1, v => v.Value);
+            var maxTileX = layer.Tiles.Max(t => t.X);
+            var maxTileY = layer.Tiles.Max(t => t.Y);
 
             MapTiles = layer.Tiles.Select(tile =>
             {
@@ -100,8 +102,13 @@ namespace TestGame.Maps
 
                 var tilePosition = new Vector2(tile.X * _tileWidth, tile.Y * _tileHeight);
 
-                return new MapTile(sourceRect, tilePosition, tileInfo[tile.Gid]);
+                return new MapTile(sourceRect, tilePosition, tileInfo[tile.Gid], IsBorder(tile));
             }).ToList();
+
+            bool IsBorder(TmxLayerTile tile)
+            {
+                return tile.X.Equals(0) || tile.Y.Equals(0) || tile.X.Equals(maxTileX) || tile.Y.Equals(maxTileY);
+            }
         }
 
         public override void Draw(GameTime gameTime)
