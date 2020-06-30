@@ -39,6 +39,9 @@ namespace TestGame.Maps
 
         public event EventHandler ContentLoaded;
 
+        public Point MaxMapIndicies { get; private set; }
+        public Point MaxMapTileLocation => MaxMapIndicies * new Point(_tileWidth, _tileHeight);
+
         public List<MapTile> MapTiles { get; set; }
 
         public override void Initialize()
@@ -88,8 +91,7 @@ namespace TestGame.Maps
         private void BuildTileInformation(TmxTileset tileset, TmxLayer layer)
         {
             var tileInfo = tileset.Tiles.ToDictionary(t => t.Key + 1, v => v.Value);
-            var maxTileX = layer.Tiles.Max(t => t.X);
-            var maxTileY = layer.Tiles.Max(t => t.Y);
+            MaxMapIndicies = new Point(layer.Tiles.Max(t => t.X), layer.Tiles.Max(t => t.Y));
 
             MapTiles = layer.Tiles.Select(tile =>
             {
@@ -107,7 +109,7 @@ namespace TestGame.Maps
 
             bool IsBorder(TmxLayerTile tile)
             {
-                return tile.X.Equals(0) || tile.Y.Equals(0) || tile.X.Equals(maxTileX) || tile.Y.Equals(maxTileY);
+                return tile.X.Equals(0) || tile.Y.Equals(0) || tile.X.Equals(MaxMapIndicies.X) || tile.Y.Equals(MaxMapIndicies.Y);
             }
         }
 
