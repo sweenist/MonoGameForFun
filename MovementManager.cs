@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using TestGame.Enums;
-using TestGame.Maps;
-using TestGame.Services;
 
 namespace TestGame
 {
