@@ -8,7 +8,7 @@ namespace TestGame
 {
     public partial class MovementManager : GameComponent
     {
-        private MovementToken _chainToken;
+        private MovementData _chainToken;
 
         public MovementManager(Game game) : base(game)
         {
@@ -18,7 +18,7 @@ namespace TestGame
         {
             var player = ServiceLocator.Instance.GetService<IPlayer>();
             var map = ServiceLocator.Instance.GetService<IMap>();
-            _chainToken = new MovementToken(player, map);
+            _chainToken = new MovementData(player, map);
 
             base.Initialize();
         }

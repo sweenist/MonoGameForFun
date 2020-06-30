@@ -3,9 +3,9 @@ using TestGame.Maps;
 
 namespace TestGame
 {
-    public class MovementToken
+    public class MovementData
     {
-        public MovementToken(IPlayer player, IMap map)
+        public MovementData(IPlayer player, IMap map)
         {
             Player = player;
             Map = map;
