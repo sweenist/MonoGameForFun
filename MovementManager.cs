@@ -27,31 +27,19 @@ namespace TestGame
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
-                _chainToken.Start(Direction.East)
-                           .TurnPlayer()
-                           .CheckBorder()
-                           .CheckPlayerCollisions();
+                _chainToken.Move(Direction.East);
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                _chainToken.Start(Direction.West)
-                           .TurnPlayer()
-                           .CheckBorder()
-                           .CheckPlayerCollisions();
+                _chainToken.Move(Direction.West);
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
-                _chainToken.Start(Direction.North)
-                           .TurnPlayer()
-                           .CheckBorder()
-                           .CheckPlayerCollisions();
+                _chainToken.Move(Direction.North);
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
-                _chainToken.Start(Direction.South)
-                           .TurnPlayer()
-                           .CheckBorder()
-                           .CheckPlayerCollisions();
+                _chainToken.Move(Direction.South);
             }
 
             base.Update(gameTime);

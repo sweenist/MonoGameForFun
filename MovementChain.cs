@@ -6,15 +6,17 @@ namespace TestGame
 {
     public static class MovementChain
     {
-        public static MovementData Start(this MovementData token, Direction direction)
+        public static MovementData Move(this MovementData token, Direction direction)
         {
             token.Continue = !token.Player.IsMoving;
             token.Direction = direction;
 
-            return token;
+            return token.TurnPlayer()
+                        .CheckBorder()
+                        .CheckPlayerCollisions();
         }
 
-        public static MovementData TurnPlayer(this MovementData data)
+        private static MovementData TurnPlayer(this MovementData data)
         {
             if (!data.Continue)
                 return data;
@@ -23,7 +25,7 @@ namespace TestGame
             return data;
         }
 
-        public static MovementData CheckBorder(this MovementData token)
+        private static MovementData CheckBorder(this MovementData token)
         {
             if (!token.Continue)
                 return token;
@@ -58,7 +60,7 @@ namespace TestGame
             return token;
         }
 
-        public static MovementData CheckPlayerCollisions(this MovementData token)
+        private static MovementData CheckPlayerCollisions(this MovementData token)
         {
             if (!token.Continue)
                 return token;
