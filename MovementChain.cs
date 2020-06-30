@@ -19,9 +19,31 @@ namespace TestGame
             if (!token.Continue)
                 return token;
 
-            if (token.Map.GetTileAt(token.Player.Destination).IsBorder)
+            var currentTile = token.Map.GetTileAt(token.Player.Destination);
+            if (currentTile.IsBorder)
             {
-                token.Continue = false;
+                switch (token.Direction)
+                {
+                    case Direction.East:
+                        if (token.Player.Destination.X.Equals(token.Map.MaxMapTileLocation.X))
+                            token.Continue = false;
+                        return token;
+
+                    case Direction.West:
+                        if (token.Player.Destination.X.Equals(0))
+                            token.Continue = false;
+                        return token;
+
+                    case Direction.South:
+                        if (token.Player.Destination.Y.Equals(token.Map.MaxMapTileLocation.Y))
+                            token.Continue = false;
+                        return token;
+
+                    case Direction.North:
+                        if (token.Player.Destination.Y.Equals(0))
+                            token.Continue = false;
+                        return token;
+                }
 
             }
             return token;
