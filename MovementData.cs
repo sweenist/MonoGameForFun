@@ -1,5 +1,6 @@
-using TestGame.Enums;
+﻿using TestGame.Enums;
 using TestGame.Maps;
+using TestGame.Services;
 
 namespace TestGame
 {
@@ -11,6 +12,14 @@ namespace TestGame
             Map = map;
             Direction = Player.CurrentDirection;
             Continue = true;
+        }
+
+        public static MovementData Create()
+        {
+            var player = ServiceLocator.Instance.GetService<IPlayer>();
+            var map = ServiceLocator.Instance.GetService<IMap>();
+
+            return new MovementData(player, map);
         }
 
         public bool Continue { get; set; }

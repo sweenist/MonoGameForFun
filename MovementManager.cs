@@ -8,18 +8,12 @@ namespace TestGame
 {
     public partial class MovementManager : GameComponent
     {
-        private MovementData _chainToken;
-
         public MovementManager(Game game) : base(game)
         {
         }
 
         public override void Initialize()
         {
-            var player = ServiceLocator.Instance.GetService<IPlayer>();
-            var map = ServiceLocator.Instance.GetService<IMap>();
-            _chainToken = new MovementData(player, map);
-
             base.Initialize();
         }
 
@@ -27,19 +21,19 @@ namespace TestGame
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
-                _chainToken.Move(Direction.East);
+                MovementData.Create().Move(Direction.East);
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                _chainToken.Move(Direction.West);
+                MovementData.Create().Move(Direction.West);
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
-                _chainToken.Move(Direction.North);
+                MovementData.Create().Move(Direction.North);
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
-                _chainToken.Move(Direction.South);
+                MovementData.Create().Move(Direction.South);
             }
 
             base.Update(gameTime);
