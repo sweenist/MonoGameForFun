@@ -14,12 +14,19 @@ namespace TestGame
             return token;
         }
 
+        public static MovementData TurnPlayer(this MovementData data)
+        {
+            if (!data.Continue)
+                return data;
+
+            data.Player.CurrentDirection = data.Direction;
+            return data;
+        }
+
         public static MovementData CheckBorder(this MovementData token)
         {
             if (!token.Continue)
                 return token;
-
-            token.Player.CurrentDirection = token.Direction;
 
             var currentTile = token.Map.GetTileAt(token.Player.Destination);
             if (currentTile.IsBorder)
