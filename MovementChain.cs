@@ -19,6 +19,8 @@ namespace TestGame
             if (!token.Continue)
                 return token;
 
+            token.Player.CurrentDirection = token.Direction;
+
             var currentTile = token.Map.GetTileAt(token.Player.Destination);
             if (currentTile.IsBorder)
             {
@@ -54,7 +56,6 @@ namespace TestGame
             if (!token.Continue)
                 return token;
 
-            token.Player.CurrentDirection = token.Direction;
             Rectangle targetRect = Rectangle.Empty;
 
             switch (token.Direction)
