@@ -3,14 +3,12 @@ using Microsoft.Xna.Framework.Input;
 using TestGame.Enums;
 using TestGame.Maps;
 using TestGame.Services;
-using static TestGame.Constants;
 
 namespace TestGame
 {
-    public class MovementManager : GameComponent
+    public partial class MovementManager : GameComponent
     {
-        private IPlayer _player;
-        private IMap _map;
+        private MovementToken _chainToken;
 
         public MovementManager(Game game) : base(game)
         {
@@ -18,8 +16,9 @@ namespace TestGame
 
         public override void Initialize()
         {
-            _player = ServiceLocator.Instance.GetService<IPlayer>();
-            _map = ServiceLocator.Instance.GetService<IMap>();
+            var player = ServiceLocator.Instance.GetService<IPlayer>();
+            var map = ServiceLocator.Instance.GetService<IMap>();
+            _chainToken = new MovementToken(player, map);
 
             base.Initialize();
         }
@@ -28,62 +27,30 @@ namespace TestGame
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
-                CheckPlayerCollisions(Direction.East);
+                _chainToken.Start(Direction.East)
+                           .CheckBorder()
+                           .CheckPlayerCollisions();
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                CheckPlayerCollisions(Direction.West);
+                _chainToken.Start(Direction.West)
+                           .CheckBorder()
+                           .CheckPlayerCollisions();
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
-                CheckPlayerCollisions(Direction.North);
+                _chainToken.Start(Direction.North)
+                           .CheckBorder()
+                           .CheckPlayerCollisions();
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
-                CheckPlayerCollisions(Direction.South);
+                _chainToken.Start(Direction.South)
+                           .CheckBorder()
+                           .CheckPlayerCollisions();
             }
 
             base.Update(gameTime);
-        }
-
-        private void CheckPlayerCollisions(Direction direction)
-        {
-            if (_player.IsMoving)
-                return;
-
-            _player.CurrentDirection = direction;
-            Rectangle targetRect = Rectangle.Empty;
-
-            switch (direction)
-            {
-                case Direction.East:
-                    targetRect = GetTargetTileSpace(deltaX: _player.Width);
-                    _player.MoveVector = new Vector2(MoveIncrement, 0);
-                    break;
-                case Direction.South:
-                    targetRect = GetTargetTileSpace(deltaY: _player.Height);
-                    _player.MoveVector = new Vector2(0, MoveIncrement);
-                    break;
-                case Direction.West:
-                    targetRect = GetTargetTileSpace(deltaX: -(_player.Width));
-                    _player.MoveVector = new Vector2(-MoveIncrement, 0);
-                    break;
-                case Direction.North:
-                    targetRect = GetTargetTileSpace(deltaY: -(_player.Height));
-                    _player.MoveVector = new Vector2(0, -MoveIncrement);
-                    break;
-            }
-
-            var targetTile = _map.GetTileAt(targetRect);
-            _player.IsMoving = !targetTile.IsCollideable;
-
-            Rectangle GetTargetTileSpace(int deltaX = 0, int deltaY = 0)
-            {
-                return new Rectangle(_player.Destination.X + deltaX,
-                                     _player.Destination.Y + deltaY,
-                                     _player.Width,
-                                     _player.Height);
-            }
         }
     }
 }
