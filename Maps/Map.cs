@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using TestGame.Camera;
+using TestGame.Extensions;
 using TestGame.Services;
 using TiledSharp;
 
@@ -147,13 +148,13 @@ namespace TestGame.Maps
             .ToList();
 
             if (borderTiles.Any(tile => tile.DestinationRectangle.X.Equals(0)))
-                yield return new Point(MapIndex.X - 1, MapIndex.Y);
+                yield return MapIndex + DirectionVectors.WestPoint;
             if (borderTiles.Any(tile => tile.DestinationRectangle.Y.Equals(0)))
-                yield return new Point(MapIndex.X, MapIndex.Y - 1);
+                yield return MapIndex + DirectionVectors.NorthPoint;
             if (borderTiles.Any(tile => tile.DestinationRectangle.X.Equals(maxLocation.X)))
-                yield return new Point(MapIndex.X + 1, MapIndex.Y);
+                yield return MapIndex + DirectionVectors.EastPoint;
             if (borderTiles.Any(tile => tile.DestinationRectangle.Y.Equals(maxLocation.Y)))
-                yield return new Point(MapIndex.X, MapIndex.Y + 1);
+                yield return MapIndex + DirectionVectors.SouthPoint;
         }
     }
 }
