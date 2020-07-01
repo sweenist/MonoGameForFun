@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using TestGame.Enums;
+using TestGame.Maps;
+using TestGame.Services;
 using static TestGame.Constants;
 
 namespace TestGame
@@ -47,7 +49,11 @@ namespace TestGame
 
                     case Direction.South:
                         if (data.Player.Destination.Y.Equals(data.Map.MaxMapTileLocation.Y))
+                        {
+                            var mapManager = ServiceLocator.Instance.GetService<IMapManager>();
+                            mapManager.Transition(data.Direction);
                             data.Continue = false;
+                        }
                         return data;
 
                     case Direction.North:
@@ -55,7 +61,6 @@ namespace TestGame
                             data.Continue = false;
                         return data;
                 }
-
             }
             return data;
         }

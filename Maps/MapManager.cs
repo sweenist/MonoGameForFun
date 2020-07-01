@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using TestGame.Enums;
 using TestGame.Services;
 
 namespace TestGame.Maps
@@ -50,6 +51,11 @@ namespace TestGame.Maps
                     _currentMap = value;
                 }
             }
+        }
+
+        public void Transition(Direction direction)
+        {
+            throw new NotImplementedException();
         }
 
         private void OnComponentAdded(object sender, GameComponentCollectionEventArgs e)

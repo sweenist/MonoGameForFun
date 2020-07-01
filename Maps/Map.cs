@@ -14,8 +14,6 @@ namespace TestGame.Maps
     {
         private readonly SpriteBatch _spriteBatch;
         private readonly ContentManager _content;
-        private readonly Point _mapIndex;
-        private readonly string _tmxFilename;
 
         private TmxMap _map;
         private Texture2D _tileset;
@@ -33,16 +31,18 @@ namespace TestGame.Maps
         {
             _spriteBatch = new SpriteBatch(game.GraphicsDevice);
             _content = game.Content;
-            _mapIndex = mapIndex;
-            _tmxFilename = $"Overworld_{_mapIndex.X}_{_mapIndex.Y}.tmx";
+            MapIndex = mapIndex;
         }
 
         public event EventHandler ContentLoaded;
 
+        public Point MapIndex { get; }
         public Point MaxMapIndicies { get; private set; }
         public Point MaxMapTileLocation => MaxMapIndicies * new Point(_tileWidth, _tileHeight);
 
         public List<MapTile> MapTiles { get; set; }
+
+        private string TmxFileName => $"Overworld_{MapIndex.X}_{MapIndex.Y}.tmx";
 
         public override void Initialize()
         {
@@ -52,7 +52,7 @@ namespace TestGame.Maps
         }
         protected override void LoadContent()
         {
-            _map = new TmxMap($"Content/Maps/{_tmxFilename}");
+            _map = new TmxMap($"Content/Maps/{TmxFileName}");
 
             var currentSet = _map.Tilesets.First();
             _margin = currentSet.Margin;
@@ -147,13 +147,13 @@ namespace TestGame.Maps
             .ToList();
 
             if (borderTiles.Any(tile => tile.DestinationRectangle.X.Equals(0)))
-                yield return new Point(_mapIndex.X - 1, _mapIndex.Y);
+                yield return new Point(MapIndex.X - 1, MapIndex.Y);
             if (borderTiles.Any(tile => tile.DestinationRectangle.Y.Equals(0)))
-                yield return new Point(_mapIndex.X, _mapIndex.Y - 1);
+                yield return new Point(MapIndex.X, MapIndex.Y - 1);
             if (borderTiles.Any(tile => tile.DestinationRectangle.X.Equals(maxLocation.X)))
-                yield return new Point(_mapIndex.X + 1, _mapIndex.Y);
+                yield return new Point(MapIndex.X + 1, MapIndex.Y);
             if (borderTiles.Any(tile => tile.DestinationRectangle.Y.Equals(maxLocation.Y)))
-                yield return new Point(_mapIndex.X, _mapIndex.Y + 1);
+                yield return new Point(MapIndex.X, MapIndex.Y + 1);
         }
     }
 }

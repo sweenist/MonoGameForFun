@@ -7,6 +7,8 @@ namespace TestGame.Maps
     public interface IMap : IGameComponent
     {
         event EventHandler ContentLoaded;
+
+        Point MapIndex { get; }
         Point MaxMapIndicies { get; }
         Point MaxMapTileLocation { get; }
 
