@@ -24,8 +24,6 @@ namespace TestGame.Maps
             _content = _game.Content;
 
             _component = _game.Components;
-            _component.ComponentAdded += OnComponentAdded;
-            _component.ComponentRemoved += OnComponentRemoved;
 
             CurrentMap = new Map(_game, new Point(3, 3));
             CurrentMap.ContentLoaded += OnMapContentLoaded;
@@ -49,12 +47,19 @@ namespace TestGame.Maps
             get => _currentMap;
             set
             {
-                if (value != _currentMap)
+                if (value == _currentMap)
+                    return;
+
+                if (!(_currentMap is null))
                 {
                     _component.Remove(_currentMap);
-                    _component.Add(value);
-                    _currentMap = value;
+                    ServiceLocator.Instance.RemoveService<IMap>(_currentMap);
                 }
+
+                _component.Add(value);
+                ServiceLocator.Instance.AddService<IMap>(value);
+
+                _currentMap = value;
             }
         }
 
@@ -66,10 +71,8 @@ namespace TestGame.Maps
             var transitiveMapIndex = DirectionVectors.GetPoint(direction) + CurrentMap.MapIndex;
             var transitiveMap = _adjacentMaps.Single(map => map.MapIndex.Equals(transitiveMapIndex));
 
-            _component.ComponentAdded -= OnComponentAdded;
             _transition = new MapTransition(CurrentMap, transitiveMap, direction, _game);
             _transition.Disposing += AssignMaps;
-            _component.ComponentAdded += OnComponentAdded;
         }
 
         private void AssignMaps(object sender, MapTransitionEventArgs e)
@@ -77,22 +80,6 @@ namespace TestGame.Maps
             _adjacentMaps.Clear();
             CurrentMap = e.NewMap;
             OnMapContentLoaded(sender, e);
-        }
-
-        private void OnComponentAdded(object sender, GameComponentCollectionEventArgs e)
-        {
-            if (e.GameComponent.GetType().Equals(typeof(Map)))
-            {
-                ServiceLocator.Instance.AddService<IMap>(e.GameComponent);
-            }
-        }
-
-        private void OnComponentRemoved(object sender, GameComponentCollectionEventArgs e)
-        {
-            if (e.GameComponent.GetType().Equals(typeof(Map)))
-            {
-                ServiceLocator.Instance.RemoveService<IMap>(e.GameComponent);
-            }
         }
     }
 }
