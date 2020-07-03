@@ -7,12 +7,12 @@ namespace TestGame.Services
     public class ServiceLocator : IServiceLocator
     {
         private static IServiceLocator _instance;
-        private IDictionary<Type, object> _services;
+        private IDictionary<Type, IDictionary<string, object>> _services;
         private readonly static object _lock = new Object();
 
         public ServiceLocator()
         {
-            _services = new Dictionary<Type, object>();
+            _services = new Dictionary<Type, IDictionary<string, object>>();
         }
 
         public static IServiceLocator Instance
@@ -29,18 +29,28 @@ namespace TestGame.Services
             var constructor = implementation.GetConstructor(arguments.Select(arguments => arguments.GetType()).ToArray());
             var instance = constructor.Invoke(arguments);
 
-            _services.Add(typeof(T), instance);
+            if (_services.ContainsKey(typeof(T)))
+                throw new InvalidOperationException("Cannot construct and object for injection in nameless context. Object already exists.");
+
+            _services.Add(typeof(T), new Dictionary<string, object> { { string.Empty, instance } });
         }
 
-        public void AddService<T>(object instance)
+        public void AddService<T>(object instance, string name = null)
         {
-            _services.Add(typeof(T), instance);
+            if (_services.ContainsKey(typeof(T)))
+            {
+                _services[typeof(T)].Add(name, instance);
+            }
+            else
+            {
+                _services.Add(typeof(T), new Dictionary<string, object> { { name ?? string.Empty, instance } });
+            }
         }
 
-        public void RemoveService<T>(object instance)
+        public void RemoveService<T>(object instance, string name)
         {
-            var existing = GetService<T>();
-            if(existing.Equals(instance))
+            var existing = GetService<T>(name);
+            if (existing.Equals(instance))
             {
                 _services.Remove(typeof(T));
             }
@@ -50,11 +60,11 @@ namespace TestGame.Services
             }
         }
 
-        public T GetService<T>()
+        public T GetService<T>(string name = null)
         {
             try
             {
-                return (T)_services[typeof(T)];
+                return (T)_services[typeof(T)][name ?? string.Empty];
             }
             catch (KeyNotFoundException)
             {
