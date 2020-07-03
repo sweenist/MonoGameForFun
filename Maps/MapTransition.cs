@@ -1,46 +1,89 @@
 using System;
 using Microsoft.Xna.Framework;
+using TestGame.Enums;
+using TestGame.Extensions;
 
 namespace TestGame.Maps
 {
+    public class MapTransitionEventArgs : EventArgs
+    {
+        public MapTransitionEventArgs(IMap oldMap, IMap newMap)
+        {
+            OldMap = oldMap;
+            NewMap = newMap;
+        }
+
+        public IMap OldMap { get; set; }
+        public IMap NewMap { get; set; }
+    }
+
     public class MapTransition : Transition, IDisposable
     {
         private readonly IMap _current;
         private readonly IMap _other;
+        private readonly Direction _direction;
+        private readonly GameComponentCollection _components;
+        private TimeSpan _elapsedTime;
 
-        public MapTransition(IMap current, IMap other)
+        public MapTransition(IMap current, IMap other, Direction direction, Game game) : base(game)
         {
+            _direction = direction;
             _current = current;
             _other = other;
-            TransitionTime = TimeSpan.FromSeconds(1);
 
+            _components = game.Components;
+            _components.Add(this);
+            _components.Add(_other);
+
+            _elapsedTime = TimeSpan.Zero;
+            TransitionTime = TimeSpan.FromSeconds(3);
+            State = TransitionState.Initialized;
             TransitionChanged += OnTransitionChanged;
         }
 
+        public event EventHandler<MapTransitionEventArgs> Disposing;
+
         public override void Update(GameTime gameTime)
         {
-            if (_transitionState == TransitionState.Off)
-                return;
-            else if (_transitionState == TransitionState.Initialized)
+            if (State == TransitionState.Initialized)
             {
                 State = TransitionState.InTransit;
             }
-            else if (_transitionState == TransitionState.InTransit)
+            else if (State == TransitionState.InTransit)
             {
-                var timeDelta = (float)(gameTime.TotalGameTime.Milliseconds / TransitionTime.Milliseconds);
-                // Transition position logic here 0..1 or 0..ScreenDimension||MapDimension
-            }
+                _elapsedTime += gameTime.ElapsedGameTime;
+                var timeDelta = (float)(gameTime.ElapsedGameTime.TotalMilliseconds / TransitionTime.TotalMilliseconds);
+                var shiftDelta = timeDelta * _current.Bounds.Height;
 
+                var adjustmentVector = DirectionVectors.GetVector(_direction) * -(int)shiftDelta;
+                _current.Adjust(adjustmentVector);
+                _other.Adjust(adjustmentVector);
+
+                if (_elapsedTime > TransitionTime)
+                {
+                    State = TransitionState.Complete;
+                }
+            }
+            else if (State == TransitionState.Complete)
+            {
+                Dispose();
+            }
         }
 
         private void OnTransitionChanged(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+
         }
 
-        public void Dispose()
+        protected override void Dispose(bool disposing)
         {
+            _components.Remove(_other);
+            Disposing?.Invoke(this, new MapTransitionEventArgs(_current, _other));
+
             TransitionChanged -= OnTransitionChanged;
+            _components.Remove(this);
+
+            base.Dispose(disposing);
         }
     }
 }

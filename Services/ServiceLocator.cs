@@ -6,9 +6,9 @@ namespace TestGame.Services
 {
     public class ServiceLocator : IServiceLocator
     {
+        private static IServiceLocator _instance;
         private IDictionary<Type, object> _services;
         private readonly static object _lock = new Object();
-        private static IServiceLocator _instance;
 
         public ServiceLocator()
         {
@@ -35,6 +35,19 @@ namespace TestGame.Services
         public void AddService<T>(object instance)
         {
             _services.Add(typeof(T), instance);
+        }
+
+        public void RemoveService<T>(object instance)
+        {
+            var existing = GetService<T>();
+            if(existing.Equals(instance))
+            {
+                _services.Remove(typeof(T));
+            }
+            else
+            {
+                throw new InvalidOperationException("Cannot remove a different instance than what was registered.");
+            }
         }
 
         public T GetService<T>()

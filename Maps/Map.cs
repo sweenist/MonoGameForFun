@@ -19,14 +19,20 @@ namespace TestGame.Maps
         private TmxMap _map;
         private Texture2D _tileset;
         private ICamera2D _camera;
+        private Rectangle _bounds;
+        private Vector2 _tileOffsetVector = Vector2.Zero;
 
         private int _tileWidth;
         private int _tileHeight;
         private int _tileColumns;
-        private int _tileRows;
 
         private int _margin;
         private int _spacing;
+
+        public Map(Game game, Point mapIndex, Vector2 tileOffset): this(game, mapIndex)
+        {
+            _tileOffsetVector = tileOffset;
+        }
 
         public Map(Game game, Point mapIndex) : base(game)
         {
@@ -40,6 +46,7 @@ namespace TestGame.Maps
         public Point MapIndex { get; }
         public Point MaxMapIndicies { get; private set; }
         public Point MaxMapTileLocation => MaxMapIndicies * new Point(_tileWidth, _tileHeight);
+        public Rectangle Bounds => _bounds;
 
         public List<MapTile> MapTiles { get; set; }
 
@@ -65,9 +72,9 @@ namespace TestGame.Maps
             _tileHeight = currentSet.TileHeight;
 
             _tileColumns = GetTileCountFromDimension(_margin, _spacing, _tileset.Width, _tileWidth);
-            _tileRows = GetTileCountFromDimension(_margin, _spacing, _tileset.Height, _tileHeight);
 
             BuildTileInformation(currentSet, _map.TileLayers.First());
+            _bounds = new Rectangle(0, 0, MaxMapTileLocation.X + _tileWidth, MaxMapTileLocation.Y + _tileHeight);
             ContentLoaded?.Invoke(this, new EventArgs());
 
             int GetTileCountFromDimension(int margin, int spacing, int textureDimension, int tileDimension)
@@ -103,9 +110,9 @@ namespace TestGame.Maps
                                                _tileWidth,
                                                _tileHeight);
 
-                var tilePosition = new Vector2(tile.X * _tileWidth, tile.Y * _tileHeight);
+                var tilePosition = new Vector2( tile.X * _tileWidth, tile.Y * _tileHeight);
 
-                return new MapTile(sourceRect, tilePosition, tileInfo[tile.Gid], IsBorder(tile));
+                return new MapTile(sourceRect, tilePosition + _tileOffsetVector, tileInfo[tile.Gid], IsBorder(tile));
             }).ToList();
 
             bool IsBorder(TmxLayerTile tile)
@@ -155,6 +162,14 @@ namespace TestGame.Maps
                 yield return MapIndex + DirectionVectors.EastPoint;
             if (borderTiles.Any(tile => tile.DestinationRectangle.Y.Equals(maxLocation.Y)))
                 yield return MapIndex + DirectionVectors.SouthPoint;
+        }
+
+        public void Adjust(Vector2 shift)
+        {
+            foreach(var tile in MapTiles)
+            {
+                tile.Adjust(shift);
+            }
         }
     }
 }

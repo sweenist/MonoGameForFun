@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using TestGame.Enums;
+using TestGame.Extensions;
 using TestGame.Services;
 
 namespace TestGame.Maps
@@ -11,6 +13,7 @@ namespace TestGame.Maps
     {
         private IMap _currentMap;
         private IList<IMap> _adjacentMaps;
+        private MapTransition _transition;
         private readonly ContentManager _content;
         private readonly GameComponentCollection _component;
         private readonly Game _game;
@@ -28,6 +31,8 @@ namespace TestGame.Maps
             CurrentMap.ContentLoaded += OnMapContentLoaded;
         }
 
+        public bool IsInTransition => !(_transition is null);
+
         private void OnMapContentLoaded(object sender, EventArgs e)
         {
             _adjacentMaps = new List<IMap>(GetAdjacentMaps());
@@ -36,7 +41,7 @@ namespace TestGame.Maps
         private IEnumerable<IMap> GetAdjacentMaps()
         {
             foreach (var point in CurrentMap.GetOpenEdges())
-                yield return new Map(_game, point);
+                yield return new Map(_game, point, new Vector2(CurrentMap.Bounds.Width, CurrentMap.Bounds.Height) * (point - CurrentMap.MapIndex).ToVector2());
         }
 
         public IMap CurrentMap
@@ -55,7 +60,23 @@ namespace TestGame.Maps
 
         public void Transition(Direction direction)
         {
-            throw new NotImplementedException();
+            if (!(_transition is null))
+                return;
+
+            var transitiveMapIndex = DirectionVectors.GetPoint(direction) + CurrentMap.MapIndex;
+            var transitiveMap = _adjacentMaps.Single(map => map.MapIndex.Equals(transitiveMapIndex));
+
+            _component.ComponentAdded -= OnComponentAdded;
+            _transition = new MapTransition(CurrentMap, transitiveMap, direction, _game);
+            _transition.Disposing += AssignMaps;
+            _component.ComponentAdded += OnComponentAdded;
+        }
+
+        private void AssignMaps(object sender, MapTransitionEventArgs e)
+        {
+            _adjacentMaps.Clear();
+            CurrentMap = e.NewMap;
+            OnMapContentLoaded(sender, e);
         }
 
         private void OnComponentAdded(object sender, GameComponentCollectionEventArgs e)
@@ -68,7 +89,10 @@ namespace TestGame.Maps
 
         private void OnComponentRemoved(object sender, GameComponentCollectionEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.GameComponent.GetType().Equals(typeof(Map)))
+            {
+                ServiceLocator.Instance.RemoveService<IMap>(e.GameComponent);
+            }
         }
     }
 }
