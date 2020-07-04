@@ -2,7 +2,7 @@
 using TestGame.Enums;
 using TestGame.Maps;
 using TestGame.Services;
-using static TestGame.Constants;
+using static TestGame.Extensions.Constants;
 
 namespace TestGame
 {

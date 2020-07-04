@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using TestGame.Camera;
 using TestGame.Enums;
 using TestGame.Services;
-using static TestGame.Constants;
+using static TestGame.Extensions.Constants;
 
 namespace TestGame
 {
