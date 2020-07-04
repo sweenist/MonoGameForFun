@@ -6,9 +6,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SweenGame.Enums;
 using SweenGame.Camera;
-using SweenGame.Enums;
 using SweenGame.Services;
-using static TestGame.Extensions.Constants;
+using static SweenGame.Extensions.Constants;
 
 namespace SweenGame
 {

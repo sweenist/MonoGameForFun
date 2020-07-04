@@ -3,11 +3,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using SweenGame;
 using SweenGame.Maps;
 using SweenGame.Camera;
 using SweenGame.Extensions;
-using SweenGame.Maps;
 using SweenGame.Services;
 
 namespace SweenGame

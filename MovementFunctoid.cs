@@ -2,7 +2,7 @@
 using SweenGame.Enums;
 using SweenGame.Maps;
 using SweenGame.Services;
-using static TestGame.Extensions.Constants;
+using static SweenGame.Extensions.Constants;
 
 namespace SweenGame
 {
