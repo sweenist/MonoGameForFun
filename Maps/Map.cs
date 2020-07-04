@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using TestGame.Camera;
+using TestGame.Enums;
 using TestGame.Extensions;
 using TestGame.Services;
 using TiledSharp;
@@ -139,7 +140,7 @@ namespace TestGame.Maps
             return tile;
         }
 
-        public IEnumerable<Point> GetOpenEdges()
+        public IEnumerable<KeyValuePair<Direction, Point>> GetOpenEdges()
         {
             var maxLocation = MapTiles.Last().DestinationRectangle.Location;
 
@@ -155,13 +156,13 @@ namespace TestGame.Maps
             .ToList();
 
             if (borderTiles.Any(tile => tile.DestinationRectangle.X.Equals(0)))
-                yield return MapIndex + DirectionVectors.WestPoint;
+                yield return new KeyValuePair<Direction, Point>(Direction.West, MapIndex + DirectionVectors.WestPoint);
             if (borderTiles.Any(tile => tile.DestinationRectangle.Y.Equals(0)))
-                yield return MapIndex + DirectionVectors.NorthPoint;
+                yield return new KeyValuePair<Direction, Point>(Direction.North, MapIndex + DirectionVectors.NorthPoint);
             if (borderTiles.Any(tile => tile.DestinationRectangle.X.Equals(maxLocation.X)))
-                yield return MapIndex + DirectionVectors.EastPoint;
+                yield return new KeyValuePair<Direction, Point>(Direction.East, MapIndex + DirectionVectors.EastPoint);
             if (borderTiles.Any(tile => tile.DestinationRectangle.Y.Equals(maxLocation.Y)))
-                yield return MapIndex + DirectionVectors.SouthPoint;
+                yield return new KeyValuePair<Direction, Point>(Direction.South, MapIndex + DirectionVectors.SouthPoint);
         }
 
         public void Adjust(Vector2 shift)

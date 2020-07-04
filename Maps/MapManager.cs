@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using TestGame.Enums;
-using TestGame.Extensions;
 using TestGame.Services;
 using static TestGame.Extensions.Constants;
 
@@ -13,7 +10,6 @@ namespace TestGame.Maps
     public class MapManager : IMapManager
     {
         private IMap _currentMap;
-        private IList<IMap> _adjacentMaps;
         private MapTransition _transition;
         private readonly ContentManager _content;
         private readonly GameComponentCollection _component;
@@ -34,13 +30,22 @@ namespace TestGame.Maps
 
         private void OnMapContentLoaded(object sender, EventArgs e)
         {
-            _adjacentMaps = new List<IMap>(GetAdjacentMaps());
+            AddAdjacentMaps();
         }
 
-        private IEnumerable<IMap> GetAdjacentMaps()
+        private void AddAdjacentMaps()
         {
-            foreach (var point in CurrentMap.GetOpenEdges())
-                yield return new Map(_game, point, new Vector2(CurrentMap.Bounds.Width, CurrentMap.Bounds.Height) * (point - CurrentMap.MapIndex).ToVector2());
+            foreach (var edge in CurrentMap.GetOpenEdges())
+            {
+                var direction = edge.Key;
+                var point = edge.Value;
+
+                var offsetVector = new Vector2(CurrentMap.Bounds.Width, CurrentMap.Bounds.Height) * (point - CurrentMap.MapIndex).ToVector2();
+                var map = new Map(_game, point, offsetVector);
+
+                ServiceLocator.Instance.TryRemoveService<IMap>(direction.ToString());
+                ServiceLocator.Instance.AddService<IMap>(map, edge.Key.ToString());
+            }
         }
 
         public IMap CurrentMap
@@ -69,8 +74,7 @@ namespace TestGame.Maps
             if (!(_transition is null))
                 return;
 
-            var transitiveMapIndex = DirectionVectors.GetPoint(direction) + CurrentMap.MapIndex;
-            var transitiveMap = _adjacentMaps.Single(map => map.MapIndex.Equals(transitiveMapIndex));
+            var transitiveMap = ServiceLocator.Instance.GetService<IMap>(direction.ToString());
 
             _transition = new MapTransition(CurrentMap, transitiveMap, direction, _game);
             _transition.Disposing += AssignMaps;
@@ -78,7 +82,6 @@ namespace TestGame.Maps
 
         private void AssignMaps(object sender, MapTransitionEventArgs e)
         {
-            _adjacentMaps.Clear();
             CurrentMap = e.NewMap;
             OnMapContentLoaded(sender, e);
         }

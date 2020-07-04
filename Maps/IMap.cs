@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using TestGame.Enums;
 
 namespace TestGame.Maps
 {
@@ -14,7 +15,7 @@ namespace TestGame.Maps
         Rectangle Bounds { get; }
 
         MapTile GetTileAt(Rectangle target);
-        IEnumerable<Point> GetOpenEdges();
         void Adjust(Vector2 shift);
+        IEnumerable<KeyValuePair<Direction, Point>> GetOpenEdges();
     }
 }
