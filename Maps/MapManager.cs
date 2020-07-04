@@ -1,11 +1,12 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using TestGame.Enums;
-using TestGame.Services;
+using SweenGame.Enums;
+using SweenGame.Maps;
+using SweenGame.Services;
 using static TestGame.Extensions.Constants;
 
-namespace TestGame.Maps
+namespace SweenGame.Maps
 {
     public class MapManager : IMapManager
     {

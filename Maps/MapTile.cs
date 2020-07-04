@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using TiledSharp;
 
-namespace TestGame.Maps
+namespace SweenGame.Maps
 {
     public class MapTile
     {

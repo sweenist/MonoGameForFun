@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <RootNamespace>TestGame</RootNamespace>
-    <AssemblyName>TestGame</AssemblyName>
+    <RootNamespace>SweenGame</RootNamespace>
+    <AssemblyName>SweenGame</AssemblyName>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <OutputPath>output/bin/Debug</OutputPath>
     <BaseIntermediateOutputPath>output/obj</BaseIntermediateOutputPath>

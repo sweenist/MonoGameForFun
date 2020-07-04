@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestGame
+namespace SweenGame
 {
     public static class Program
     {

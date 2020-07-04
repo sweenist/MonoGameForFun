@@ -1,9 +1,12 @@
 using System;
 using Microsoft.Xna.Framework;
-using TestGame.Enums;
-using TestGame.Extensions;
+using SweenGame;
+using SweenGame.Enums;
+using SweenGame.Extensions;
+using SweenGame.Maps;
+using SweenGame.Services;
 
-namespace TestGame.Maps
+namespace SweenGame.Maps
 {
     public class MapTransitionEventArgs : EventArgs
     {

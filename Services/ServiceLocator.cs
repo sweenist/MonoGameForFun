@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TestGame.Services
+namespace SweenGame.Services
 {
     public class ServiceLocator : IServiceLocator
     {

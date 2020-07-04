@@ -1,6 +1,6 @@
-using TestGame.Enums;
+using SweenGame.Enums;
 
-namespace TestGame.Maps
+namespace SweenGame.Maps
 {
     public interface IMapManager
     {

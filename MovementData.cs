@@ -1,9 +1,9 @@
-﻿using TestGame.Enums;
-using TestGame.Maps;
-using TestGame.Services;
+﻿using SweenGame.Enums;
+using SweenGame.Maps;
+using SweenGame.Services;
 using static TestGame.Extensions.Constants;
 
-namespace TestGame
+namespace SweenGame
 {
     public class MovementData
     {

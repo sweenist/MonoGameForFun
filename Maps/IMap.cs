@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using TestGame.Enums;
+using SweenGame.Enums;
+using SweenGame.Maps;
 
-namespace TestGame.Maps
+namespace SweenGame.Maps
 {
     public interface IMap : IGameComponent
     {

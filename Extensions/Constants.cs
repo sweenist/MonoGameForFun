@@ -1,4 +1,4 @@
-namespace TestGame.Extensions
+namespace SweenGame.Extensions
 {
     public static class Constants
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace TestGame.Services
+namespace SweenGame.Services
 {
     public interface IServiceLocator
     {

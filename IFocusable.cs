@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace TestGame
+namespace SweenGame
 {
     public interface IFocusable 
     {

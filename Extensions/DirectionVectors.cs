@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using TestGame.Enums;
+using SweenGame.Enums;
 
-namespace TestGame.Extensions
+namespace SweenGame.Extensions
 {
     public static class DirectionVectors
     {

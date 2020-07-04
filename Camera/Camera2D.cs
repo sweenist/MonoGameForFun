@@ -2,9 +2,9 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using TestGame.Services;
+using SweenGame.Services;
 
-namespace TestGame.Camera
+namespace SweenGame.Camera
 {
     public class Camera2D : GameComponent, ICamera2D
     {

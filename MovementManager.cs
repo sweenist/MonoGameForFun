@@ -1,8 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using TestGame.Enums;
+using SweenGame.Enums;
+using SweenGame;
 
-namespace TestGame
+namespace SweenGame
 {
     public partial class MovementManager : GameComponent
     {

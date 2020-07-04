@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace TestGame.Camera
+namespace SweenGame.Camera
 {
     public interface ICamera2D: IGameComponent
     {

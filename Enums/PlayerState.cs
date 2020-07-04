@@ -1,4 +1,4 @@
-namespace TestGame.Enums
+namespace SweenGame.Enums
 {
     enum PlayerState
     {

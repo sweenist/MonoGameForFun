@@ -4,12 +4,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using TestGame.Camera;
-using TestGame.Enums;
-using TestGame.Services;
+using SweenGame.Enums;
+using SweenGame.Camera;
+using SweenGame.Enums;
+using SweenGame.Services;
 using static TestGame.Extensions.Constants;
 
-namespace TestGame
+namespace SweenGame
 {
     public class Player : DrawableGameComponent, IPlayer, IFocusable
     {

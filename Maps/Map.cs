@@ -4,13 +4,14 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using TestGame.Camera;
-using TestGame.Enums;
-using TestGame.Extensions;
-using TestGame.Services;
+using SweenGame.Enums;
+using SweenGame.Camera;
+using SweenGame.Extensions;
+using SweenGame.Maps;
+using SweenGame.Services;
 using TiledSharp;
 
-namespace TestGame.Maps
+namespace SweenGame.Maps
 {
     public class Map : DrawableGameComponent, IMap
     {

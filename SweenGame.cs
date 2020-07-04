@@ -3,11 +3,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using TestGame.Camera;
-using TestGame.Maps;
-using TestGame.Services;
+using SweenGame;
+using SweenGame.Maps;
+using SweenGame.Camera;
+using SweenGame.Extensions;
+using SweenGame.Maps;
+using SweenGame.Services;
 
-namespace TestGame
+namespace SweenGame
 {
     public class SweenGame : Game
     {
