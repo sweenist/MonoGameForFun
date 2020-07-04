@@ -79,6 +79,12 @@ namespace TestGame.Services
             }
         }
 
+        public void TryRemoveService<T>(string name)
+        {
+            if (_services[typeof(T)].ContainsKey(name))
+                RemoveService<T>(name);
+        }
+
         public T GetService<T>(string name = null)
         {
             try

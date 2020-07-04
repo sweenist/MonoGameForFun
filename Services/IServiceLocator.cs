@@ -9,5 +9,6 @@ namespace TestGame.Services
         void RemoveService<T>(object instance);
         void RemoveService<T>(string name);
         T GetService<T>(string name = null);
+        void TryRemoveService<T>(string name);
     }
 }
