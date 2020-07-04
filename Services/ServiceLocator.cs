@@ -47,12 +47,31 @@ namespace TestGame.Services
             }
         }
 
-        public void RemoveService<T>(object instance, string name)
+        public void RemoveService<T>(string name)
         {
-            var existing = GetService<T>(name);
-            if (existing.Equals(instance))
+            try
+            {
+                _services[typeof(T)].Remove(name);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void RemoveService<T>(object instance)
+        {
+            var existing = GetService<T>(string.Empty);
+            if (existing.Equals(instance) && _services[typeof(T)].Count == 1)
             {
                 _services.Remove(typeof(T));
+            }
+            else if (_services[typeof(T)].Count != 1)
+            {
+                throw new InvalidOperationException(
+                    "More than one instance of this type is registered. "
+                    + "There are likely named versions of this type registered."
+                    + "Consider using <cref RemoveService<T>(string name) /> instead.");
             }
             else
             {
