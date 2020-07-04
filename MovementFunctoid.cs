@@ -12,12 +12,20 @@ namespace TestGame
         {
             var mapManager = ServiceLocator.Instance.GetService<IMapManager>();
 
-            data.Continue = !data.Player.IsMoving && !mapManager.IsInTransition;
-            data.Direction = direction;
+            if (mapManager.IsInTransition)
+                return data;
 
-            return data.TurnPlayer()
-                       .CheckBorder()
-                       .CheckPlayerCollisions();
+            if (!data.Player.IsMoving)
+            {
+                data.Continue = true;
+                data.Direction = direction;
+
+                return data.TurnPlayer()
+                           .CheckBorder()
+                           .CheckPlayerCollisions();
+            }
+
+            return data;
         }
 
         private static MovementData TurnPlayer(this MovementData data)
