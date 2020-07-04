@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using TestGame.Enums;
 using TestGame.Extensions;
 using TestGame.Services;
+using static TestGame.Extensions.Constants;
 
 namespace TestGame.Maps
 {
@@ -53,11 +54,11 @@ namespace TestGame.Maps
                 if (!(_currentMap is null))
                 {
                     _component.Remove(_currentMap);
-                    ServiceLocator.Instance.RemoveService<IMap>(_currentMap);
+                    ServiceLocator.Instance.RemoveService<IMap>(Current);
                 }
 
                 _component.Add(value);
-                ServiceLocator.Instance.AddService<IMap>(value);
+                ServiceLocator.Instance.AddService<IMap>(value, Current);
 
                 _currentMap = value;
             }

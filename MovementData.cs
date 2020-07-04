@@ -1,6 +1,7 @@
 ﻿using TestGame.Enums;
 using TestGame.Maps;
 using TestGame.Services;
+using static TestGame.Extensions.Constants;
 
 namespace TestGame
 {
@@ -17,7 +18,7 @@ namespace TestGame
         public static MovementData Create()
         {
             var player = ServiceLocator.Instance.GetService<IPlayer>();
-            var map = ServiceLocator.Instance.GetService<IMap>();
+            var map = ServiceLocator.Instance.GetService<IMap>(Current);
 
             return new MovementData(player, map);
         }
