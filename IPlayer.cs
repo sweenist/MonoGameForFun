@@ -11,6 +11,6 @@ namespace SweenGame
         Rectangle Destination { get; }
         int Width { get; }
         int Height { get; }
-        void Transition();
+        void Transition(Point maxBound);
     }
 }

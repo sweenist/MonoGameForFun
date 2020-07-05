@@ -23,7 +23,6 @@ namespace SweenGame.Maps
         private readonly IMap _current;
         private readonly IMap _other;
         private readonly Direction _direction;
-
         private readonly IPlayer _player;
         private readonly GameComponentCollection _components;
         private Vector2 _adjustmentVector;
@@ -54,7 +53,8 @@ namespace SweenGame.Maps
             }
             if (State == TransitionState.InTransit)
             {
-                _player.Transition();
+
+                _player.Transition(_other.MaxMapTileLocation);
                 _current.Transition(_adjustmentVector);
 
                 if (_other.Transition(_adjustmentVector))

@@ -49,30 +49,33 @@ namespace SweenGame
                 {
                     case Direction.East:
                         if (data.Player.Destination.X.Equals(data.Map.MaxMapTileLocation.X))
-                            data.Continue = false;
+                            Transition();
                         return data;
 
                     case Direction.West:
                         if (data.Player.Destination.X.Equals(0))
-                            data.Continue = false;
+                            Transition();
                         return data;
 
                     case Direction.South:
                         if (data.Player.Destination.Y.Equals(data.Map.MaxMapTileLocation.Y))
-                        {
-                            var mapManager = ServiceLocator.Instance.GetService<IMapManager>();
-                            mapManager.Transition(data.Direction);
-                            data.Continue = false;
-                        }
+                            Transition();
                         return data;
 
                     case Direction.North:
                         if (data.Player.Destination.Y.Equals(0))
-                            data.Continue = false;
+                            Transition();
                         return data;
                 }
             }
             return data;
+
+            void Transition()
+            {
+                var mapManager = ServiceLocator.Instance.GetService<IMapManager>();
+                mapManager.Transition(data.Direction);
+                data.Continue = false;
+            }
         }
 
         private static MovementData CheckPlayerCollisions(this MovementData data)

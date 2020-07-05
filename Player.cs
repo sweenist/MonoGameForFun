@@ -164,13 +164,25 @@ namespace SweenGame
             base.Draw(gameTime);
         }
 
-        public void Transition()
+        public void Transition(Point maxBound)
         {
             switch (CurrentDirection)
             {
                 case Direction.South:
                     if (Position.Y > 0)
                         Position -= new Vector2(0, _spriteHeight / 4);
+                    break;
+                case Direction.West:
+                    if (Position.X < maxBound.X)
+                        Position += new Vector2(_spriteWidth / 4, 0);
+                    break;
+                case Direction.North:
+                    if (Position.Y < maxBound.Y)
+                        Position += new Vector2(0, _spriteHeight / 4);
+                    break;
+                case Direction.East:
+                    if (Position.X > 0)
+                        Position -= new Vector2(_spriteWidth / 4, 0);
                     break;
             }
         }
