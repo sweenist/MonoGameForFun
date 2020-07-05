@@ -31,7 +31,7 @@ namespace SweenGame.Maps
         private int _margin;
         private int _spacing;
 
-        public Map(Game game, Point mapIndex, Vector2 tileOffset): this(game, mapIndex)
+        public Map(Game game, Point mapIndex, Vector2 tileOffset) : this(game, mapIndex)
         {
             _tileOffsetVector = tileOffset;
         }
@@ -81,10 +81,10 @@ namespace SweenGame.Maps
 
             int GetTileCountFromDimension(int margin, int spacing, int textureDimension, int tileDimension)
             {
-                var modifiedTextureDimension = textureDimension - (margin);
+                var modifiedTextureDimension = textureDimension - margin;
                 var modifiedTileDimension = tileDimension + spacing;
 
-                return (int)(modifiedTextureDimension / modifiedTileDimension);
+                return modifiedTextureDimension / modifiedTileDimension;
             }
         }
 
@@ -107,12 +107,12 @@ namespace SweenGame.Maps
             {
                 var sourceColumn = (tile.Gid - 1) % _tileColumns;
                 var sourceRow = (int)Math.Floor((decimal)(tile.Gid - 1) / _tileColumns);
-                var sourceRect = new Rectangle((_tileWidth * sourceColumn) + _margin + (sourceColumn * _spacing),
-                                               (_tileHeight * sourceRow) + _margin + (sourceRow * _spacing),
+                var sourceRect = new Rectangle(_tileWidth * sourceColumn + _margin + sourceColumn * _spacing,
+                                               _tileHeight * sourceRow + _margin + sourceRow * _spacing,
                                                _tileWidth,
                                                _tileHeight);
 
-                var tilePosition = new Vector2( tile.X * _tileWidth, tile.Y * _tileHeight);
+                var tilePosition = new Vector2(tile.X * _tileWidth, tile.Y * _tileHeight);
 
                 return new MapTile(sourceRect, tilePosition + _tileOffsetVector, tileInfo[tile.Gid], IsBorder(tile));
             }).ToList();
@@ -166,12 +166,16 @@ namespace SweenGame.Maps
                 yield return new KeyValuePair<Direction, Point>(Direction.South, MapIndex + DirectionVectors.SouthPoint);
         }
 
-        public void Adjust(Vector2 shift)
+        public bool Transition(Vector2 unitShift)
         {
-            foreach(var tile in MapTiles)
+            var shift = unitShift * new Vector2(_tileWidth, _tileHeight);
+            _tileOffsetVector -= shift.Invert();
+            foreach (var tile in MapTiles)
             {
                 tile.Adjust(shift);
             }
+
+            return _tileOffsetVector == Vector2.Zero;
         }
     }
 }

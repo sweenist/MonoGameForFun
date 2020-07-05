@@ -68,6 +68,16 @@ namespace SweenGame
                 MediaPlayer.Play(_themeMusic);
             }
 
+            if(Keyboard.GetState().IsKeyDown(Keys.A))
+            {
+                var player = ServiceLocator.Instance.GetService<IPlayer>();
+                var map = ServiceLocator.Instance.GetService<IMap>(Constants.Current);
+                var tile = map.GetTileAt(player.Destination);
+                var d = map as DrawableGameComponent;
+
+                Console.WriteLine($"Tile Info:\n\tTile Location: {tile.Location}\n\tTile Collide? {tile.IsCollideable}\n\tTile Draw Index: {d?.DrawOrder}");
+            }
+
             base.Update(gameTime);
         }
 

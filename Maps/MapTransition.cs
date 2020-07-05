@@ -25,8 +25,10 @@ namespace SweenGame.Maps
         private readonly IMap _current;
         private readonly IMap _other;
         private readonly Direction _direction;
+
+        private readonly IPlayer _player;
         private readonly GameComponentCollection _components;
-        private TimeSpan _elapsedTime;
+        private Vector2 _adjustmentVector;
 
         public MapTransition(IMap current, IMap other, Direction direction, Game game) : base(game)
         {
@@ -38,10 +40,10 @@ namespace SweenGame.Maps
             _components.Add(this);
             _components.Add(_other);
 
-            _elapsedTime = TimeSpan.Zero;
-            TransitionTime = TimeSpan.FromSeconds(3);
+            _player = ServiceLocator.Instance.GetService<IPlayer>();
+
+            _adjustmentVector = DirectionVectors.GetVector(_direction).Invert();
             State = TransitionState.Initialized;
-            TransitionChanged += OnTransitionChanged;
         }
 
         public event EventHandler<MapTransitionEventArgs> Disposing;
@@ -52,17 +54,12 @@ namespace SweenGame.Maps
             {
                 State = TransitionState.InTransit;
             }
-            else if (State == TransitionState.InTransit)
+            if (State == TransitionState.InTransit)
             {
-                _elapsedTime += gameTime.ElapsedGameTime;
-                var timeDelta = (float)(gameTime.ElapsedGameTime.TotalMilliseconds / TransitionTime.TotalMilliseconds);
-                var shiftDelta = timeDelta * _current.Bounds.Height;
+                _player.Transition();
+                _current.Transition(_adjustmentVector);
 
-                var adjustmentVector = DirectionVectors.GetVector(_direction) * -(int)shiftDelta;
-                _current.Adjust(adjustmentVector);
-                _other.Adjust(adjustmentVector);
-
-                if (_elapsedTime > TransitionTime)
+                if (_other.Transition(_adjustmentVector))
                 {
                     State = TransitionState.Complete;
                 }
@@ -73,17 +70,11 @@ namespace SweenGame.Maps
             }
         }
 
-        private void OnTransitionChanged(object sender, EventArgs e)
-        {
-
-        }
-
         protected override void Dispose(bool disposing)
         {
             _components.Remove(_other);
             Disposing?.Invoke(this, new MapTransitionEventArgs(_current, _other));
 
-            TransitionChanged -= OnTransitionChanged;
             _components.Remove(this);
 
             base.Dispose(disposing);

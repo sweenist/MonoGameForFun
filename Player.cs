@@ -88,6 +88,7 @@ namespace SweenGame
             _currentFrame = 0;
             _totalFrames = Columns;
             _position = new Vector2(720, 432);
+            DrawOrder = 1;
 
             base.Initialize();
         }
@@ -161,6 +162,17 @@ namespace SweenGame
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public void Transition()
+        {
+            switch (CurrentDirection)
+            {
+                case Direction.South:
+                    if (Position.Y > _spriteHeight)
+                        Position -= new Vector2(0, _spriteHeight);
+                    break;
+            }
         }
     }
 }

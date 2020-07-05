@@ -16,13 +16,12 @@ namespace SweenGame.Maps
             SourceRectangle = rectangle;
             Location = location;
             IsBorder = isBorder;
-            DestinationRectangle = new Rectangle((int)Location.X, (int)Location.Y, SourceRectangle.Width, SourceRectangle.Height);
         }
 
         public Rectangle SourceRectangle { get; }
-        public Rectangle DestinationRectangle { get; }
+        public Rectangle DestinationRectangle => new Rectangle((int)Location.X, (int)Location.Y, SourceRectangle.Width, SourceRectangle.Height);
 
-        public Vector2 Location { get; private set;}
+        public Vector2 Location { get; private set; }
         public bool IsBorder { get; }
 
         public bool IsCollideable => _tileProperties.ContainsKey("Collision")
@@ -32,6 +31,14 @@ namespace SweenGame.Maps
         public void Adjust(Vector2 shift)
         {
             Location = new Vector2(Location.X + shift.X, Location.Y + shift.Y);
+        }
+
+        public override string ToString()
+        {
+            return "Tile Info:\n"
+                   + $"\tTile Location: {Location}\n"
+                   + $"\tTile Collide? {IsCollideable}\n"
+                   + $"\tTile Destination: {DestinationRectangle}";
         }
     }
 }

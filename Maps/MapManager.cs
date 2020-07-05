@@ -82,6 +82,9 @@ namespace SweenGame.Maps
 
         private void AssignMaps(object sender, MapTransitionEventArgs e)
         {
+            _transition.Disposing -= AssignMaps;
+            _transition = null;
+
             CurrentMap = e.NewMap;
             OnMapContentLoaded(sender, e);
         }

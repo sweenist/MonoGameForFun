@@ -16,7 +16,7 @@ namespace SweenGame.Maps
         Rectangle Bounds { get; }
 
         MapTile GetTileAt(Rectangle target);
-        void Adjust(Vector2 shift);
+        bool Transition(Vector2 unitShift);
         IEnumerable<KeyValuePair<Direction, Point>> GetOpenEdges();
     }
 }

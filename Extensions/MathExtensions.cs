@@ -16,5 +16,10 @@ namespace SweenGame.Extensions
 
             vector = new Vector2(Math.Clamp(vector.X, xMin, xMax), Math.Clamp(vector.Y, yMin, yMax));
         }
+
+        public static Vector2 Invert(this Vector2 vector)
+        {
+            return vector * -1;
+        }
     }
 }
