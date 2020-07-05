@@ -7,13 +7,12 @@ using SweenGame.Maps;
 using SweenGame.Camera;
 using SweenGame.Extensions;
 using SweenGame.Services;
+using static SweenGame.Extensions.Constants;
 
 namespace SweenGame
 {
     public class SweenGame : Game
     {
-        public static int SCREEN_WIDTH = 912; //19 * 48;
-        public static int SCREEN_HEIGHT = 624; //13 * 48;
         private GraphicsDeviceManager _graphicsManager;
         private MovementManager _movementManager;
         private Song _themeMusic;
@@ -28,8 +27,8 @@ namespace SweenGame
 
         protected override void Initialize()
         {
-            _graphicsManager.PreferredBackBufferWidth = SCREEN_WIDTH;
-            _graphicsManager.PreferredBackBufferHeight = SCREEN_HEIGHT;
+            _graphicsManager.PreferredBackBufferWidth = ScreenWidth;
+            _graphicsManager.PreferredBackBufferHeight = ScreenHeight;
             _graphicsManager.ApplyChanges();
 
             Window.Title = "Sween's Awesome Game";
@@ -68,7 +67,7 @@ namespace SweenGame
                 MediaPlayer.Play(_themeMusic);
             }
 
-            if(Keyboard.GetState().IsKeyDown(Keys.A))
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
                 var player = ServiceLocator.Instance.GetService<IPlayer>();
                 var map = ServiceLocator.Instance.GetService<IMap>(Constants.Current);
