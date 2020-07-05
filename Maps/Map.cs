@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Graphics;
 using SweenGame.Enums;
 using SweenGame.Camera;
 using SweenGame.Extensions;
-using SweenGame.Maps;
 using SweenGame.Services;
 using TiledSharp;
 
@@ -168,7 +167,7 @@ namespace SweenGame.Maps
 
         public bool Transition(Vector2 unitShift)
         {
-            var shift = unitShift * new Vector2(_tileWidth, _tileHeight);
+            var shift = unitShift * new Vector2(_tileWidth / 4, _tileHeight / 4);
             _tileOffsetVector -= shift.Invert();
             foreach (var tile in MapTiles)
             {

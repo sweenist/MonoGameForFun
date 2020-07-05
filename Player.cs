@@ -169,8 +169,8 @@ namespace SweenGame
             switch (CurrentDirection)
             {
                 case Direction.South:
-                    if (Position.Y > _spriteHeight)
-                        Position -= new Vector2(0, _spriteHeight);
+                    if (Position.Y > 0)
+                        Position -= new Vector2(0, _spriteHeight / 4);
                     break;
             }
         }
