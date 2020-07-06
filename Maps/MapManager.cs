@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using SweenGame.Enums;
+using SweenGame.Extensions;
 using SweenGame.Services;
 using static SweenGame.Extensions.Constants;
 
@@ -40,7 +41,8 @@ namespace SweenGame.Maps
                 var direction = edge.Key;
                 var point = edge.Value;
 
-                var offsetVector = new Vector2(CurrentMap.Bounds.Width, CurrentMap.Bounds.Height) * (point - CurrentMap.MapIndex).ToVector2();
+                var offsetVector = new Vector2(ScreenWidth, ScreenHeight) * DirectionVectors.GetVector(direction);
+
                 var map = new Map(_game, point, offsetVector);
 
                 ServiceLocator.Instance.TryRemoveService<IMap>(direction.ToString());
