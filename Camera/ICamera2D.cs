@@ -15,6 +15,6 @@ namespace SweenGame.Camera
         float Scale { get; set; }
 
         void ClampCamera(Rectangle bounds);
-        bool IsInView(Vector2 position, Texture2D texture);
+        bool IsInView(Vector2 position, Rectangle tileRectangle);
     }
 }

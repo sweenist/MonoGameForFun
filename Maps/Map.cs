@@ -128,7 +128,8 @@ namespace SweenGame.Maps
 
             foreach (var tile in MapTiles)
             {
-                _spriteBatch.Draw(_tileset, tile.Location, tile.SourceRectangle, Color.White);
+                if (_camera.IsInView(tile.Location, tile.SourceRectangle))
+                    _spriteBatch.Draw(_tileset, tile.Location, tile.SourceRectangle, Color.White);
             }
 
             _spriteBatch.End();

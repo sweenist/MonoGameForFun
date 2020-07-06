@@ -1,6 +1,5 @@
 using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SweenGame.Services;
 
@@ -83,11 +82,11 @@ namespace SweenGame.Camera
             Position = Vector2.Clamp(Position, ScreenCenter, maxPosition);
         }
 
-        public bool IsInView(Vector2 position, Texture2D texture)
+        public bool IsInView(Vector2 position, Rectangle tileRectangle)
         {
-            if (position.X + texture.Width < Position.X - Origin.X || position.X > Position.X + Origin.X)
+            if (position.X + tileRectangle.Width < Position.X - Origin.X || position.X > Position.X + Origin.X)
                 return false;
-            if (position.Y + texture.Height < Position.Y - Origin.Y || position.Y > Position.Y + Origin.Y)
+            if (position.Y + tileRectangle.Height < Position.Y - Origin.Y || position.Y > Position.Y + Origin.Y)
                 return false;
             return true;
         }
