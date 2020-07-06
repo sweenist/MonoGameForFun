@@ -53,7 +53,6 @@ namespace SweenGame.Maps
             }
             if (State == TransitionState.InTransit)
             {
-
                 _player.Transition(_other.MaxMapTileLocation);
                 _current.Transition(_adjustmentVector);
 

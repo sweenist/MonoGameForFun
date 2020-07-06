@@ -149,7 +149,6 @@ namespace SweenGame
         public override void Draw(GameTime gameTime)
         {
             var sourceRectangle = _playerSprites[_playerState][((int)CurrentDirection * 2) + _currentFrame];
-            var destinationRectangle = new Rectangle((int)_position.X, (int)_position.Y, _spriteWidth, _spriteHeight);
 
             _spriteBatch.Begin(SpriteSortMode.FrontToBack,
                                BlendState.AlphaBlend,
@@ -174,7 +173,7 @@ namespace SweenGame
                     break;
                 case Direction.West:
                     if (Position.X < maxBound.X)
-                        Position += new Vector2(_spriteWidth / 4, 0);
+                        Position += new Vector2(_spriteWidth / 3, 0);
                     break;
                 case Direction.North:
                     if (Position.Y < maxBound.Y)
@@ -182,7 +181,7 @@ namespace SweenGame
                     break;
                 case Direction.East:
                     if (Position.X > 0)
-                        Position -= new Vector2(_spriteWidth / 4, 0);
+                        Position -= new Vector2(_spriteWidth / 3, 0);
                     break;
             }
         }

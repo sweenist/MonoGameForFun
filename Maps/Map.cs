@@ -143,16 +143,14 @@ namespace SweenGame.Maps
 
         public IEnumerable<KeyValuePair<Direction, Point>> GetOpenEdges()
         {
-            var maxLocation = MapTiles.Last().DestinationRectangle.Location;
-
             var borderTiles = MapTiles.Where(tile =>
             {
                 var rect = tile.DestinationRectangle;
                 return !tile.IsCollideable
                     && (rect.X.Equals(0)
                     || rect.Y.Equals(0)
-                    || rect.X.Equals(maxLocation.X)
-                    || rect.Y.Equals(maxLocation.Y));
+                    || rect.X.Equals(MaxMapTileLocation.X)
+                    || rect.Y.Equals(MaxMapTileLocation.Y));
             })
             .ToList();
 
@@ -160,15 +158,15 @@ namespace SweenGame.Maps
                 yield return new KeyValuePair<Direction, Point>(Direction.West, MapIndex + DirectionVectors.WestPoint);
             if (borderTiles.Any(tile => tile.DestinationRectangle.Y.Equals(0)))
                 yield return new KeyValuePair<Direction, Point>(Direction.North, MapIndex + DirectionVectors.NorthPoint);
-            if (borderTiles.Any(tile => tile.DestinationRectangle.X.Equals(maxLocation.X)))
+            if (borderTiles.Any(tile => tile.DestinationRectangle.X.Equals(MaxMapTileLocation.X)))
                 yield return new KeyValuePair<Direction, Point>(Direction.East, MapIndex + DirectionVectors.EastPoint);
-            if (borderTiles.Any(tile => tile.DestinationRectangle.Y.Equals(maxLocation.Y)))
+            if (borderTiles.Any(tile => tile.DestinationRectangle.Y.Equals(MaxMapTileLocation.Y)))
                 yield return new KeyValuePair<Direction, Point>(Direction.South, MapIndex + DirectionVectors.SouthPoint);
         }
 
         public bool Transition(Vector2 unitShift)
         {
-            var shift = unitShift * new Vector2(_tileWidth / 4, _tileHeight / 4);
+            var shift = unitShift * new Vector2(_tileWidth / 3, _tileHeight / 4);
             _tileOffsetVector -= shift.Invert();
             foreach (var tile in MapTiles)
             {
