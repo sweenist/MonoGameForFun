@@ -34,8 +34,8 @@ namespace SweenGame.Maps
             _other = other;
 
             _components = game.Components;
-            _components.Add(this);
             _components.Add(_other);
+            _components.Add(this);
 
             _player = ServiceLocator.Instance.GetService<IPlayer>();
 
@@ -49,6 +49,8 @@ namespace SweenGame.Maps
         {
             if (State == TransitionState.Initialized)
             {
+                Console.WriteLine($"Seams: Current -> L:{_current.Bounds.Left}; B:{_current.Bounds.Bottom}; R:{_current.Bounds.Right}");
+                Console.WriteLine($"\t: Other -> L:{_other.Bounds.Left}; T:{_other.Bounds.Top}; R:{_other.Bounds.Right}");
                 State = TransitionState.InTransit;
             }
             if (State == TransitionState.InTransit)
