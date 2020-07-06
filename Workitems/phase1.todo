@@ -1,0 +1,46 @@
+Load Maps and Character:
+✔ * State strips @done(20-07-06 12:45)
+✔ * Directional chunks @done(20-07-06 12:46)
+✔ * Move Player (Half Squares or full) -- FULL (can be changed to half by halving MOVE_SIZE) @done(20-07-06 12:46)
+✔ * Load Map @done(20-07-06 12:46)
+  ✔ * TiledSharp Integration @done(20-07-06 12:46)
+  ✔ * Play with Tiled @done(20-07-06 12:46)
+  ✔ * Finally Load Map @done(20-07-06 12:46)
+✔ * Map collisions @done(20-07-06 12:46)
+
+Relegate movement to movement manager:
+  ✔ Part I Move Vector changes @done(20-07-06 12:48)
+  ✔ Part II Remove PLayer Event handling and key checking @done(20-07-06 12:48)
+
+Map Scrolling:
+   ✔ Use 2D Camera @done(20-07-06 13:34)
+   ✔ Refactor - Added Constants @done(20-07-06 13:34)
+
+ Service Locator:
+   ✔ Camera @done(20-07-06 13:34)
+   ✔ Replace Add Methods @done(20-07-06 13:34)
+   ✔ Make Singleton @done(20-07-06 13:34)
+   ✔ Add Remove Service to ServiceLocator @done(20-07-06 13:36)
+
+Multiple maps (Phase I) (3x3 Zone):
+   ✔ Draw maps @done(20-07-06 13:35)
+   ✔ Make more maps @done(20-07-06 13:35)
+Map Triggers:
+   ✔ Overworld @done(20-07-06 13:35)
+   ☐ Areas
+
+Map Transitions:
+   ✔ Slide into view @done(20-07-06 13:35)
+   ✔ Add player to Transition @done(20-07-06 13:35)
+   ✔ cache transient map @done(20-07-06 13:35)
+   ☐ Fix transition seams
+
+Refactors:
+   ✔ ServiceLocator Named Instances @done(20-07-06 13:36)
+   ☐ TileBuilder (cleans up Map)
+   ☐ Move Game Source to different folder
+
+Unit Tests:
+   ☐ Install and configure xUnit
+   ☐ Test Extensions with facts
+   ☐ Assess other testable code
