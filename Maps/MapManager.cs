@@ -41,7 +41,7 @@ namespace SweenGame.Maps
                 var direction = edge.Key;
                 var point = edge.Value;
 
-                var offsetVector = new Vector2(CurrentMap.MaxMapTileLocation.X, CurrentMap.MaxMapTileLocation.Y) * DirectionVectors.GetVector(direction);
+                var offsetVector = new Vector2(CurrentMap.Bounds.Width, CurrentMap.Bounds.Height) * DirectionVectors.GetVector(direction);
 
                 var map = new Map(_game, point, offsetVector);
 
