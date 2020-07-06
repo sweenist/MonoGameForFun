@@ -20,7 +20,6 @@ namespace SweenGame.Maps
         private TmxMap _map;
         private Texture2D _tileset;
         private ICamera2D _camera;
-        private Rectangle _bounds;
         private Vector2 _tileOffsetVector = Vector2.Zero;
 
         private int _tileWidth;
@@ -47,7 +46,7 @@ namespace SweenGame.Maps
         public Point MapIndex { get; }
         public Point MaxMapIndicies { get; private set; }
         public Point MaxMapTileLocation => MaxMapIndicies * new Point(_tileWidth, _tileHeight);
-        public Rectangle Bounds => _bounds;
+        public Rectangle Bounds => new Rectangle((int)_tileOffsetVector.X, (int)_tileOffsetVector.Y, MaxMapTileLocation.X + _tileWidth, MaxMapTileLocation.Y + _tileHeight);
 
         public List<MapTile> MapTiles { get; set; }
 
@@ -75,7 +74,6 @@ namespace SweenGame.Maps
             _tileColumns = GetTileCountFromDimension(_margin, _spacing, _tileset.Width, _tileWidth);
 
             BuildTileInformation(currentSet, _map.TileLayers.First());
-            _bounds = new Rectangle(0, 0, MaxMapTileLocation.X + _tileWidth, MaxMapTileLocation.Y + _tileHeight);
             ContentLoaded?.Invoke(this, new EventArgs());
 
             int GetTileCountFromDimension(int margin, int spacing, int textureDimension, int tileDimension)
@@ -113,7 +111,7 @@ namespace SweenGame.Maps
 
                 var tilePosition = new Vector2(tile.X * _tileWidth, tile.Y * _tileHeight);
 
-                return new MapTile(sourceRect, tilePosition + _tileOffsetVector, tileInfo[tile.Gid], IsBorder(tile));
+                return new MapTile(sourceRect, tilePosition, tileInfo[tile.Gid], IsBorder(tile));
             }).ToList();
 
             bool IsBorder(TmxLayerTile tile)
@@ -129,7 +127,7 @@ namespace SweenGame.Maps
             foreach (var tile in MapTiles)
             {
                 if (_camera.IsInView(tile.Location, tile.SourceRectangle))
-                    _spriteBatch.Draw(_tileset, tile.Location, tile.SourceRectangle, Color.White);
+                    _spriteBatch.Draw(_tileset, tile.Location + Bounds.Location.ToVector2(), tile.SourceRectangle, Color.White);
             }
 
             _spriteBatch.End();
@@ -168,10 +166,10 @@ namespace SweenGame.Maps
         {
             var shift = unitShift * new Vector2(_tileWidth / 3, _tileHeight / 4);
             _tileOffsetVector -= shift.Invert();
-            foreach (var tile in MapTiles)
-            {
-                tile.Adjust(shift);
-            }
+            // foreach (var tile in MapTiles)
+            // {
+            //     tile.Adjust(shift);
+            // }
 
             return _tileOffsetVector == Vector2.Zero;
         }
