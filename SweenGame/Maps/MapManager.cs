@@ -23,7 +23,7 @@ namespace SweenGame.Maps
 
             _component = _game.Components;
 
-            CurrentMap = new Map(_game, new Point(3, 3));
+            CurrentMap = new Map(_game, new Point(3, 3), MapType.Overworld);
             CurrentMap.ContentLoaded += OnMapContentLoaded;
         }
 
@@ -43,7 +43,7 @@ namespace SweenGame.Maps
 
                 var offsetVector = new Vector2(CurrentMap.Bounds.Width, CurrentMap.Bounds.Height) * DirectionVectors.GetVector(direction);
 
-                var map = new Map(_game, point, offsetVector);
+                var map = new Map(_game, point, MapType.Overworld, offsetVector);
 
                 ServiceLocator.Instance.TryRemoveService<IMap>(direction.ToString());
                 ServiceLocator.Instance.AddService<IMap>(map, edge.Key.ToString());

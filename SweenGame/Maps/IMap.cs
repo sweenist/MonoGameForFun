@@ -11,7 +11,6 @@ namespace SweenGame.Maps
         event EventHandler ContentLoaded;
 
         Point MapIndex { get; }
-        Point MaxMapIndicies { get; }
         Point MaxMapTileLocation { get; }
         Rectangle Bounds { get; }
 

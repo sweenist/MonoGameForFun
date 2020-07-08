@@ -37,7 +37,7 @@ Map Transitions:
 
 Refactors:
    ✔ ServiceLocator Named Instances @done(20-07-06 13:36)
-   ☐ TileBuilder (cleans up Map)
+   ✔ TileBuilder (cleans up Map) @done(20-07-07 23:51)
    ✔ Move Game Source to different folder @done(20-07-07 20:45)
 
 Unit Tests:
