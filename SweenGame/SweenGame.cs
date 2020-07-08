@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using SweenGame.Maps;
 using SweenGame.Camera;
-using SweenGame.Extensions;
 using SweenGame.Services;
 using static SweenGame.Extensions.Constants;
 
@@ -65,16 +64,6 @@ namespace SweenGame
             {
                 MediaPlayer.Volume = 0.75f;
                 MediaPlayer.Play(_themeMusic);
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                var player = ServiceLocator.Instance.GetService<IPlayer>();
-                var map = ServiceLocator.Instance.GetService<IMap>(Constants.Current);
-                var tile = map.GetTileAt(player.Destination);
-                var d = map as DrawableGameComponent;
-
-                Console.WriteLine($"Tile Info:\n\tTile Location: {tile.Location}\n\tTile Collide? {tile.IsCollideable}\n\tTile Draw Index: {d?.DrawOrder}");
             }
 
             base.Update(gameTime);

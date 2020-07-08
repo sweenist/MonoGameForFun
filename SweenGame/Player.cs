@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -115,14 +114,6 @@ namespace SweenGame
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
                 _playerState = PlayerState.Full;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.M))
-            {
-                Console.WriteLine($"Class: {GetType().FullName}");
-                Console.WriteLine($"\tPlayer Position: {Position}");
-                Console.WriteLine($"\tPlayer Location: {Destination}");
-                Console.WriteLine();
-            }
-
             _delayCount++;
             if (_delayCount < AnimationDelay)
                 return;
@@ -184,6 +175,13 @@ namespace SweenGame
                         Position -= new Vector2(_spriteWidth / 3, 0);
                     break;
             }
+        }
+
+        public override string ToString()
+        {
+            return $"Player:\n"
+                   + $"\tPosition: {Position}\n"
+                   + $"\tLocation: {Destination}\n";
         }
     }
 }

@@ -42,7 +42,7 @@ namespace SweenGame.Maps
             return "Tile Info:\n"
                    + $"\tTile Location: {Location}\n"
                    + $"\tTile Collide? {IsCollideable}\n"
-                   + $"\tTile Destination: {DestinationRectangle}";
+                   + $"\tTile Destination: {DestinationRectangle}\n";
         }
     }
 }

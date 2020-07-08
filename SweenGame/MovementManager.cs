@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SweenGame.Enums;
-using SweenGame;
 
 namespace SweenGame
 {

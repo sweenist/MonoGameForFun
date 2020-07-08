@@ -8,7 +8,6 @@ using SweenGame.Enums;
 using SweenGame.Camera;
 using SweenGame.Extensions;
 using SweenGame.Services;
-using TiledSharp;
 
 namespace SweenGame.Maps
 {
@@ -46,7 +45,7 @@ namespace SweenGame.Maps
 
         public List<MapTile> MapTiles { get; set; }
 
-        private string TmxFileName => $"{_mapType}_{MapIndex.X}_{MapIndex.Y}.tmx";
+        private string MapFileName => $"{_mapType}_{MapIndex.X}_{MapIndex.Y}.tmx";
 
         public override void Initialize()
         {
@@ -56,7 +55,7 @@ namespace SweenGame.Maps
         }
         protected override void LoadContent()
         {
-            using (var tileBuilder = new TileBuilder(_content, TmxFileName))
+            using (var tileBuilder = new TileBuilder(_content, MapFileName))
             {
                 MapTiles = tileBuilder.BuildTileInformation().ToList();
                 _tileWidth = tileBuilder.TileWidth;
@@ -117,6 +116,13 @@ namespace SweenGame.Maps
             _tileOffsetVector -= shift.Invert();
 
             return _tileOffsetVector == Vector2.Zero;
+        }
+
+        public override string ToString()
+        {
+            return "Map:\n"
+            + $"\tBounds: {Bounds}\n"
+            + $"\tOffset Vector: {_tileOffsetVector}\n";
         }
     }
 }

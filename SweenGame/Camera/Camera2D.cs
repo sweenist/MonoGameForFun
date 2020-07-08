@@ -1,6 +1,4 @@
-using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using SweenGame.Services;
 
 namespace SweenGame.Camera
@@ -62,14 +60,6 @@ namespace SweenGame.Camera
             _position.X += (int)((FocalPoint.Position.X - Position.X) * MoveSpeed * delta);
             _position.Y += (int)((FocalPoint.Position.Y - Position.Y) * MoveSpeed * delta);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.M))
-            {
-                Console.WriteLine($"Class: {GetType().Name}");
-                Console.WriteLine($"\tCamera Origin: {Origin}");
-                Console.WriteLine($"\tCamera Position: {Position}");
-                Console.WriteLine();
-            }
-
             base.Update(gameTime);
         }
 
@@ -89,6 +79,13 @@ namespace SweenGame.Camera
             if (position.Y + tileRectangle.Height < Position.Y - Origin.Y || position.Y > Position.Y + Origin.Y)
                 return false;
             return true;
+        }
+
+        public override string ToString()
+        {
+            return $"Camera2D:\n"
+                   + $"\tOrigin: {Origin}\n"
+                   + $"\tPosition: {Position}\n";
         }
     }
 }

@@ -40,6 +40,7 @@ Refactors:
    ✔ TileBuilder (cleans up Map) @done(20-07-07 23:51)
       ✔ Tilebuilder as disposable? @done(20-07-08 00:12)
    ✔ Move Game Source to different folder @done(20-07-07 20:45)
+   ✔  Remove Debug Code @done(20-07-08 19:02)
 
 Unit Tests:
    ✔ Install and configure xUnit @done(20-07-07 20:46)

@@ -109,7 +109,7 @@ namespace SweenGame
             var targetTile = data.Map.GetTileAt(targetRect);
             data.Player.IsMoving = !targetTile.IsCollideable;
             if(targetTile.IsTrigger)
-                Console.WriteLine("Trigger!");
+                Console.WriteLine("Trigger!"); // Action Manager?
 
             return data;
 
