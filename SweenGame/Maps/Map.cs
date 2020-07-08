@@ -60,7 +60,7 @@ namespace SweenGame.Maps
         }
         protected override void LoadContent()
         {
-            _map = new TmxMap($"Content/Maps/{TmxFileName}");
+            _map = new TmxMap($"SweenGame/Content/Maps/{TmxFileName}");
 
             var currentSet = _map.Tilesets.First();
             _margin = currentSet.Margin;
