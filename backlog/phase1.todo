@@ -38,7 +38,7 @@ Map Transitions:
 Refactors:
    ✔ ServiceLocator Named Instances @done(20-07-06 13:36)
    ☐ TileBuilder (cleans up Map)
-   ☐ Move Game Source to different folder
+   ✔ Move Game Source to different folder @done(20-07-07 20:45)
 
 Unit Tests:
    ☐ Install and configure xUnit
