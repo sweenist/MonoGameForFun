@@ -167,12 +167,13 @@ namespace SweenGame.Maps
         {
             var shift = unitShift * new Vector2(_tileWidth / 3, _tileHeight / 4);
             _tileOffsetVector -= shift.Invert();
-            // foreach (var tile in MapTiles)
-            // {
-            //     tile.Adjust(shift);
-            // }
-
+            
             return _tileOffsetVector == Vector2.Zero;
+        }
+
+        public void Reset()
+        {
+            _tileOffsetVector = Vector2.Zero;
         }
     }
 }

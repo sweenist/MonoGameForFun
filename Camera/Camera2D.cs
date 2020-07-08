@@ -1,6 +1,9 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using SweenGame.Enums;
+using SweenGame.Extensions;
+using SweenGame.Maps;
 using SweenGame.Services;
 
 namespace SweenGame.Camera
@@ -10,6 +13,7 @@ namespace SweenGame.Camera
         private Vector2 _position;
         private float _viewportHeight;
         private float _viewportWidth;
+        private int _debugCount;
 
         public Camera2D(Game game) : base(game)
         {
@@ -59,8 +63,34 @@ namespace SweenGame.Camera
 
             var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            _position.X += (int)((FocalPoint.Position.X - Position.X) * MoveSpeed * delta);
-            _position.Y += (int)((FocalPoint.Position.Y - Position.Y) * MoveSpeed * delta);
+            if (ServiceLocator.Instance.GetService<IMapManager>().IsInTransition)
+            {
+
+                var direction = ServiceLocator.Instance.GetService<IPlayer>().CurrentDirection;
+                var m = ServiceLocator.Instance.GetService<IMap>(Direction.South.ToString());
+                Console.WriteLine($"Camera: {_position} Focus: {FocalPoint.Position} min: {m.Bounds.Height - _viewportHeight}; map {m.Bounds}");
+
+                if (FocalPoint.Position.Y < ScreenCenter.Y && (FocalPoint.Position.Y <= m.Bounds.Height - _viewportHeight + 12)) //mapbounds - viewport
+                {
+                    if (FocalPoint.Position.Y == 0)
+                    {
+                        _position.Y -= 24;
+                    }
+                    _position.Y = Math.Max(_position.Y - 12, ScreenCenter.Y);
+                    _debugCount = 8;
+                }
+            }
+            else
+            {
+                if (_debugCount > 0)
+                {
+                    var m = ServiceLocator.Instance.GetService<IMap>(Constants.Current);
+                    Console.WriteLine($"-Camera: {_position} Focus: {FocalPoint.Position} min: {m.Bounds.Height - _viewportHeight}; map {m.Bounds}");
+                    _debugCount--;
+                }
+                _position.X += (int)((FocalPoint.Position.X - Position.X) * MoveSpeed * delta);
+                _position.Y += (int)((FocalPoint.Position.Y - Position.Y) * MoveSpeed * delta);
+            }
 
             if (Keyboard.GetState().IsKeyDown(Keys.M))
             {
@@ -75,6 +105,8 @@ namespace SweenGame.Camera
 
         public void ClampCamera(Rectangle bounds)
         {
+            if (ServiceLocator.Instance.GetService<IMapManager>().IsInTransition)
+                return;
             var maximumX = bounds.Width - ScreenCenter.X;
             var maximumY = bounds.Height - ScreenCenter.Y;
             var maxPosition = new Vector2(maximumX, maximumY);

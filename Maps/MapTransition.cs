@@ -55,11 +55,15 @@ namespace SweenGame.Maps
             }
             if (State == TransitionState.InTransit)
             {
-                _player.Transition(_other.MaxMapTileLocation);
-                _current.Transition(_adjustmentVector);
+                var playerTransitioning = _player.Transition(_other.MaxMapTileLocation);
+                var adjustment = playerTransitioning ? _adjustmentVector : _adjustmentVector * 2;
+                Console.WriteLine($"Trans: Player: {playerTransitioning}; Adj:{_adjustmentVector}/ {adjustment}");
+                
+                _current.Transition(adjustment);
 
-                if (_other.Transition(_adjustmentVector))
+                if (_other.Transition(adjustment))
                 {
+                    // catch player finished. Set map to 0 offset
                     State = TransitionState.Complete;
                 }
             }

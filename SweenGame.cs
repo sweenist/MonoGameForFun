@@ -22,7 +22,7 @@ namespace SweenGame
             _graphicsManager = new GraphicsDeviceManager(this);
 
             Content.RootDirectory = "Content";
-            TargetElapsedTime = TimeSpan.FromMilliseconds(25);
+            TargetElapsedTime = TimeSpan.FromMilliseconds(50);
         }
 
         protected override void Initialize()

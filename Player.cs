@@ -87,7 +87,7 @@ namespace SweenGame
 
             _currentFrame = 0;
             _totalFrames = Columns;
-            _position = new Vector2(720, 432);
+            _position = new Vector2(528, 576);
             DrawOrder = 1;
 
             base.Initialize();
@@ -163,27 +163,34 @@ namespace SweenGame
             base.Draw(gameTime);
         }
 
-        public void Transition(Point maxBound)
+        public bool Transition(Point maxBound)
         {
+            var @continue = true;
             switch (CurrentDirection)
             {
                 case Direction.South:
-                    if (Position.Y > 0)
+
+                    @continue = Position.Y > 0;
+                    if (@continue)
                         Position -= new Vector2(0, _spriteHeight / 4);
                     break;
                 case Direction.West:
-                    if (Position.X < maxBound.X)
+                    @continue = Position.X < maxBound.X;
+                    if (@continue)
                         Position += new Vector2(_spriteWidth / 3, 0);
                     break;
                 case Direction.North:
-                    if (Position.Y < maxBound.Y)
+                    @continue = Position.Y < maxBound.Y;
+                    if (@continue)
                         Position += new Vector2(0, _spriteHeight / 4);
                     break;
                 case Direction.East:
-                    if (Position.X > 0)
+                    @continue = Position.X > 0;
+                    if (@continue)
                         Position -= new Vector2(_spriteWidth / 3, 0);
                     break;
             }
+            return @continue;
         }
     }
 }
