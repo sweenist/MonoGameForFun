@@ -8,7 +8,7 @@ using TiledSharp;
 
 namespace SweenGame.Maps
 {
-    public class TileBuilder
+    public class TileBuilder : IDisposable
     {
         private readonly ContentManager _content;
         private TmxTileset _tileSet;
@@ -74,6 +74,10 @@ namespace SweenGame.Maps
             var modifiedTileWidth = TileWidth + _tileSet.Spacing;
 
             return modifiedTextureWidth / modifiedTileWidth;
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

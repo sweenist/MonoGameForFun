@@ -56,14 +56,14 @@ namespace SweenGame.Maps
         }
         protected override void LoadContent()
         {
-            var tileBuilder = new TileBuilder(_content, TmxFileName);
-
-            MapTiles = tileBuilder.BuildTileInformation().ToList();
-            _tileWidth = tileBuilder.TileWidth;
-            _tileHeight = tileBuilder.TileHeight;
-            _tileSource = tileBuilder.TileSetTexture;
-            _upperMapBoundIndex = tileBuilder.UpperTileBoundPoint;
-
+            using (var tileBuilder = new TileBuilder(_content, TmxFileName))
+            {
+                MapTiles = tileBuilder.BuildTileInformation().ToList();
+                _tileWidth = tileBuilder.TileWidth;
+                _tileHeight = tileBuilder.TileHeight;
+                _tileSource = tileBuilder.TileSetTexture;
+                _upperMapBoundIndex = tileBuilder.UpperTileBoundPoint;
+            }
             ContentLoaded?.Invoke(this, EventArgs.Empty);
         }
 
