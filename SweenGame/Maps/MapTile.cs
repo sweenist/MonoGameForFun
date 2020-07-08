@@ -13,6 +13,7 @@ namespace SweenGame.Maps
         {
             _tileProperties = tile.Properties;
 
+            Type = tile.Type;
             SourceRectangle = rectangle;
             Location = location;
             IsBorder = isBorder;
@@ -22,6 +23,9 @@ namespace SweenGame.Maps
         public Rectangle DestinationRectangle => new Rectangle((int)Location.X, (int)Location.Y, SourceRectangle.Width, SourceRectangle.Height);
 
         public Vector2 Location { get; private set; }
+
+        public string Type { get; }
+        public bool IsTrigger => (Type?.Equals("Trigger")).GetValueOrDefault(false);
         public bool IsBorder { get; }
 
         public bool IsCollideable => _tileProperties.ContainsKey("Collision")

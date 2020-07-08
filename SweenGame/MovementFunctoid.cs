@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using SweenGame.Enums;
 using SweenGame.Maps;
 using SweenGame.Services;
@@ -107,6 +108,8 @@ namespace SweenGame
 
             var targetTile = data.Map.GetTileAt(targetRect);
             data.Player.IsMoving = !targetTile.IsCollideable;
+            if(targetTile.IsTrigger)
+                Console.WriteLine("Trigger!");
 
             return data;
 
