@@ -33,7 +33,7 @@ Map Transitions:
    ✔ Slide into view @done(20-07-06 13:35)
    ✔ Add player to Transition @done(20-07-06 13:35)
    ✔ cache transient map @done(20-07-06 13:35)
-   ☐ Fix transition seams
+   Fix transition seams (Deferred)
 
 Refactors:
    ✔ ServiceLocator Named Instances @done(20-07-06 13:36)
