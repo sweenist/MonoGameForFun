@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweenGame", "SweenGame\SweenGame.csproj", "{94A03158-17AE-41F0-B413-DF5B3348B72F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweenGame.Tests", "SweenGame.Tests\SweenGame.Tests.csproj", "{886C4910-075C-479F-96EC-66F0301412E7}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,5 +32,17 @@ Global
 		{94A03158-17AE-41F0-B413-DF5B3348B72F}.Release|x64.Build.0 = Release|Any CPU
 		{94A03158-17AE-41F0-B413-DF5B3348B72F}.Release|x86.ActiveCfg = Release|Any CPU
 		{94A03158-17AE-41F0-B413-DF5B3348B72F}.Release|x86.Build.0 = Release|Any CPU
+		{886C4910-075C-479F-96EC-66F0301412E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{886C4910-075C-479F-96EC-66F0301412E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{886C4910-075C-479F-96EC-66F0301412E7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{886C4910-075C-479F-96EC-66F0301412E7}.Debug|x64.Build.0 = Debug|Any CPU
+		{886C4910-075C-479F-96EC-66F0301412E7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{886C4910-075C-479F-96EC-66F0301412E7}.Debug|x86.Build.0 = Debug|Any CPU
+		{886C4910-075C-479F-96EC-66F0301412E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{886C4910-075C-479F-96EC-66F0301412E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{886C4910-075C-479F-96EC-66F0301412E7}.Release|x64.ActiveCfg = Release|Any CPU
+		{886C4910-075C-479F-96EC-66F0301412E7}.Release|x64.Build.0 = Release|Any CPU
+		{886C4910-075C-479F-96EC-66F0301412E7}.Release|x86.ActiveCfg = Release|Any CPU
+		{886C4910-075C-479F-96EC-66F0301412E7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

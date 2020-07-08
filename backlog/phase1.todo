@@ -41,6 +41,6 @@ Refactors:
    ✔ Move Game Source to different folder @done(20-07-07 20:45)
 
 Unit Tests:
-   ☐ Install and configure xUnit
-   ☐ Test Extensions with facts
+   ✔ Install and configure xUnit @done(20-07-07 20:46)
+   ✔ Test Extensions @done(20-07-07 22:25)
    ☐ Assess other testable code
