@@ -82,6 +82,11 @@ namespace SweenGame.Maps
             _transition.Disposing += AssignMaps;
         }
 
+        public void AreaTransition()
+        {
+            //Todo: may be better served with screen management
+        }
+
         private void AssignMaps(object sender, MapTransitionEventArgs e)
         {
             _transition.Disposing -= AssignMaps;

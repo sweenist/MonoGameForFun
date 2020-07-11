@@ -7,5 +7,7 @@ namespace SweenGame.Maps
         IMap CurrentMap { get; }
         bool IsInTransition {get;}
         void SlideTransition(Direction direction);
+
+        void AreaTransition();
     }
 }
