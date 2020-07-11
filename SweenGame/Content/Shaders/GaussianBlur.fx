@@ -28,6 +28,6 @@ technique GaussianBlur
 {
     pass
     {
-        PixelShader = compile ps_4_0_level_9_1 PS_GaussianBlur();
+        PixelShader = compile ps_3_0 PS_GaussianBlur();
     }
 }
