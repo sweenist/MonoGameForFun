@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="right-down" width="25" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="right-down" width="25" height="16" tilewidth="48" tileheight="48" infinite="0" nextlayerid="3" nextobjectid="2">
  <tileset firstgid="1" source="loz_48.tsx"/>
+ <objectgroup id="2" name="TriggerLayer">
+  <object id="1" x="720" y="240" width="48" height="48"/>
+ </objectgroup>
  <layer id="1" name="Tile Layer 1" width="25" height="16">
   <data encoding="base64" compression="zstd">
    KLUv/WBABTUCAIAUAAAAFQAAAAMTAQkJCA8NIKCAuxyQg5QOLShwngSxVHb2esxBTrRbl6jYGho8UdTZUlsbrYy/fsHhmnQcT4QhU+kqkgE=
