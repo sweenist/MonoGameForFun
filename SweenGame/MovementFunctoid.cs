@@ -74,7 +74,7 @@ namespace SweenGame
             void Transition()
             {
                 var mapManager = ServiceLocator.Instance.GetService<IMapManager>();
-                mapManager.Transition(data.Direction);
+                mapManager.SlideTransition(data.Direction);
                 data.Continue = false;
             }
         }

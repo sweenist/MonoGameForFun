@@ -6,6 +6,6 @@ namespace SweenGame.Maps
     {
         IMap CurrentMap { get; }
         bool IsInTransition {get;}
-        void Transition(Direction direction);
+        void SlideTransition(Direction direction);
     }
 }

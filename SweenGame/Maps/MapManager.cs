@@ -71,7 +71,7 @@ namespace SweenGame.Maps
             }
         }
 
-        public void Transition(Direction direction)
+        public void SlideTransition(Direction direction)
         {
             if (!(_transition is null))
                 return;
