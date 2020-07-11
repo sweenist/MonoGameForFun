@@ -41,3 +41,9 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Music/mega_adventure.wav
+
+#begin Shaders/GaussianBlur.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/GaussianBlur.fx
