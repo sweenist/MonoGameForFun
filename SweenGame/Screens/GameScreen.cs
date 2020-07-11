@@ -103,7 +103,8 @@ namespace SweenGame.Screens
         {
             if (_transitionOffTime <= TimeSpan.Zero)
                 _screenManager.RemoveScreen(this);
-            else _isExiting = true;
+            else
+                _isExiting = true;
         }
     }
 }
