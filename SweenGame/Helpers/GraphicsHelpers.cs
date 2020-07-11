@@ -23,7 +23,16 @@ namespace SweenGame.Helpers
                     texture.SaveAsJpeg(fs, w, 48);
                 }
             }
+        }
 
+        public static Texture2D GetViewportMap(GraphicsDevice graphics)
+        {
+            var colorData = new Color[ScreenWidth * ScreenHeight];
+            graphics.GetBackBufferData<Color>(colorData);
+
+            var texture = new Texture2D(graphics, ScreenWidth, ScreenHeight);
+            texture.SetData<Color>(colorData);
+            return texture;
         }
     }
 }
