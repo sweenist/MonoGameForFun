@@ -7,6 +7,7 @@ using SweenGame.Maps;
 using SweenGame.Camera;
 using SweenGame.Services;
 using static SweenGame.Extensions.Constants;
+using SweenGame.Screens;
 
 namespace SweenGame
 {
@@ -15,6 +16,7 @@ namespace SweenGame
         private GraphicsDeviceManager _graphicsManager;
         private MovementManager _movementManager;
         private Song _themeMusic;
+        private ScreenManager _screenManager;
 
         public SweenGame()
         {
@@ -22,6 +24,15 @@ namespace SweenGame
 
             Content.RootDirectory = "Content";
             TargetElapsedTime = TimeSpan.FromMilliseconds(25);
+            //GetDisplayModes();
+        }
+
+        private static void GetDisplayModes()
+        {
+            foreach (var mode in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
+            {
+                Console.WriteLine($"Aspect: {mode.AspectRatio}\n\tSize: {mode.Width}x{mode.Height} Safe Area:{mode.TitleSafeArea}");
+            }
         }
 
         protected override void Initialize()
@@ -31,6 +42,11 @@ namespace SweenGame
             _graphicsManager.ApplyChanges();
 
             Window.Title = "Sween's Awesome Game";
+
+            _screenManager = new ScreenManager(this, _graphicsManager);
+            _screenManager.Initialize();
+            ServiceLocator.Instance.AddService<IScreenManager>(_screenManager);
+            Components.Add(_screenManager);
 
             ServiceLocator.Instance.AddService<IMapManager>(typeof(MapManager), this);
 
