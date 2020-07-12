@@ -59,7 +59,7 @@ namespace SweenGame.Screens
                 {
                     if (!otherScreenHasFocus)
                     {
-                        screen.HandleInput(_input, gameTime);
+                        //screen.HandleInput(_input, gameTime);
                         otherScreenHasFocus = true;
                     }
                     if (!screen.IsPopup)
