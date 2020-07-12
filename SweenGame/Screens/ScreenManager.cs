@@ -35,6 +35,7 @@ namespace SweenGame.Screens
         public SpriteBatch SpriteBatch => _spriteBatch;
         public SpriteFont SpriteFont => _spriteFont;
         public GraphicsDeviceManager GraphicsManager => _graphicsDeviceManager;
+        public ContentManager Content => _contentManager;
 
         public bool TraceEnabled
         {
