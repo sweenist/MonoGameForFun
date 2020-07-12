@@ -21,6 +21,7 @@ namespace SweenGame.Input
         {
             _mappedActions = new List<MappedAction>();
         }
+
         public event ActionDelegate Move;
         public event ActionDelegate MoveUp;
         public event ActionDelegate MoveDown;
@@ -47,7 +48,10 @@ namespace SweenGame.Input
             }
 
             var predicate = _namePredicateBuilder(name);
-            _mappedActions.FirstOrDefault(predicate).Function = function;
+            var action = _mappedActions.FirstOrDefault(predicate);
+            if (action is null)
+                return;
+            action.Function = function;
         }
 
         public void AddAction(string name, Control control, ActionType actionType, ActionDelegate function)
@@ -58,7 +62,10 @@ namespace SweenGame.Input
         public void SetActionControl(string name, Control control)
         {
             var predicate = _namePredicateBuilder(name);
-            _mappedActions.FirstOrDefault(predicate).Control = control;
+            var action = _mappedActions.FirstOrDefault(predicate);
+            if (action is null)
+                return;
+            action.Control = control;
         }
 
         public override void Update(GameTime gameTime)
@@ -76,24 +83,44 @@ namespace SweenGame.Input
                     switch (action.Control)
                     {
                         case Control.Up:
-                            action.Function(Direction.North, gameTime);
-                            moving = true;
+                            if (action.ActionType == ActionType.MoveUp && _currentKeyboardState.IsKeyDown(Keys.Up))
+                            {
+                                action.Function(Direction.North, gameTime);
+                                moving = true;
+                            }
                             break;
                         case Control.Down:
-                            action.Function(Direction.South, gameTime);
-                            moving = true;
+                            if (action.ActionType == ActionType.MoveDown && _currentKeyboardState.IsKeyDown(Keys.Down))
+                            {
+                                action.Function(Direction.South, gameTime);
+                                moving = true;
+                            }
                             break;
                         case Control.Left:
-                            action.Function(Direction.West, gameTime);
-                            moving = true;
+                            if (action.ActionType == ActionType.MoveLeft && _currentKeyboardState.IsKeyDown(Keys.Left))
+                            {
+                                action.Function(Direction.West, gameTime);
+                                moving = true;
+                            }
                             break;
                         case Control.Right:
-                            action.Function(Direction.East, gameTime);
-                            moving = true;
+                            if (action.ActionType == ActionType.MoveRight && _currentKeyboardState.IsKeyDown(Keys.Right))
+                            {
+                                action.Function(Direction.East, gameTime);
+                                moving = true;
+                            }
+                            break;
+                        case Control.A:
+                            if (action.ActionType == ActionType.Debug)
+                            {
+                                if(_currentKeyboardState.IsKeyDown(Keys.A)
+                                && _lastKeyboardState.IsKeyUp(Keys.A))
+                                    action.Function(null, gameTime);
+                            }
                             break;
                     }
 
-                    if(!moving)
+                    if (!moving)
                         Stop(null, gameTime);
                 }
             }

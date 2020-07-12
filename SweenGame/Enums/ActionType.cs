@@ -7,6 +7,7 @@ namespace SweenGame.Enums
         MoveDown,
         MoveLeft,
         MoveRight,
-        Interact
+        Interact,
+        Debug
     }
 }

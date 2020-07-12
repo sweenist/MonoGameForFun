@@ -42,20 +42,22 @@ namespace SweenGame
 
             Window.Title = "Sween's Awesome Game";
 
+            var input = new InputSystem(this);
+            input.Enabled = true;
+            input.AddAction("Move Left", Control.Left, ActionType.MoveLeft, null);
+            input.AddAction("Move Up", Control.Up, ActionType.MoveUp, null);
+            input.AddAction("Move Right", Control.Right, ActionType.MoveRight, null);
+            input.AddAction("Move Down", Control.Down, ActionType.MoveDown, null);
+            input.AddAction("Debug", Control.A, ActionType.Debug, null);
+            ServiceLocator.Instance.AddService<IInputSystem>(input);
+
             _screenManager = new ScreenManager(this, _graphicsManager);
             ServiceLocator.Instance.AddService<IScreenManager>(_screenManager);
             _screenManager.Initialize();
             _screenManager.AddScreen(new GameplayScreen(this));
-            Components.Add(_screenManager);
 
-            var input = new InputSystem(this);
-            input.Enabled = true;
-            input.AddAction("MoveLeft", Control.Left, ActionType.MoveLeft, null);
-            input.AddAction("MoveUp", Control.Up, ActionType.MoveUp, null);
-            input.AddAction("MoveRight", Control.Right, ActionType.MoveRight, null);
-            input.AddAction("MoveDown", Control.Down, ActionType.MoveDown, null);
-            ServiceLocator.Instance.AddService<IInputSystem>(input);
             Components.Add(input);
+            Components.Add(_screenManager);
 
             base.Initialize();
         }
