@@ -73,7 +73,6 @@ namespace SweenGame.Input
             _currentKeyboardState = Keyboard.GetState();
             _currentMouseState = Mouse.GetState();
 
-            var direction = -1;
             var moving = false;
 
             if (Enabled)

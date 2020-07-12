@@ -10,7 +10,6 @@ namespace SweenGame.Screens
 {
     public class GameplayScreen : GameScreen
     {
-        private MovementManager _movementManager;
         private readonly Game _game;
         private readonly GameComponentCollection _components;
 
