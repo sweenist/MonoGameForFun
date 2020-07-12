@@ -79,7 +79,7 @@ namespace SweenGame.Screens
         {
             foreach (var screen in _gameScreens)
             {
-                if(screen.ScreenState == ScreenState.Hidden)
+                if (screen.ScreenState == ScreenState.Hidden)
                     continue;
 
                 screen.Draw(gameTime);
@@ -102,5 +102,7 @@ namespace SweenGame.Screens
         {
             return _gameScreens.ToArray();
         }
+
+        public Game GetGame() => base.Game;
     }
 }

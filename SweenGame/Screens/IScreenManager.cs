@@ -1,3 +1,5 @@
+using Microsoft.Xna.Framework;
+
 namespace SweenGame.Screens
 {
     public interface IScreenManager
@@ -7,5 +9,7 @@ namespace SweenGame.Screens
         void AddScreen(GameScreen screen);
         void RemoveScreen(GameScreen screen);
         GameScreen[] GetScreens();
+
+        Game GetGame();
     }
 }

@@ -28,7 +28,7 @@ namespace SweenGame.Screens
                 case 1:
                 case 2:
                 case 3:
-                    _screenManager.AddScreen();
+                    _screenManager.AddScreen(null);
                     break;
                 case 4:
                     OnCancel();
@@ -45,7 +45,7 @@ namespace SweenGame.Screens
 
         private void ExitMessageBoxAccepted(object sender, EventArgs e)
         {
-            ((ScreenManager)_screenManager).Game.Exit();
+            _screenManager.GetGame().Exit();
         }
     }
 }
