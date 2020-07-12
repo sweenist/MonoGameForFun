@@ -17,6 +17,8 @@ namespace SweenGame.Screens
 
         public override void Draw(GameTime gameTime)
         {
+            _screenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
+
             base.Draw(gameTime);
         }
 

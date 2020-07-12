@@ -131,7 +131,7 @@ namespace SweenGame.Screens
         public void FadeBackBufferToBlack(int alpha)
         {
             var viewport = GraphicsDevice.Viewport;
-            _spriteBatch.Begin()
+            _spriteBatch.Begin();
             _spriteBatch.Draw(_blankTexture,
             new Rectangle(0, 0, viewport.Width, viewport.Height),
             new Color(0, 0, 0, alpha));
