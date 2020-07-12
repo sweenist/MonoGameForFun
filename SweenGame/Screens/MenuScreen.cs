@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SweenGame.Enums;
 
@@ -40,6 +41,38 @@ namespace SweenGame.Screens
                 position.X -= transitionOffset * 256;
             else
                 position.X += transitionOffset * 512;
+
+            _screenManager.SpriteBatch.Begin();
+
+            var color = Color.White;
+            var scale = 1f;
+            for (int i = 0; i < _menuEntries.Count; i++)
+            {
+                if (IsActive && i.Equals(_selectedIndex))
+                {
+                    var time = gameTime.TotalGameTime.TotalSeconds;
+                    var pulse = (float)Math.Sin(time * 6) + 1;
+
+                    color = Color.YellowGreen;
+                    scale = 1 + pulse * 0.05f;
+                }
+
+                color = new Color(color.R, color.G, color.B, TransitionAlpha);
+                var origin = new Vector2(0, _screenManager.SpriteFont.LineSpacing / 2);
+                _screenManager.SpriteBatch.DrawString(_screenManager.SpriteFont,
+                                                      _menuEntries[i],
+                                                      position,
+                                                      color,
+                                                      rotation: 0,
+                                                      origin,
+                                                      scale,
+                                                      SpriteEffects.None,
+                                                      layerDepth: 0);
+
+                position.Y += _screenManager.SpriteFont.LineSpacing;
+            }
+
+            _screenManager.SpriteBatch.End();
         }
     }
 }
