@@ -50,5 +50,16 @@ namespace SweenGame.Screens
         {
 
         }
+
+        public override void HandleInput(InputState state, GameTime gameTime)
+        {
+            if (state is null)
+                throw new ArgumentNullException($"Input state is null in {GetType().Name}");
+
+            if (state.PauseGame)
+            {
+                _screenManager.AddScreen(new PauseMenuScreen());
+            }
+        }
     }
 }

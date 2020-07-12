@@ -74,5 +74,41 @@ namespace SweenGame.Screens
 
             _screenManager.SpriteBatch.End();
         }
+
+        public override void HandleInput(Input.InputState state, GameTime gameTime)
+        {
+            if (state.MenuUp)
+            {
+                _selectedIndex--;
+                if (_selectedIndex < 0)
+                    _selectedIndex = _menuEntries.Count - 1;
+            }
+            if (state.MenuUp)
+            {
+                _selectedIndex++;
+                if (_selectedIndex.Equals(_menuEntries.Count))
+                    _selectedIndex = 0;
+            }
+            if (state.MenuSelect)
+            {
+                OnSelectEntry(_selectedIndex);
+            }
+            if (state.MenuCancel)
+                OnCancel();
+
+            if (state.IsNewKeyPress(Keys.Left))
+                OnNewArrowDown(Keys.Left, _selectedIndex);
+            else if (state.IsKeyDown(Keys.Left))
+                OnArrowDown(Keys.Left, _selectedIndex, gameTime);
+            if (state.IsNewKeyUp(Keys.Left))
+                OnArrowUp(Keys.Left, _selectedIndex);
+
+            if (state.IsNewKeyPress(Keys.Right))
+                OnNewArrowDown(Keys.Right, _selectedIndex);
+            else if (state.IsKeyDown(Keys.Right))
+                OnArrowDown(Keys.Right, _selectedIndex, gameTime);
+            if (state.IsNewKeyUp(Keys.Right))
+                OnArrowUp(Keys.Right, _selectedIndex);
+        }
     }
 }

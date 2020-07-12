@@ -57,7 +57,7 @@ namespace SweenGame.Screens
         {
             if (state.MenuSelect)
             {
-                Accepted?.Invoke(this, EventArgs.Empty));
+                Accepted?.Invoke(this, EventArgs.Empty);
                 ExitScreen();
             }
             else if (state.MenuCancel)
