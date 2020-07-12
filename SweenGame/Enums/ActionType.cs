@@ -3,8 +3,8 @@ namespace SweenGame.Enums
     public enum ActionType
     {
         Move,
-        MoveForward,
-        MoveBackward,
+        MoveUp,
+        MoveDown,
         MoveLeft,
         MoveRight,
         Interact

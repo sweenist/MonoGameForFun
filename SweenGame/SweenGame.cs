@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using SweenGame.Enums;
+using SweenGame.Input;
 using SweenGame.Screens;
 using SweenGame.Services;
 using static SweenGame.Extensions.Constants;
@@ -45,6 +47,15 @@ namespace SweenGame
             _screenManager.Initialize();
             _screenManager.AddScreen(new GameplayScreen(this));
             Components.Add(_screenManager);
+
+            var input = new InputSystem(this);
+            input.Enabled = true;
+            input.AddAction("MoveLeft", Control.Left, ActionType.MoveLeft, null);
+            input.AddAction("MoveUp", Control.Up, ActionType.MoveUp, null);
+            input.AddAction("MoveRight", Control.Right, ActionType.MoveRight, null);
+            input.AddAction("MoveDown", Control.Down, ActionType.MoveDown, null);
+            ServiceLocator.Instance.AddService<IInputSystem>(input);
+            Components.Add(input);
 
             base.Initialize();
         }
