@@ -52,5 +52,19 @@ namespace SweenGame.Screens
             _screenManager.SpriteBatch.DrawString(_screenManager.SpriteFont, _message, textPosition, color);
             _screenManager.SpriteBatch.End();
         }
+
+        public override void HandleInput(Input.InputState state, GameTime gameTime)
+        {
+            if (state.MenuSelect)
+            {
+                Accepted?.Invoke(this, EventArgs.Empty));
+                ExitScreen();
+            }
+            else if (state.MenuCancel)
+            {
+                Cancelled?.Invoke(this, EventArgs.Empty);
+                ExitScreen();
+            }
+        }
     }
 }

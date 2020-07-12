@@ -69,9 +69,9 @@ namespace SweenGame.Screens
 
         public override void Update(GameTime gameTime)
         {
+            _input.Update();
             _screensToUpdate.Clear();
             foreach (var screen in _gameScreens)
-
                 _screensToUpdate.Add(screen);
             var otherScreenHasFocus = !base.Game.IsActive;
             var coveredByOtherScreen = false;

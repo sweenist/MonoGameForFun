@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SweenGame.Extensions;
+using SweenGame.Input;
 
 namespace SweenGame.Screens
 {
@@ -86,6 +88,14 @@ namespace SweenGame.Screens
             #endregion
 
             _screenManager.SpriteBatch.End();
+        }
+
+        public override void HandleInput(InputState state, GameTime gameTime)
+        {
+            if (state.IsNewKeyPress(Keys.Escape))
+                ExitScreen();
+
+            base.HandleInput(state, gameTime);
         }
     }
 }
