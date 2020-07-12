@@ -6,15 +6,15 @@ Title Screen:
     ☐ Menu Items
     ☐ Disabled Items
 
-
 Menu Screen:
-    ☐ Base Class
-    ☐ Sample menu
+    ✔ Base Class @done(20-07-12 08:26)
+    ✔ Sample menu @done(20-07-12 08:26)
 
 Dialog Screen:
     ☐ Sample
 
 Credits Screen:
+    ☐ Show Basic Credits
     ☐ Show Formatted list
     ☐ Scroll List?
 
