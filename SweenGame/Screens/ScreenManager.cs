@@ -1,21 +1,40 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using SweenGame.Enums;
 
 namespace SweenGame.Screens
 {
     public class ScreenManager : DrawableGameComponent, IScreenManager
     {
-        ICollection<GameScreen> _gameScreens = new List<GameScreen>();
-        List<GameScreen> _screensToUpdate = new List<GameScreen>();
+        private IGraphicsDeviceService _graphicsDeviceService;
+        private readonly ContentManager _contentManager;
+        private readonly GraphicsDeviceManager _graphicsDeviceManager;
+        private SpriteBatch _spriteBatch;
+        private SpriteFont _spriteFont;
+        private Texture2D _blankTexture;
+
+        private ICollection<GameScreen> _gameScreens = new List<GameScreen>();
+        private List<GameScreen> _screensToUpdate = new List<GameScreen>();
 
         bool _traceEnabled;
 
         public ScreenManager(Game game, GraphicsDeviceManager graphicsDeviceManager) : base(game)
         {
+            _contentManager = game.Content;
+            _graphicsDeviceManager = graphicsDeviceManager;
+            _graphicsDeviceService = game.Services.GetService<IGraphicsDeviceService>();
 
+            if (_graphicsDeviceService is null)
+                throw new InvalidOperationException("No graphics device service was found");
         }
+
+        public SpriteBatch SpriteBatch => _spriteBatch;
+        public SpriteFont SpriteFont => _spriteFont;
+        public GraphicsDeviceManager GraphicsManager => _graphicsDeviceManager;
 
         public bool TraceEnabled
         {
@@ -25,6 +44,10 @@ namespace SweenGame.Screens
 
         protected override void LoadContent()
         {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteFont = _contentManager.Load<SpriteFont>("Fonts/Arial");
+            _blankTexture = new Texture2D(GraphicsDevice, 64, 64);
+
             foreach (var screen in _gameScreens)
             {
                 screen.LoadContent();
@@ -90,12 +113,29 @@ namespace SweenGame.Screens
         {
             screen.Initialize();
             _gameScreens.Add(screen);
+
+            if (_graphicsDeviceService != null && _graphicsDeviceService.GraphicsDevice != null)
+                screen.LoadContent();
         }
 
         public void RemoveScreen(GameScreen screen)
         {
             _gameScreens.Remove(screen);
             _screensToUpdate.Remove(screen);
+
+            if (_graphicsDeviceService != null && _graphicsDeviceService.GraphicsDevice != null)
+                screen.UnloadContent();
+        }
+
+        public void FadeBackBufferToBlack(int alpha)
+        {
+            var viewport = GraphicsDevice.Viewport;
+            _spriteBatch.Begin()
+            _spriteBatch.Draw(_blankTexture,
+            new Rectangle(0, 0, viewport.Width, viewport.Height),
+            new Color(0, 0, 0, alpha));
+
+            _spriteBatch.End();
         }
 
         public GameScreen[] GetScreens()
@@ -104,5 +144,6 @@ namespace SweenGame.Screens
         }
 
         public Game GetGame() => base.Game;
+        public GraphicsDevice GetGraphicsDevice() => base.GraphicsDevice;
     }
 }
