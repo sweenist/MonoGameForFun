@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using SweenGame.Enums;
+using SweenGame.Input;
 using SweenGame.Services;
 
 namespace SweenGame.Screens
@@ -106,5 +107,7 @@ namespace SweenGame.Screens
             else
                 _isExiting = true;
         }
+
+        public virtual void HandleInput(InputState state, GameTime gameTime) { }
     }
 }

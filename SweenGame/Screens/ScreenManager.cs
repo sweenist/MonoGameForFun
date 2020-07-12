@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SweenGame.Enums;
+using SweenGame.Input;
 
 namespace SweenGame.Screens
 {
@@ -13,6 +14,7 @@ namespace SweenGame.Screens
         private IGraphicsDeviceService _graphicsDeviceService;
         private readonly ContentManager _contentManager;
         private readonly GraphicsDeviceManager _graphicsDeviceManager;
+        private InputState _input;
         private SpriteBatch _spriteBatch;
         private SpriteFont _spriteFont;
         private Texture2D _blankTexture;
@@ -30,6 +32,8 @@ namespace SweenGame.Screens
 
             if (_graphicsDeviceService is null)
                 throw new InvalidOperationException("No graphics device service was found");
+
+            _input = new InputState();
         }
 
         public SpriteBatch SpriteBatch => _spriteBatch;
@@ -83,7 +87,7 @@ namespace SweenGame.Screens
                 {
                     if (!otherScreenHasFocus)
                     {
-                        //screen.HandleInput(_input, gameTime);
+                        screen.HandleInput(_input, gameTime);
                         otherScreenHasFocus = true;
                     }
                     if (!screen.IsPopup)
