@@ -12,6 +12,7 @@ namespace SweenGame.Extensions
 
         public static string Current = "current";
         public static string CancelMessage = "Are you sure yo want to quit this game?";
+        public static string LoadingMessage = "Loading...";
 
         public static Vector2 ScreenDimensions = new Vector2(19, 13);
     }

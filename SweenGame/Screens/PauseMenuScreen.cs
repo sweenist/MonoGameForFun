@@ -48,7 +48,7 @@ namespace SweenGame.Screens
 
         private void QuitMessageBoxAccepted(object sender, EventArgs e)
         {
-            //LoadingScreen.Load(_screenManager, LoadMainMenuScreen, false);
+            LoadingScreen.Load(_screenManager, LoadMainMenuScreen, false);
         }
 
         private void LoadMainMenuScreen(object sender, EventArgs e)
