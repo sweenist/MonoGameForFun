@@ -36,6 +36,17 @@
 /processorParam:TextureFormat=Color
 /build:Maps/loz_48.png
 
+#begin MessageGradient.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:MessageGradient.jpg
+
 #begin Music/mega_adventure.wav
 /importer:WavImporter
 /processor:SongProcessor
