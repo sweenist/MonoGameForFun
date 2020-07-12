@@ -1,5 +1,5 @@
 Screen Transitions:
-    ☐ Screen Manager
+    ✔ Screen Manager @done(20-07-11 18:56)
 
 Title Screen:
     ☐ Art
@@ -8,8 +8,14 @@ Title Screen:
 
 
 Menu Screen:
+    ☐ Base Class
+    ☐ Sample menu
 
 Dialog Screen:
+    ☐ Sample
+
+Game Screen:
+    ☐ Show Game
 
 NPCs:
 

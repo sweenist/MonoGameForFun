@@ -55,7 +55,7 @@ namespace SweenGame.Screens
                 _screensToUpdate.RemoveAt(screenIndex);
                 screen.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
 
-                if (screen.ScreenState == ScreenState.TransitionOn || ScreenState.Active)
+                if (screen.ScreenState == ScreenState.TransitionOn || screen.ScreenState == ScreenState.Active)
                 {
                     if (!otherScreenHasFocus)
                     {
