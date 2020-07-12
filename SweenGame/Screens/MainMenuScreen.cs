@@ -1,11 +1,10 @@
 using System;
+using SweenGame.Extensions;
 
 namespace SweenGame.Screens
 {
     public class MainMenuScreen : MenuScreen
     {
-        const string cancelPrompt = "Are you sure you want to quit?";
-
         public MainMenuScreen()
         {
             _menuEntries.Add("Continue");
@@ -38,7 +37,7 @@ namespace SweenGame.Screens
 
         protected override void OnCancel()
         {
-            var messageBox = new MessageBoxScreen(cancelPrompt);
+            var messageBox = new MessageBoxScreen(Constants.CancelMessage);
             messageBox.Accepted += ExitMessageBoxAccepted;
             _screenManager.AddScreen(messageBox);
         }

@@ -9,7 +9,9 @@ namespace SweenGame.Extensions
         public static int TotalStepsPerTile = 48;
         public static int ScreenWidth = 912;
         public static int ScreenHeight = 624;
+
         public static string Current = "current";
+        public static string CancelMessage = "Are you sure yo want to quit this game?";
 
         public static Vector2 ScreenDimensions = new Vector2(19, 13);
     }
