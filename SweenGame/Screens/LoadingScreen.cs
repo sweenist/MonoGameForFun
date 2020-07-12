@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using SweenGame.Enums;
+using SweenGame.Extensions;
 using SweenGame.Services;
 
 namespace SweenGame.Screens
@@ -60,7 +61,18 @@ namespace SweenGame.Screens
             }
             if (_isSlowLoading)
             {
-                // do something with a loading message here...
+                var viewport = _screenManager.GetGraphicsDevice().Viewport;
+                var viewportSize = new Vector2(viewport.Width, viewport.Height);
+                var textSize = _screenManager.SpriteFont.MeasureString(Constants.LoadingMessage);
+                var textPosition = (viewportSize - textSize) / 2;
+
+                var color = Color.White;
+                color.A = TransitionAlpha;
+
+                _screenManager.SpriteBatch.Begin();
+                _screenManager.SpriteBatch.DrawString(_screenManager.SpriteFont, Constants.LoadingMessage, textPosition, color);
+                _screenManager.SpriteBatch.End();
+
             }
 
         }
