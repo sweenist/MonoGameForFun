@@ -3,18 +3,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using SweenGame.Maps;
-using SweenGame.Camera;
+using SweenGame.Screens;
 using SweenGame.Services;
 using static SweenGame.Extensions.Constants;
-using SweenGame.Screens;
 
 namespace SweenGame
 {
     public class SweenGame : Game
     {
         private GraphicsDeviceManager _graphicsManager;
-        private MovementManager _movementManager;
         private Song _themeMusic;
         private ScreenManager _screenManager;
 
@@ -44,22 +41,10 @@ namespace SweenGame
             Window.Title = "Sween's Awesome Game";
 
             _screenManager = new ScreenManager(this, _graphicsManager);
-            _screenManager.Initialize();
             ServiceLocator.Instance.AddService<IScreenManager>(_screenManager);
+            _screenManager.Initialize();
+            _screenManager.AddScreen(new GameplayScreen(this));
             Components.Add(_screenManager);
-
-            ServiceLocator.Instance.AddService<IMapManager>(typeof(MapManager), this);
-
-            _movementManager = new MovementManager(this);
-            Components.Add(_movementManager);
-
-            var player = new Player(this);
-            ServiceLocator.Instance.AddService<IPlayer>(player);
-            ServiceLocator.Instance.AddService<IFocusable>(player);
-            Components.Add(player);
-
-            ServiceLocator.Instance.AddService<ICamera2D>(typeof(Camera2D), this);
-            Components.Add(ServiceLocator.Instance.GetService<ICamera2D>());
 
             base.Initialize();
         }

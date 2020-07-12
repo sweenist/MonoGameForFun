@@ -14,8 +14,13 @@ Menu Screen:
 Dialog Screen:
     ☐ Sample
 
+Credits Screen:
+    ☐ Show Formatted list
+    ☐ Scroll List?
+
 Game Screen:
-    ☐ Show Game
+    ✔ Move Current Game initialization to Gameplay Screen @done(20-07-11 22:05)
+    ✔ Show Game @done(20-07-11 22:05)
 
 NPCs:
 
