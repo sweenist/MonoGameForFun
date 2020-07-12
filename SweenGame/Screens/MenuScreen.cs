@@ -57,7 +57,7 @@ namespace SweenGame.Screens
                     scale = 1 + pulse * 0.05f;
                 }
 
-                color = new Color(color.R, color.G, color.B, TransitionAlpha);
+                color.A = TransitionAlpha;
                 var origin = new Vector2(0, _screenManager.SpriteFont.LineSpacing / 2);
                 _screenManager.SpriteBatch.DrawString(_screenManager.SpriteFont,
                                                       _menuEntries[i],

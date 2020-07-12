@@ -27,10 +27,30 @@ namespace SweenGame.Screens
         {
             _gradient = _screenManager.GetGame().Content.Load<Texture2D>("MessageGradient");
         }
- 
+
         public override void Draw(GameTime gameTime)
         {
-            
+            _screenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
+
+            var viewport = _screenManager.GetGraphicsDevice().Viewport;
+            var viewportSize = new Vector2(viewport.Width, viewport.Height);
+            var textSize = _screenManager.SpriteFont.MeasureString(_message);
+            var textPosition = (viewportSize - textSize) / 2;
+
+            var hPad = 32;
+            var vPad = 16;
+
+            var backgroundRect = new Rectangle((int)textPosition.X - hPad,
+                                               (int)textPosition.Y + vPad,
+                                               (int)textSize.X + hPad * 2,
+                                               (int)textSize.Y + vPad * 2);
+            var color = Color.White;
+            color.A = TransitionAlpha;
+
+            _screenManager.SpriteBatch.Begin();
+            _screenManager.SpriteBatch.Draw(_gradient, backgroundRect, color);
+            _screenManager.SpriteBatch.DrawString(_screenManager.SpriteFont, _message, textPosition, color);
+            _screenManager.SpriteBatch.End();
         }
     }
 }
