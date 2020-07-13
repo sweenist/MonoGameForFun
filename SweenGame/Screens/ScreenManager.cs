@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SweenGame.Enums;
+using SweenGame.Extensions;
 using SweenGame.Input;
 
 namespace SweenGame.Screens
@@ -34,6 +35,7 @@ namespace SweenGame.Screens
                 throw new InvalidOperationException("No graphics device service was found");
 
             _input = new InputState();
+            //_traceEnabled = true;
         }
 
         public SpriteBatch SpriteBatch => _spriteBatch;
@@ -51,7 +53,10 @@ namespace SweenGame.Screens
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _spriteFont = _contentManager.Load<SpriteFont>("Fonts/Arial20");
-            _blankTexture = new Texture2D(GraphicsDevice, 64, 64);
+            _blankTexture = new Texture2D(GraphicsDevice, Constants.ScreenWidth, Constants.ScreenHeight);
+            var textureData = Enumerable.Repeat(Color.Black, Constants.ScreenWidth * Constants.ScreenHeight).ToArray();
+
+            _blankTexture.SetData(textureData);
 
             foreach (var screen in _gameScreens)
             {
@@ -100,7 +105,7 @@ namespace SweenGame.Screens
 
         private void TraceScreens()
         {
-            var screennames = _gameScreens.Select(s => s.GetType().Name).ToList();
+            Console.WriteLine(string.Join(',', _gameScreens.Select(s => s.GetType().Name).ToList()));
         }
 
         public override void Draw(GameTime gameTime)

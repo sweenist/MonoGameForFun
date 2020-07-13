@@ -45,6 +45,7 @@ namespace SweenGame.Screens
         {
             var messageBox = new MessageBoxScreen(Constants.CancelMessage);
             messageBox.Accepted += QuitMessageBoxAccepted;
+
             _screenManager.AddScreen(messageBox);
         }
 

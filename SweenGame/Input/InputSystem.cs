@@ -120,7 +120,7 @@ namespace SweenGame.Input
                     }
 
                     if (!moving)
-                        Stop(null, gameTime);
+                        Stop?.Invoke(null, gameTime);
                 }
             }
 

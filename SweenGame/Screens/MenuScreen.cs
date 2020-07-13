@@ -44,8 +44,9 @@ namespace SweenGame.Screens
 
             _screenManager.SpriteBatch.Begin();
 
-            var color = Color.White;
-            var scale = 1f;
+            Color color;
+            float scale;
+
             for (int i = 0; i < _menuEntries.Count; i++)
             {
                 if (IsActive && i.Equals(_selectedIndex))
@@ -55,6 +56,11 @@ namespace SweenGame.Screens
 
                     color = Color.YellowGreen;
                     scale = 1 + pulse * 0.05f;
+                }
+                else
+                {
+                    color = Color.White;
+                    scale = 1f;
                 }
 
                 color.A = TransitionAlpha;

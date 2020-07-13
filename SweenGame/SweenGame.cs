@@ -54,7 +54,7 @@ namespace SweenGame
             _screenManager = new ScreenManager(this, _graphicsManager);
             ServiceLocator.Instance.AddService<IScreenManager>(_screenManager);
             _screenManager.Initialize();
-            _screenManager.AddScreen(new GameplayScreen(this));
+            _screenManager.AddScreen(new MainMenuScreen());
 
             Components.Add(input);
             Components.Add(_screenManager);

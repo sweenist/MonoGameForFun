@@ -26,8 +26,10 @@ namespace SweenGame.Screens
                 case 0:
                 case 1:
                 case 2:
+                    _screenManager.AddScreen(new GameplayScreen(_screenManager.GetGame()));
+                    break;
                 case 3:
-                    _screenManager.AddScreen(null);
+                    _screenManager.AddScreen(new CreditsScreen());
                     break;
                 case 4:
                     OnCancel();
