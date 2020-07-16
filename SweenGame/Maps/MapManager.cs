@@ -24,7 +24,6 @@ namespace SweenGame.Maps
             _component = _game.Components;
 
             CurrentMap = new Map(_game, new Point(3, 3), MapType.Overworld);
-            CurrentMap.ContentLoaded += OnMapContentLoaded;
         }
 
         public bool IsInTransition => !(_transition is null);
@@ -68,6 +67,7 @@ namespace SweenGame.Maps
                 ServiceLocator.Instance.AddService<IMap>(value, Current);
 
                 _currentMap = value;
+                AddAdjacentMaps();
             }
         }
 

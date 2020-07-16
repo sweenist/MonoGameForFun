@@ -37,8 +37,6 @@ namespace SweenGame.Maps
             _mapType = mapType;
         }
 
-        public event EventHandler ContentLoaded;
-
         public Point MapIndex { get; }
         public Point MaxMapTileLocation => _upperMapBoundIndex * new Point(_tileWidth, _tileHeight);
         public Rectangle Bounds => new Rectangle((int)_tileOffsetVector.X, (int)_tileOffsetVector.Y, MaxMapTileLocation.X + _tileWidth, MaxMapTileLocation.Y + _tileHeight);
@@ -63,7 +61,6 @@ namespace SweenGame.Maps
                 _tileSource = tileBuilder.TileSetTexture;
                 _upperMapBoundIndex = tileBuilder.UpperTileBoundPoint;
             }
-            ContentLoaded?.Invoke(this, EventArgs.Empty);
         }
 
         public override void Update(GameTime gameTime)

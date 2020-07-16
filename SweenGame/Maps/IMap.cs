@@ -8,8 +8,6 @@ namespace SweenGame.Maps
 {
     public interface IMap : IGameComponent
     {
-        event EventHandler ContentLoaded;
-
         Point MapIndex { get; }
         Point MaxMapTileLocation { get; }
         Rectangle Bounds { get; }

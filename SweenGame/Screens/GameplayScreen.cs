@@ -25,11 +25,11 @@ namespace SweenGame.Screens
             ServiceLocator.Instance.AddService<IPlayer>(player);
             ServiceLocator.Instance.AddService<IFocusable>(player);
             ServiceLocator.Instance.AddService<ICamera2D>(typeof(Camera2D), _game);
+            ServiceLocator.Instance.AddService<IMapManager>(typeof(MapManager), _game);
 
             _components.Add(player);
             _components.Add(ServiceLocator.Instance.GetService<ICamera2D>());
 
-            ServiceLocator.Instance.AddService<IMapManager>(typeof(MapManager), _game);
 
             ActionDelegate movementFunction = (d, _) => MovementData.Create().Move((Direction)d);
 
