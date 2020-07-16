@@ -73,7 +73,10 @@ namespace SweenGame.Screens
             {
                 _screenState = ScreenState.TransitionOff;
                 if (!UpdateTransition(gameTime, _transitionOffTime, 1))
+                {
                     _screenState = ScreenState.TransitionOff;
+                    _screenManager.RemoveScreen(this);
+                }
                 else
                     _screenState = ScreenState.Hidden;
             }

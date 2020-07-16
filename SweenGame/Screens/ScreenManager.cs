@@ -123,6 +123,7 @@ namespace SweenGame.Screens
         {
             screen.Initialize();
             _gameScreens.Add(screen);
+            Console.WriteLine(string.Join(',', _gameScreens.Select(s => s.GetType().Name)));
 
             if (_graphicsDeviceService != null && _graphicsDeviceService.GraphicsDevice != null)
                 screen.LoadContent();

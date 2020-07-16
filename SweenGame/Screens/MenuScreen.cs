@@ -89,7 +89,7 @@ namespace SweenGame.Screens
                 if (_selectedIndex < 0)
                     _selectedIndex = _menuEntries.Count - 1;
             }
-            if (state.MenuUp)
+            if (state.MenuDown)
             {
                 _selectedIndex++;
                 if (_selectedIndex.Equals(_menuEntries.Count))
