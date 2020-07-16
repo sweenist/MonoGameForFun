@@ -8,6 +8,7 @@ using SweenGame.Input;
 using SweenGame.Screens;
 using SweenGame.Services;
 using static SweenGame.Extensions.Constants;
+using static SweenGame.Helpers.FunctionHelpers;
 
 namespace SweenGame
 {
@@ -44,11 +45,11 @@ namespace SweenGame
 
             var input = new InputSystem(this);
             input.Enabled = true;
-            input.AddAction("Move Left", Control.Left, ActionType.MoveLeft, null);
-            input.AddAction("Move Up", Control.Up, ActionType.MoveUp, null);
-            input.AddAction("Move Right", Control.Right, ActionType.MoveRight, null);
-            input.AddAction("Move Down", Control.Down, ActionType.MoveDown, null);
-            input.AddAction("Debug", Control.A, ActionType.Debug, null);
+            input.AddAction("Move Left", Control.Left, ActionType.MoveLeft, Noop);
+            input.AddAction("Move Up", Control.Up, ActionType.MoveUp, Noop);
+            input.AddAction("Move Right", Control.Right, ActionType.MoveRight, Noop);
+            input.AddAction("Move Down", Control.Down, ActionType.MoveDown, Noop);
+            input.AddAction("Debug", Control.A, ActionType.Debug, Noop);
             ServiceLocator.Instance.AddService<IInputSystem>(input);
 
             _screenManager = new ScreenManager(this, _graphicsManager);
