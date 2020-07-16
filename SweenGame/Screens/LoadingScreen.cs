@@ -32,9 +32,7 @@ namespace SweenGame.Screens
         public static void Load(EventHandler<EventArgs> loadNextScreen, bool loadingIsSlow)
         {
             var screenManager = ServiceLocator.Instance.GetService<IScreenManager>();
-
-            foreach (var screen in screenManager.GetScreens())
-                screen.ExitScreen();
+            screenManager.ClearScreens();
 
             var loadingScreen = new LoadingScreen();
             loadingScreen.loadNextScreen = loadNextScreen;
@@ -54,11 +52,9 @@ namespace SweenGame.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            if (ScreenState == ScreenState.Active
-            && _screenManager.GetScreens().Length.Equals(1))
-            {
+            if (ScreenState == ScreenState.Active && _screenManager.ScreenCount.Equals(1))
                 _otherScreensAreGone = true;
-            }
+
             if (_isSlowLoading)
             {
                 var viewport = _screenManager.GetGraphicsDevice().Viewport;

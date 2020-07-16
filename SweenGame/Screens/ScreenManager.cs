@@ -43,6 +43,7 @@ namespace SweenGame.Screens
         public GraphicsDeviceManager GraphicsManager => _graphicsDeviceManager;
         public ContentManager Content => _contentManager;
 
+        public int ScreenCount => _gameScreens.Count;
         public bool TraceEnabled
         {
             get => _traceEnabled;
@@ -149,9 +150,12 @@ namespace SweenGame.Screens
             _spriteBatch.End();
         }
 
-        public GameScreen[] GetScreens()
+        public void ClearScreens()
         {
-            return _gameScreens.ToArray();
+            foreach(var screen in _gameScreens)
+            {
+                RemoveScreen(screen);
+            }
         }
 
         public Game GetGame() => base.Game;
