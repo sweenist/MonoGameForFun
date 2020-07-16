@@ -34,7 +34,6 @@ namespace SweenGame.Screens
                 case 0:
                     ExitScreen();
                     break;
-
                 case 1:
                     BuildCancelMessageBox();
                     break;

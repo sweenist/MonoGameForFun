@@ -1,7 +1,7 @@
 Screen Transitions:
     ✔ Screen Manager @done(20-07-11 18:56)
 
-Title Screen:
+Title Screen:@
     ☐ Art
     ☐ Menu Items
     ☐ Disabled Items
@@ -18,9 +18,10 @@ Credits Screen:
     ☐ Show Formatted list
     ☐ Scroll List?
 
-Game Screen:
+Game Screen:@high 
     ✔ Move Current Game initialization to Gameplay Screen @done(20-07-11 22:05)
     ✔ Show Game @done(20-07-11 22:05)
+    ☐ Rework InputManager and Functoid logic
     ☐ Show Pause Screen in Game
 
 NPCs:

@@ -30,7 +30,11 @@ namespace SweenGame.Screens
             _components.Add(player);
             _components.Add(ServiceLocator.Instance.GetService<ICamera2D>());
 
+            SetupInputManager((_, __) => Console.WriteLine(player));
+        }
 
+        private void SetupInputManager(ActionDelegate debugAction)
+        {
             ActionDelegate movementFunction = (d, _) => MovementData.Create().Move((Direction)d);
 
             var input = ServiceLocator.Instance.GetService<IInputSystem>();
@@ -38,15 +42,10 @@ namespace SweenGame.Screens
             input.SetAction("Move Down", movementFunction);
             input.SetAction("Move Left", movementFunction);
             input.SetAction("Move Right", movementFunction);
-            input.SetAction("Debug", (_, __) => Console.WriteLine(player));
+            input.SetAction("Debug", debugAction);
             input.SetAction("Stop", (_, __) => { });
 
             input.Enable();
-        }
-
-        public override void Draw(GameTime gameTime)
-        {
-
         }
 
         public override void HandleInput(InputState state, GameTime gameTime)
@@ -58,6 +57,10 @@ namespace SweenGame.Screens
             {
                 _screenManager.AddScreen(new PauseMenuScreen());
             }
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
         }
     }
 }
