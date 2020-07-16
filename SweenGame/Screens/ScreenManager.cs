@@ -77,8 +77,10 @@ namespace SweenGame.Screens
         {
             _input.Update();
             _screensToUpdate.Clear();
+
             foreach (var screen in _gameScreens)
                 _screensToUpdate.Add(screen);
+
             var otherScreenHasFocus = !base.Game.IsActive;
             var coveredByOtherScreen = false;
 
@@ -152,10 +154,8 @@ namespace SweenGame.Screens
 
         public void ClearScreens()
         {
-            foreach(var screen in _gameScreens)
-            {
-                RemoveScreen(screen);
-            }
+            for (var i = _gameScreens.Count; i > 0;)
+                RemoveScreen(_gameScreens.ToList()[--i]);
         }
 
         public Game GetGame() => base.Game;

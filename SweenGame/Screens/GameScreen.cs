@@ -22,6 +22,7 @@ namespace SweenGame.Screens
         {
             _screenManager = ServiceLocator.Instance.GetService<IScreenManager>();
         }
+
         public bool IsPopup
         {
             get => _isPopup;

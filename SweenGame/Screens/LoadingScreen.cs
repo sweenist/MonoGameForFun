@@ -48,6 +48,8 @@ namespace SweenGame.Screens
                 _screenManager.RemoveScreen(this);
                 loadNextScreen(this, EventArgs.Empty);
             }
+
+            base.Update(gameTime, otherScreenHasFocus, isCoveredByOtherScreen);
         }
 
         public override void Draw(GameTime gameTime)
@@ -70,7 +72,6 @@ namespace SweenGame.Screens
                 _screenManager.SpriteBatch.End();
 
             }
-
         }
     }
 }

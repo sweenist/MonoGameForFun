@@ -26,8 +26,7 @@ namespace SweenGame.Screens
                 case 0:
                 case 1:
                 case 2:
-                    _screenManager.ClearScreens();
-                    _screenManager.AddScreen(new GameplayScreen(_screenManager.GetGame()));
+                    LoadingScreen.Load((_, __) => _screenManager.AddScreen(new GameplayScreen(_screenManager.GetGame())), true);
                     break;
                 case 3:
                     _screenManager.AddScreen(new CreditsScreen());
