@@ -15,7 +15,6 @@ namespace SweenGame
     public class SweenGame : Game
     {
         private GraphicsDeviceManager _graphicsManager;
-        private Song _themeMusic;
         private ScreenManager _screenManager;
 
         public SweenGame()
@@ -63,23 +62,10 @@ namespace SweenGame
             base.Initialize();
         }
 
-        protected override void LoadContent()
-        {
-            _themeMusic = Content.Load<Song>("Music/mega_adventure");
-
-            base.LoadContent();
-        }
-
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 Exit();
-
-            if (MediaPlayer.State == MediaState.Stopped)
-            {
-                MediaPlayer.Volume = 0.75f;
-                MediaPlayer.Play(_themeMusic);
-            }
 
             base.Update(gameTime);
         }

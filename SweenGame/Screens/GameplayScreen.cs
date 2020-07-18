@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using SweenGame.Camera;
 using SweenGame.Enums;
+using SweenGame.Extensions;
 using SweenGame.Input;
 using SweenGame.Maps;
 using SweenGame.Services;
@@ -46,6 +47,11 @@ namespace SweenGame.Screens
             input.SetAction("Stop", (_, __) => { });
 
             input.Enable();
+        }
+
+        public override void LoadContent()
+        {
+            _screenManager.LoadSong(MusicResources.Overworld);
         }
 
         public override void HandleInput(InputState state, GameTime gameTime)

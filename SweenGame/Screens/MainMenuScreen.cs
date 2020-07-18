@@ -1,4 +1,5 @@
 using System;
+using Microsoft.Xna.Framework;
 using SweenGame.Extensions;
 
 namespace SweenGame.Screens
@@ -19,6 +20,17 @@ namespace SweenGame.Screens
             base.Initialize();
         }
 
+        public override void LoadContent()
+        {
+            _screenManager.LoadSong(MusicResources.Title);
+        }
+
+        public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool isCoveredByOtherScreen)
+        {
+
+            base.Update(gameTime, otherScreenHasFocus, isCoveredByOtherScreen);
+        }
+
         protected override void OnSelectEntry(int entryIndex)
         {
             switch (entryIndex)
@@ -26,6 +38,7 @@ namespace SweenGame.Screens
                 case 0:
                 case 1:
                 case 2:
+                    _screenManager.StopSong();
                     LoadingScreen.Load((_, __) => _screenManager.AddScreen(new GameplayScreen(_screenManager.GetGame())), true);
                     break;
                 case 3:

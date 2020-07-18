@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace SweenGame.Screens
 {
@@ -19,5 +20,8 @@ namespace SweenGame.Screens
         Game GetGame();
         GraphicsDevice GetGraphicsDevice();
         void ClearScreens();
+
+        void LoadSong(string songName);
+        void StopSong(bool forceStop = false);
     }
 }
