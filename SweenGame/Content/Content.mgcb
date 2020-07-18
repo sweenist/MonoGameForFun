@@ -53,6 +53,12 @@
 /processorParam:Quality=Best
 /build:Music/mega_adventure.wav
 
+#begin Music/SG_title1.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/SG_title1.wav
+
 #begin Fonts/Arial20.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
