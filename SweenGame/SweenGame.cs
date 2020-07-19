@@ -2,11 +2,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 using SweenGame.Enums;
 using SweenGame.Input;
 using SweenGame.Screens;
 using SweenGame.Services;
+using SweenGame.Sounds;
 using static SweenGame.Extensions.Constants;
 using static SweenGame.Helpers.FunctionHelpers;
 
@@ -51,12 +51,15 @@ namespace SweenGame
             input.AddAction("Debug", Control.A, ActionType.Debug, Noop);
             ServiceLocator.Instance.AddService<IInputSystem>(input);
 
+            ServiceLocator.Instance.AddService<ISoundManager>(typeof(SoundManager), this);
+
             _screenManager = new ScreenManager(this, _graphicsManager);
             ServiceLocator.Instance.AddService<IScreenManager>(_screenManager);
             _screenManager.Initialize();
             _screenManager.AddScreen(new MainMenuScreen());
 
             Components.Add(input);
+            Components.Add(ServiceLocator.Instance.GetService<ISoundManager>() as SoundManager);
             Components.Add(_screenManager);
 
             base.Initialize();

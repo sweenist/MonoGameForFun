@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Media;
 using SweenGame.Enums;
 using SweenGame.Extensions;
 using SweenGame.Input;
@@ -22,10 +20,6 @@ namespace SweenGame.Screens
         private SpriteFont _spriteFont;
         private Texture2D _blankTexture;
 
-        private bool _songIsStopping;
-        private float _volume = 0.35f;
-        private Song _currentSong;
-        private Song _enqueuedSong;
 
         private ICollection<GameScreen> _gameScreens = new List<GameScreen>();
         private List<GameScreen> _screensToUpdate = new List<GameScreen>();
@@ -82,7 +76,6 @@ namespace SweenGame.Screens
 
         public override void Update(GameTime gameTime)
         {
-            UpdateMusic();
             _input.Update();
             _screensToUpdate.Clear();
 
@@ -168,56 +161,5 @@ namespace SweenGame.Screens
 
         public Game GetGame() => base.Game;
         public GraphicsDevice GetGraphicsDevice() => base.GraphicsDevice;
-
-        public void LoadSong(string songName)
-        {
-            var song = Content.Load<Song>(songName);
-            if (_currentSong is null)
-            {
-                _currentSong = song;
-                return;
-            }
-            _enqueuedSong = song;
-        }
-
-        public void StopSong(bool forceStop)
-        {
-            _songIsStopping = true;
-            if (forceStop)
-            {
-                StopSong();
-            }
-        }
-
-        private void StopSong()
-        {
-            _songIsStopping = false;
-            MediaPlayer.Stop();
-            _volume = 0.0f;
-            _currentSong = _enqueuedSong;
-            _enqueuedSong = null;
-        }
-
-        private void UpdateMusic()
-        {
-            const float baseVolume = 0.2f;
-
-            if (_songIsStopping)
-            {
-                _volume -= 0.1f;
-                if (_volume < baseVolume)
-                {
-                    StopSong();
-                }
-                return;
-            }
-            if (MediaPlayer.State == MediaState.Stopped && !(_currentSong is null))
-            {
-                MediaPlayer.Volume = _volume;
-                MediaPlayer.Play(_currentSong);
-            }
-
-            _volume = Math.Min(1.0f, _volume + 0.05f);
-        }
     }
 }

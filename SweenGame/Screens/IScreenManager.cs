@@ -20,8 +20,5 @@ namespace SweenGame.Screens
         Game GetGame();
         GraphicsDevice GetGraphicsDevice();
         void ClearScreens();
-
-        void LoadSong(string songName);
-        void StopSong(bool forceStop = false);
     }
 }

@@ -1,11 +1,16 @@
 using System;
 using Microsoft.Xna.Framework;
 using SweenGame.Extensions;
+using SweenGame.Input;
+using SweenGame.Services;
+using SweenGame.Sounds;
 
 namespace SweenGame.Screens
 {
     public class MainMenuScreen : MenuScreen
     {
+        private ISoundManager _sounds;
+
         public MainMenuScreen()
         {
             _menuEntries.Add("Continue");
@@ -22,12 +27,12 @@ namespace SweenGame.Screens
 
         public override void LoadContent()
         {
-            _screenManager.LoadSong(MusicResources.Title);
+            _sounds = ServiceLocator.Instance.GetService<ISoundManager>();
+            _sounds.LoadSong(SongNames.Title);
         }
 
         public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool isCoveredByOtherScreen)
         {
-
             base.Update(gameTime, otherScreenHasFocus, isCoveredByOtherScreen);
         }
 
@@ -38,7 +43,7 @@ namespace SweenGame.Screens
                 case 0:
                 case 1:
                 case 2:
-                    _screenManager.StopSong();
+                    _sounds.StopSong();
                     LoadingScreen.Load((_, __) => _screenManager.AddScreen(new GameplayScreen(_screenManager.GetGame())), true);
                     break;
                 case 3:
@@ -48,6 +53,16 @@ namespace SweenGame.Screens
                     OnCancel();
                     break;
             }
+        }
+
+        public override void HandleInput(InputState state, GameTime gameTime)
+        {
+            if (state.MenuUp || state.MenuDown)
+                _sounds.Play(SoundEffectNames.SelectEffect);
+            else if (state.MenuSelect)
+                _sounds.Play(SoundEffectNames.SelectEffect, -0.33f);
+
+            base.HandleInput(state, gameTime);
         }
 
         protected override void OnCancel()

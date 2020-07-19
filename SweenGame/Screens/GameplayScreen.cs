@@ -3,10 +3,10 @@ using Microsoft.Xna.Framework;
 using SweenGame.Camera;
 using SweenGame.Entities;
 using SweenGame.Enums;
-using SweenGame.Extensions;
 using SweenGame.Input;
 using SweenGame.Maps;
 using SweenGame.Services;
+using SweenGame.Sounds;
 
 namespace SweenGame.Screens
 {
@@ -14,6 +14,7 @@ namespace SweenGame.Screens
     {
         private readonly Game _game;
         private readonly GameComponentCollection _components;
+        private ISoundManager _sounds;
 
         public GameplayScreen(Game game)
         {
@@ -52,7 +53,8 @@ namespace SweenGame.Screens
 
         public override void LoadContent()
         {
-            _screenManager.LoadSong(MusicResources.Overworld);
+            _sounds = ServiceLocator.Instance.GetService<ISoundManager>();
+            _sounds.LoadSong(SongNames.Overworld);
         }
 
         public override void HandleInput(InputState state, GameTime gameTime)
@@ -62,6 +64,7 @@ namespace SweenGame.Screens
 
             if (state.PauseGame)
             {
+                _sounds.Volume = 0.65f;
                 _screenManager.AddScreen(new PauseMenuScreen());
             }
         }

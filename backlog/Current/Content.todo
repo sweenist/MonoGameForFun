@@ -5,8 +5,11 @@ Music:
     ☐ Overworld ++
 
 Sound Effects:
-    ☐ Menu Selection
-    
+    ✔ Menu Selection @done(20-07-18 22:49)
+
+Sound Manager:
+    ✔ Move Sound responsibilities out of Screen Manager @done(20-07-19 00:24)
+
 Images:
     ☐ Hero
     ☐ Landscape
