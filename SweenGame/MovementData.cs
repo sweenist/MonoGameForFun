@@ -1,4 +1,5 @@
-﻿using SweenGame.Enums;
+﻿using SweenGame.Entities;
+using SweenGame.Enums;
 using SweenGame.Maps;
 using SweenGame.Services;
 using static SweenGame.Extensions.Constants;

@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using SweenGame.Camera;
+using SweenGame.Entities;
 using SweenGame.Enums;
 using SweenGame.Extensions;
 using SweenGame.Input;

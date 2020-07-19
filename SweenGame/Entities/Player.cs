@@ -8,7 +8,7 @@ using SweenGame.Camera;
 using SweenGame.Services;
 using static SweenGame.Extensions.Constants;
 
-namespace SweenGame
+namespace SweenGame.Entities
 {
     public class Player : DrawableGameComponent, IPlayer, IFocusable
     {
@@ -95,8 +95,8 @@ namespace SweenGame
         protected override void LoadContent()
         {
             _playerAtlas = _contentManager.Load<Texture2D>("Sprites/dw_green_hero_48");
-            _spriteWidth = (int)(_playerAtlas.Width / Columns);
-            _spriteHeight = (int)(_playerAtlas.Height / Rows);
+            _spriteWidth = _playerAtlas.Width / Columns;
+            _spriteHeight = _playerAtlas.Height / Rows;
 
             for (var y = 0; y < Rows; y++)
                 for (var x = 0; x < Columns; x++)
@@ -139,7 +139,7 @@ namespace SweenGame
 
         public override void Draw(GameTime gameTime)
         {
-            var sourceRectangle = _playerSprites[_playerState][((int)CurrentDirection * 2) + _currentFrame];
+            var sourceRectangle = _playerSprites[_playerState][(int)CurrentDirection * 2 + _currentFrame];
 
             _spriteBatch.Begin(SpriteSortMode.FrontToBack,
                                BlendState.AlphaBlend,

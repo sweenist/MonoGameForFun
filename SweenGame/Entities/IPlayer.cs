@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using SweenGame.Enums;
 
-namespace SweenGame
+namespace SweenGame.Entities
 {
     public interface IPlayer : IGameComponent
     {

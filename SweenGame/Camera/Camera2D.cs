@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using SweenGame.Entities;
 using SweenGame.Services;
 
 namespace SweenGame.Camera
