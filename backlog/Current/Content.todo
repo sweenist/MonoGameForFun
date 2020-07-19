@@ -1,5 +1,5 @@
 Music:
-    ☐ Title
+    ✔ Title @done(20-07-18 22:42)
     ☐ Room
     ☐ Dungeon
     ☐ Overworld ++
@@ -13,3 +13,7 @@ Images:
     ☐ Dungeon
 
     Npcs:
+        ☐ Sample
+
+Font:
+    ☐ Get an 8-bit looking front with GPL license

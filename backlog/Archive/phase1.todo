@@ -27,7 +27,7 @@ Multiple maps (Phase I) (3x3 Zone):
    ✔ Make more maps @done(20-07-06 13:35)
 Map Triggers:
    ✔ Overworld @done(20-07-06 13:35)
-   ☐ Areas
+   ✘ Areas @cancelled(20-07-18 22:41)
 
 Map Transitions:
    ✔ Slide into view @done(20-07-06 13:35)
@@ -45,4 +45,4 @@ Refactors:
 Unit Tests:
    ✔ Install and configure xUnit @done(20-07-07 20:46)
    ✔ Test Extensions @done(20-07-07 22:25)
-   ☐ Assess other testable code
+   ✘ Assess other testable code @cancelled(20-07-18 22:41)
