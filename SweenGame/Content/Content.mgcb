@@ -59,6 +59,12 @@
 /processorParam:Quality=Best
 /build:Music/SG_title1.wav
 
+#begin SoundEffects/SG_select.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/SG_select.wav
+
 #begin Fonts/Arial20.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
