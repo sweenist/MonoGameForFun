@@ -54,7 +54,7 @@ namespace SweenGame.Screens
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _spriteFont = _contentManager.Load<SpriteFont>("Fonts/Arial20");
+            _spriteFont = _contentManager.Load<SpriteFont>("Fonts/SweenGame");
             _blankTexture = new Texture2D(GraphicsDevice, Constants.ScreenWidth, Constants.ScreenHeight);
             var textureData = Enumerable.Repeat(Color.Black, Constants.ScreenWidth * Constants.ScreenHeight).ToArray();
 
