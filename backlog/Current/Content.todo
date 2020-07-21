@@ -19,4 +19,6 @@ Images:
         ☐ Sample
 
 Font:
-    ☐ Get an 8-bit looking front with GPL license
+    ✘ Get an 8-bit looking front with GPL license @cancelled(20-07-21 00:05)
+    ✔ Make my own 8-bit font and avoid scary, vague licenses @done(20-07-21 00:05)
+    ☐ Expand my font set and add some fun glyphs: Heart, icons
