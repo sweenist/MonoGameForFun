@@ -6,8 +6,8 @@ namespace SweenGame.Screens
 {
     public class MessageBoxScreen : GameScreen
     {
-        private readonly string _usageText = "Press <ENTER> or Space for Ok"
-                                             + $"{Environment.NewLine}<ESC> Cancels";
+        private readonly string _usageText = "Press <ENTER> or <SPACE> for Ok"
+                                             + $"{Environment.NewLine}<ESC> cancels";
         private readonly string _message;
         private Texture2D _gradient;
 
