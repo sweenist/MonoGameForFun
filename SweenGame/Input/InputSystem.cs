@@ -22,8 +22,6 @@ namespace SweenGame.Input
             _mappedActions = new List<MappedAction>();
         }
 
-        public event ActionDelegate Stop;
-
         public List<MappedAction> MappedActions
         {
             get => _mappedActions;
@@ -37,11 +35,6 @@ namespace SweenGame.Input
 
         public void SetAction(ActionType actionType, ActionDelegate function)
         {
-            if (actionType == ActionType.Stop)
-            {
-                Stop += function;
-            }
-
             var predicate = _actionPredicateBuilder(actionType);
             var action = _mappedActions.FirstOrDefault(predicate);
             if (action is null)
@@ -68,8 +61,6 @@ namespace SweenGame.Input
             _currentKeyboardState = Keyboard.GetState();
             _currentMouseState = Mouse.GetState();
 
-            var moving = false;
-
             if (Enabled)
             {
                 foreach (var action in _mappedActions)
@@ -80,28 +71,24 @@ namespace SweenGame.Input
                             if (action.ActionType == ActionType.MoveUp && _currentKeyboardState.IsKeyDown(Keys.Up))
                             {
                                 action.Function(Direction.North, gameTime);
-                                moving = true;
                             }
                             break;
                         case Control.Down:
                             if (action.ActionType == ActionType.MoveDown && _currentKeyboardState.IsKeyDown(Keys.Down))
                             {
                                 action.Function(Direction.South, gameTime);
-                                moving = true;
                             }
                             break;
                         case Control.Left:
                             if (action.ActionType == ActionType.MoveLeft && _currentKeyboardState.IsKeyDown(Keys.Left))
                             {
                                 action.Function(Direction.West, gameTime);
-                                moving = true;
                             }
                             break;
                         case Control.Right:
                             if (action.ActionType == ActionType.MoveRight && _currentKeyboardState.IsKeyDown(Keys.Right))
                             {
                                 action.Function(Direction.East, gameTime);
-                                moving = true;
                             }
                             break;
                         case Control.A:
@@ -113,9 +100,6 @@ namespace SweenGame.Input
                             }
                             break;
                     }
-
-                    if (!moving)
-                        Stop?.Invoke(null, gameTime);
                 }
             }
 
