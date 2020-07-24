@@ -21,6 +21,7 @@ Credits Screen:
 Game Screen:@high 
     ✔ Move Current Game initialization to Gameplay Screen @done(20-07-11 22:05)
     ✔ Show Game @done(20-07-11 22:05)
+    ☐ Draw Order @high 
     ☐ Rework InputManager and Functoid logic
     ☐ Show Pause Screen in Game
 

@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using SweenGame.Extensions;
+using SweenGame.Services;
 
 namespace SweenGame.Screens
 {
@@ -17,6 +18,8 @@ namespace SweenGame.Screens
 
         public override void Draw(GameTime gameTime)
         {
+            ServiceLocator.Instance.Print($"Drawing {GetType().Name}");
+
             _screenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
 
             base.Draw(gameTime);
