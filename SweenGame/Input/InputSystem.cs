@@ -94,9 +94,8 @@ namespace SweenGame.Input
                         case Control.A:
                             if (action.ActionType == ActionType.Debug)
                             {
-                                if (_currentKeyboardState.IsKeyDown(Keys.A)
-                                && _lastKeyboardState.IsKeyUp(Keys.A))
-                                    action.Function(null, gameTime);
+                                if (_currentKeyboardState.IsKeyDown(Keys.A))
+                                    action.Function(_lastKeyboardState.IsKeyUp(Keys.A), gameTime);
                             }
                             break;
                     }

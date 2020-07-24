@@ -33,7 +33,7 @@ namespace SweenGame.Screens
             _components.Add(player);
             _components.Add(ServiceLocator.Instance.GetService<ICamera2D>());
 
-            SetupInputManager((_, __) => Console.WriteLine(player));
+            SetupInputManager((should, __) => ServiceLocator.Instance.PrintDebug = (bool)should);
         }
 
         private void SetupInputManager(ActionDelegate debugAction)
@@ -46,7 +46,6 @@ namespace SweenGame.Screens
             input.SetAction(ActionType.MoveLeft, movementFunction);
             input.SetAction(ActionType.MoveRight, movementFunction);
             input.SetAction(ActionType.Debug, debugAction);
-            input.SetAction(ActionType.Stop, (_, __) => { });
 
             input.Enable();
         }

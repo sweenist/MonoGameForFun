@@ -24,6 +24,13 @@ namespace SweenGame.Services
             }
         }
 
+        public bool PrintDebug {get;set;}
+        public void Print(string message)
+        {
+            if (PrintDebug)
+                Console.WriteLine(message);
+        }
+
         public void AddService<T>(Type implementation, params object[] arguments)
         {
             var constructor = implementation.GetConstructor(arguments.Select(arguments => arguments.GetType()).ToArray());
