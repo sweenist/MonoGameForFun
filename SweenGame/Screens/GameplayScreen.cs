@@ -41,12 +41,12 @@ namespace SweenGame.Screens
             ActionDelegate movementFunction = (d, _) => MovementData.Create().Move((Direction)d);
 
             var input = ServiceLocator.Instance.GetService<IInputSystem>();
-            input.SetAction("Move Up", movementFunction);
-            input.SetAction("Move Down", movementFunction);
-            input.SetAction("Move Left", movementFunction);
-            input.SetAction("Move Right", movementFunction);
-            input.SetAction("Debug", debugAction);
-            input.SetAction("Stop", (_, __) => { });
+            input.SetAction(ActionType.MoveUp, movementFunction);
+            input.SetAction(ActionType.MoveDown, movementFunction);
+            input.SetAction(ActionType.MoveLeft, movementFunction);
+            input.SetAction(ActionType.MoveRight, movementFunction);
+            input.SetAction(ActionType.Debug, debugAction);
+            input.SetAction(ActionType.Stop, (_, __) => { });
 
             input.Enable();
         }

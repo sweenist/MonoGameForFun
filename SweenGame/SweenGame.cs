@@ -44,11 +44,11 @@ namespace SweenGame
 
             var input = new InputSystem(this);
             input.Enabled = true;
-            input.AddAction("Move Left", Control.Left, ActionType.MoveLeft, Noop);
-            input.AddAction("Move Up", Control.Up, ActionType.MoveUp, Noop);
-            input.AddAction("Move Right", Control.Right, ActionType.MoveRight, Noop);
-            input.AddAction("Move Down", Control.Down, ActionType.MoveDown, Noop);
-            input.AddAction("Debug", Control.A, ActionType.Debug, Noop);
+            input.AddAction(ActionType.MoveLeft, Control.Left, Noop);
+            input.AddAction(ActionType.MoveUp, Control.Up, Noop);
+            input.AddAction(ActionType.MoveRight, Control.Right, Noop);
+            input.AddAction(ActionType.MoveDown, Control.Down, Noop);
+            input.AddAction(ActionType.Debug, Control.A, Noop);
             ServiceLocator.Instance.AddService<IInputSystem>(input);
 
             ServiceLocator.Instance.AddService<ISoundManager>(typeof(SoundManager), this);

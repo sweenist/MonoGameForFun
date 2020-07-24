@@ -15,7 +15,7 @@ namespace SweenGame.Input
         private MouseState _lastMouseState;
         private List<MappedAction> _mappedActions;
 
-        private Func<string, Func<MappedAction, bool>> _namePredicateBuilder = x => y => y.Name.Equals(x);
+        private Func<ActionType, Func<MappedAction, bool>> _actionPredicateBuilder = x => y => y.ActionType.Equals(x);
 
         public InputSystem(Game game) : base(game)
         {
@@ -40,28 +40,28 @@ namespace SweenGame.Input
             Enabled = true;
         }
 
-        public void SetAction(string name, ActionDelegate function)
+        public void SetAction(ActionType actionType, ActionDelegate function)
         {
-            if (name.Equals(nameof(Stop)))
+            if (actionType == ActionType.Stop)
             {
                 Stop += function;
             }
 
-            var predicate = _namePredicateBuilder(name);
+            var predicate = _actionPredicateBuilder(actionType);
             var action = _mappedActions.FirstOrDefault(predicate);
             if (action is null)
                 return;
             action.Function = function;
         }
 
-        public void AddAction(string name, Control control, ActionType actionType, ActionDelegate function)
+        public void AddAction(ActionType actionType, Control control, ActionDelegate function)
         {
-            _mappedActions.Add(new MappedAction(name, control, actionType, function));
+            _mappedActions.Add(new MappedAction(actionType, control, function));
         }
 
-        public void SetActionControl(string name, Control control)
+        public void SetActionControl(ActionType actionType, Control control)
         {
-            var predicate = _namePredicateBuilder(name);
+            var predicate = _actionPredicateBuilder(actionType);
             var action = _mappedActions.FirstOrDefault(predicate);
             if (action is null)
                 return;
@@ -112,7 +112,7 @@ namespace SweenGame.Input
                         case Control.A:
                             if (action.ActionType == ActionType.Debug)
                             {
-                                if(_currentKeyboardState.IsKeyDown(Keys.A)
+                                if (_currentKeyboardState.IsKeyDown(Keys.A)
                                 && _lastKeyboardState.IsKeyUp(Keys.A))
                                     action.Function(null, gameTime);
                             }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using SweenGame.Enums;
 
 namespace SweenGame.Input
 {
@@ -8,7 +9,7 @@ namespace SweenGame.Input
     public interface IInputSystem
     {
         List<MappedAction> MappedActions {get; set;}
-        void SetAction(string name, ActionDelegate function);
+        void SetAction(ActionType actionType, ActionDelegate function);
         void Enable();
     }
 }
