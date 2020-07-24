@@ -22,11 +22,6 @@ namespace SweenGame.Input
             _mappedActions = new List<MappedAction>();
         }
 
-        public event ActionDelegate Move;
-        public event ActionDelegate MoveUp;
-        public event ActionDelegate MoveDown;
-        public event ActionDelegate MoveLeft;
-        public event ActionDelegate MoveRight;
         public event ActionDelegate Stop;
 
         public List<MappedAction> MappedActions
