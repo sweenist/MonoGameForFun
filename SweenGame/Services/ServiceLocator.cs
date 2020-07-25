@@ -31,25 +31,28 @@ namespace SweenGame.Services
                 Console.WriteLine(message);
         }
 
-        public void AddService<T, TImpl>(string name = null, params object[] arguments) where TImpl : class
+        public TImpl AddService<T, TImpl>(string name = null, params object[] arguments) where TImpl : class
         {
             TImpl instance = Construct<TImpl>(arguments);
 
-            if (_services.ContainsKey(typeof(T)))
-                throw new InvalidOperationException("Cannot construct and object for injection in nameless context. Object already exists.");
+            var t = typeof(T);
+            if (_services.ContainsKey(t) && _services[t].ContainsKey(name ?? string.Empty))
+                throw new InvalidOperationException($"Cannot construct an object for injection with {name ?? "<null>"}. Object already exists.");
 
-            _services.Add(typeof(T), new Dictionary<string, object> { { string.Empty, instance } });
+            _services.Add(t, new Dictionary<string, object> { { string.Empty, instance } });
+            return instance;
         }
 
         public void AddService<T, TImpl>(TImpl instance, string name = null) where TImpl : class
         {
-            if (_services.ContainsKey(typeof(T)))
+            var t = typeof(T);
+            if (_services.ContainsKey(t))
             {
-                _services[typeof(T)].Add(name, instance);
+                _services[t].Add(name, instance);
             }
             else
             {
-                _services.Add(typeof(T), new Dictionary<string, object> { { name ?? string.Empty, instance } });
+                _services.Add(t, new Dictionary<string, object> { { name ?? string.Empty, instance } });
             }
         }
 
@@ -67,12 +70,13 @@ namespace SweenGame.Services
 
         public void RemoveService<T>(object instance)
         {
+            var t = typeof(T);
             var existing = GetService<T>(string.Empty);
-            if (existing.Equals(instance) && _services[typeof(T)].Count == 1)
+            if (existing.Equals(instance) && _services[t].Count == 1)
             {
-                _services.Remove(typeof(T));
+                _services.Remove(t);
             }
-            else if (_services[typeof(T)].Count != 1)
+            else if (_services[t].Count != 1)
             {
                 throw new InvalidOperationException(
                     "More than one instance of this type is registered. "

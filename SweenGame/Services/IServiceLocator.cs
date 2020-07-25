@@ -6,7 +6,7 @@ namespace SweenGame.Services
     {
         bool PrintDebug { get; set; }
 
-        void AddService<T, TImpl>(string name = null, params object[] arguments) where TImpl : class;
+        TImpl AddService<T, TImpl>(string name = null, params object[] arguments) where TImpl : class;
         void AddService<T, TImpl>(TImpl instance, string name = null) where TImpl : class;
 
         void RemoveService<T>(object instance);

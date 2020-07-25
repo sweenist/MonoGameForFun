@@ -53,8 +53,7 @@ namespace SweenGame
 
             ServiceLocator.Instance.AddService<ISoundManager, SoundManager>(arguments: this);
 
-            _screenManager = new ScreenManager(this, _graphicsManager);
-            ServiceLocator.Instance.AddService<IScreenManager, ScreenManager>(_screenManager);
+            _screenManager = ServiceLocator.Instance.AddService<IScreenManager, ScreenManager>(name: null, this, _graphicsManager);
             _screenManager.Initialize();
             _screenManager.AddScreen(new MainMenuScreen());
 
