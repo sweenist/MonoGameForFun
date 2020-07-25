@@ -45,7 +45,7 @@ namespace SweenGame.Maps
                 var map = new Map(_game, point, MapType.Overworld, offsetVector);
 
                 ServiceLocator.Instance.TryRemoveService<IMap>(direction.ToString());
-                ServiceLocator.Instance.AddService<IMap>(map, edge.Key.ToString());
+                ServiceLocator.Instance.AddService<IMap, Map>(map, edge.Key.ToString());
             }
         }
 
@@ -64,7 +64,7 @@ namespace SweenGame.Maps
                 }
 
                 _component.Add(value);
-                ServiceLocator.Instance.AddService<IMap>(value, Current);
+                ServiceLocator.Instance.AddService<IMap, Map>(instance: value as Map, name: Current);
 
                 _currentMap = value;
                 AddAdjacentMaps();

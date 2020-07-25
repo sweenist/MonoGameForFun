@@ -49,12 +49,12 @@ namespace SweenGame
             input.AddAction(ActionType.MoveRight, Control.Right, Noop);
             input.AddAction(ActionType.MoveDown, Control.Down, Noop);
             input.AddAction(ActionType.Debug, Control.A, Noop);
-            ServiceLocator.Instance.AddService<IInputSystem>(input);
+            ServiceLocator.Instance.AddService<IInputSystem, InputSystem>(input);
 
-            ServiceLocator.Instance.AddService<ISoundManager>(typeof(SoundManager), this);
+            ServiceLocator.Instance.AddService<ISoundManager, SoundManager>(arguments: this);
 
             _screenManager = new ScreenManager(this, _graphicsManager);
-            ServiceLocator.Instance.AddService<IScreenManager>(_screenManager);
+            ServiceLocator.Instance.AddService<IScreenManager, ScreenManager>(_screenManager);
             _screenManager.Initialize();
             _screenManager.AddScreen(new MainMenuScreen());
 

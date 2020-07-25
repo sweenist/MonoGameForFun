@@ -24,17 +24,16 @@ namespace SweenGame.Services
             }
         }
 
-        public bool PrintDebug {get;set;}
+        public bool PrintDebug { get; set; }
         public void Print(string message)
         {
             if (PrintDebug)
                 Console.WriteLine(message);
         }
 
-        public void AddService<T>(Type implementation, params object[] arguments)
+        public void AddService<T, TImpl>(string name = null, params object[] arguments) where TImpl : class
         {
-            var constructor = implementation.GetConstructor(arguments.Select(arguments => arguments.GetType()).ToArray());
-            var instance = constructor.Invoke(arguments);
+            TImpl instance = Construct<TImpl>(arguments);
 
             if (_services.ContainsKey(typeof(T)))
                 throw new InvalidOperationException("Cannot construct and object for injection in nameless context. Object already exists.");
@@ -42,7 +41,7 @@ namespace SweenGame.Services
             _services.Add(typeof(T), new Dictionary<string, object> { { string.Empty, instance } });
         }
 
-        public void AddService<T>(object instance, string name = null)
+        public void AddService<T, TImpl>(TImpl instance, string name = null) where TImpl : class
         {
             if (_services.ContainsKey(typeof(T)))
             {
@@ -102,6 +101,13 @@ namespace SweenGame.Services
             {
                 throw new ApplicationException($"Service of type {typeof(T).FullName} was not registered");
             }
+        }
+
+        private static T Construct<T>(object[] arguments) where T : class
+        {
+            var constructor = typeof(T).GetConstructor(arguments.Select(arguments => arguments.GetType()).ToArray());
+            var instance = constructor.Invoke(arguments);
+            return instance as T;
         }
     }
 }
