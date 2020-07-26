@@ -47,7 +47,7 @@ namespace SweenGame.Sounds
                 }
                 return;
             }
-            if (MediaPlayer.State == MediaState.Stopped && !(_currentSong is null))
+            if (MediaPlayer.State == MediaState.Stopped && !(_currentSong is null || _currentSong.IsDisposed))
             {
                 MediaPlayer.Volume = Volume;
                 MediaPlayer.Play(_currentSong);
@@ -91,6 +91,7 @@ namespace SweenGame.Sounds
         private void LoadNextSong()
         {
             _currentSong.Dispose();
+            _currentSong = null;
             if (EnqueuedSongName != null)
                 _currentSong = _content.Load<Song>(EnqueuedSongName);
         }
