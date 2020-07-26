@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SweenGame.Enums;
 using SweenGame.Extensions;
 using SweenGame.Services;
@@ -54,6 +55,8 @@ namespace SweenGame.Screens
 
         public override void Draw(GameTime gameTime)
         {
+            _screenManager.GetGraphicsDevice().Clear(ClearOptions.Target, Color.Black, 0, 0);
+
             if (ScreenState == ScreenState.Active && _screenManager.ScreenCount.Equals(1))
                 _otherScreensAreGone = true;
 

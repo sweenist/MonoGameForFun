@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SweenGame.Entities;
 using SweenGame.Enums;
 using SweenGame.Input;
@@ -44,6 +45,12 @@ namespace SweenGame.Screens
             _sounds.LoadSong(SongNames.Overworld);
         }
 
+        public override void UnloadContent()
+        {
+            _sounds.StopSong(true);
+            Console.WriteLine("Unloading");
+        }
+
         public override void HandleInput(InputState state, GameTime gameTime)
         {
             if (state is null)
@@ -58,6 +65,15 @@ namespace SweenGame.Screens
 
         public override void Draw(GameTime gameTime)
         {
+            _screenManager.GetGraphicsDevice().Clear(ClearOptions.Target, Color.Black, 0, 0);
+            _screenManager.SpriteBatch.Begin();
+            _entityManager.Draw(gameTime);
+            _screenManager.SpriteBatch.End();
+        }
+
+        public override void ExitScreen()
+        {
+            (_entityManager as IDisposable).Dispose();
         }
     }
 }
