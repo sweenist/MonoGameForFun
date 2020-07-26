@@ -70,7 +70,7 @@ namespace SweenGame.Maps
 
             var transitiveMap = ServiceLocator.Instance.GetService<IMap>(direction.ToString());
 
-            _transition = new MapTransition(CurrentMap, transitiveMap, direction, _game);
+            _transition = new MapTransition(CurrentMap, transitiveMap, direction, _game, _components);
             _transition.Disposing += AssignMaps;
         }
 

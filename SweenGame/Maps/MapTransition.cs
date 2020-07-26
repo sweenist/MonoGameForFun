@@ -28,13 +28,13 @@ namespace SweenGame.Maps
         private readonly GameComponentCollection _components;
         private Vector2 _adjustmentVector;
 
-        public MapTransition(IMap current, IMap other, Direction direction, Game game) : base(game)
+        public MapTransition(IMap current, IMap other, Direction direction, Game game, GameComponentCollection components) : base(game)
         {
             _direction = direction;
             _current = current;
             _other = other;
 
-            _components = game.Components;
+            _components = components;
             _components.Add(_other);
             _components.Add(this);
 
