@@ -7,6 +7,7 @@ using SweenGame.Enums;
 using SweenGame.Camera;
 using SweenGame.Extensions;
 using SweenGame.Services;
+using System;
 
 namespace SweenGame.Maps
 {
@@ -43,11 +44,10 @@ namespace SweenGame.Maps
         public List<MapTile> MapTiles { get; set; }
 
         private string MapFileName => $"{_mapType}_{MapIndex.X}_{MapIndex.Y}.tmx";
+        private ICamera2D Camera => _camera ?? ( _camera = ServiceLocator.Instance.GetService<ICamera2D>());
 
         public override void Initialize()
         {
-            _camera = ServiceLocator.Instance.GetService<ICamera2D>();
-
             base.Initialize();
         }
         protected override void LoadContent()
@@ -60,6 +60,7 @@ namespace SweenGame.Maps
                 _tileSource = tileBuilder.TileSetTexture;
                 _upperMapBoundIndex = tileBuilder.UpperTileBoundPoint;
             }
+            base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
@@ -69,17 +70,17 @@ namespace SweenGame.Maps
             var upperBound = new Point((int)lastTile.Location.X + lastTile.SourceRectangle.Width,
                                        (int)lastTile.Location.Y + lastTile.SourceRectangle.Height);
 
-            _camera.ClampCamera(new Rectangle(firstTile.Location.ToPoint(), upperBound));
+            Camera.ClampCamera(new Rectangle(firstTile.Location.ToPoint(), upperBound));
         }
 
         public override void Draw(GameTime gameTime)
         {
-            _spriteBatch.Begin(transformMatrix: _camera.Transform);
+            _spriteBatch.Begin(transformMatrix: Camera.Transform);
 
             foreach (var tile in MapTiles)
             {
                 var modifiedLocation = tile.Location + Bounds.Location.ToVector2();
-                if (_camera.IsInView(modifiedLocation, tile.SourceRectangle))
+                if (Camera.IsInView(modifiedLocation, tile.SourceRectangle))
                     _spriteBatch.Draw(_tileSource, modifiedLocation, tile.SourceRectangle, Color.White);
             }
 

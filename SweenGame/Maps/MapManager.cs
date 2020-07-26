@@ -12,26 +12,18 @@ namespace SweenGame.Maps
     {
         private IMap _currentMap;
         private MapTransition _transition;
-        private readonly ContentManager _content;
-        private readonly GameComponentCollection _component;
+        private readonly GameComponentCollection _components;
         private readonly Game _game;
 
-        public MapManager(Game game)
+        public MapManager(Game game, GameComponentCollection components)
         {
             _game = game;
-            _content = _game.Content;
-
-            _component = _game.Components;
+            _components = components;
 
             CurrentMap = new Map(_game, new Point(3, 3), MapType.Overworld);
         }
 
         public bool IsInTransition => !(_transition is null);
-
-        private void OnMapContentLoaded(object sender, EventArgs e)
-        {
-            AddAdjacentMaps();
-        }
 
         private void AddAdjacentMaps()
         {
@@ -59,11 +51,11 @@ namespace SweenGame.Maps
 
                 if (!(_currentMap is null))
                 {
-                    _component.Remove(_currentMap);
+                    _components.Remove(_currentMap);
                     ServiceLocator.Instance.RemoveService<IMap>(Current);
                 }
 
-                _component.Add(value);
+                _components.Add(value);
                 ServiceLocator.Instance.AddService<IMap, Map>(instance: value as Map, name: Current);
 
                 _currentMap = value;
@@ -93,7 +85,7 @@ namespace SweenGame.Maps
             _transition = null;
 
             CurrentMap = e.NewMap;
-            OnMapContentLoaded(sender, e);
+            AddAdjacentMaps();
         }
     }
 }
