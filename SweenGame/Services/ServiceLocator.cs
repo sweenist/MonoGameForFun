@@ -48,7 +48,7 @@ namespace SweenGame.Services
             var t = typeof(T);
             if (_services.ContainsKey(t))
             {
-                _services[t].Add(name, instance);
+                _services[t].Add(name ?? string.Empty, instance);
             }
             else
             {
