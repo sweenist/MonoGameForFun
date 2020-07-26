@@ -12,22 +12,26 @@ namespace SweenGame.Screens
     public class GameplayScreen : GameScreen
     {
         private readonly Game _game;
+        private readonly IEntityManager _entityManager;
         private ISoundManager _sounds;
 
         public GameplayScreen(Game game)
         {
             _game = game;
+            _entityManager = ServiceLocator.Instance.AddService<IEntityManager, EntityManager>(nameof(GameplayScreen), _game);
         }
 
         public override void Initialize()
         {
-            ServiceLocator.Instance.AddService<IEntityManager, EntityManager>(nameof(GameplayScreen), _game);
-            SetupInputManager((should, __) => ServiceLocator.Instance.PrintDebug = (bool)should);
+            _entityManager.Initialize();
+
+            SetupInputManager();
         }
 
-        private void SetupInputManager(ActionDelegate debugAction)
+        private void SetupInputManager()
         {
             ActionDelegate movementFunction = (d, _) => MovementData.Create().Move((Direction)d);
+            ActionDelegate debugAction = (should, __) => ServiceLocator.Instance.PrintDebug = (bool)should;
 
             var input = ServiceLocator.Instance.GetService<IInputSystem>();
             input.SetAction(ActionType.MoveUp, movementFunction);
@@ -61,6 +65,12 @@ namespace SweenGame.Screens
                 _sounds.Volume = 0.65f;
                 _screenManager.AddScreen(new PauseMenuScreen());
             }
+        }
+
+        public override void Update(GameTime gameTime, bool otherScreenHasFocus, bool isCoveredByOtherScreen)
+        {
+            if (!otherScreenHasFocus && !isCoveredByOtherScreen)
+                _entityManager.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
