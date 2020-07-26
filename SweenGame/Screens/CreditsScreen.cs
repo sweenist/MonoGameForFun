@@ -34,10 +34,7 @@ namespace SweenGame.Screens
         {
             Vector2 textPosition;
             Vector2 textSize;
-            _screenManager.GetGraphicsDevice().Clear(ClearOptions.Target,
-                                                     Color.Black,
-                                                     depth: 0,
-                                                     stencil: 0);
+            _screenManager.ClearBuffer();
             var color = Color.Black;
             color.A = TransitionAlpha;
 
@@ -46,7 +43,7 @@ namespace SweenGame.Screens
             #region Draw Title
 
             var titleSize = _titleFont.MeasureString(_creditsTitle);
-            var viewport = _screenManager.GetGraphicsDevice().Viewport;
+            var viewport = _screenManager.GetViewport();
 
             textPosition = new Vector2((viewport.Width / 2) - (titleSize.X / 2), 5);
             _screenManager.SpriteBatch.DrawString(_titleFont, _creditsTitle, textPosition, color);

@@ -75,7 +75,7 @@ namespace SweenGame.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            _screenManager.GetGraphicsDevice().Clear(ClearOptions.Target, Color.Black, 0, 0);
+            _screenManager.ClearBuffer();
             _screenManager.SpriteBatch.Begin();
             _entityManager.Draw(gameTime);
             _screenManager.SpriteBatch.End();

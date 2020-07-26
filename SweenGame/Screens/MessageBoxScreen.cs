@@ -32,7 +32,7 @@ namespace SweenGame.Screens
         {
             _screenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
 
-            var viewport = _screenManager.GetGraphicsDevice().Viewport;
+            var viewport = _screenManager.GetViewport();
             var viewportSize = new Vector2(viewport.Width, viewport.Height);
             var textSize = _screenManager.SpriteFont.MeasureString(_message);
             var textPosition = (viewportSize - textSize) / 2;

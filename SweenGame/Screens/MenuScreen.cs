@@ -35,7 +35,7 @@ namespace SweenGame.Screens
         public override void Draw(GameTime gameTime)
         {
             if(!_isPopup)
-                _screenManager.GetGraphicsDevice().Clear(ClearOptions.Target, Color.Black, 0, 0);
+                _screenManager.ClearBuffer();
 
             var position = new Vector2(100, 150);
             var transitionOffset = (float)Math.Pow(TransitionPosition, 2);

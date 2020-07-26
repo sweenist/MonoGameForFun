@@ -11,14 +11,15 @@ namespace SweenGame.Screens
         int ScreenCount { get; }
         SpriteBatch SpriteBatch { get; }
         SpriteFont SpriteFont { get; }
-        GraphicsDeviceManager GraphicsManager { get; }
         ContentManager Content { get; }
 
         void AddScreen(GameScreen screen);
         void RemoveScreen(GameScreen screen);
         void FadeBackBufferToBlack(int alpha);
+        void ClearBuffer();
+        void RemoveAllScreens();
+
         Game GetGame();
-        GraphicsDevice GetGraphicsDevice();
-        void ClearScreens();
+        Viewport GetViewport();
     }
 }

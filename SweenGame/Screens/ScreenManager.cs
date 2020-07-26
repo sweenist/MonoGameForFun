@@ -41,7 +41,6 @@ namespace SweenGame.Screens
 
         public SpriteBatch SpriteBatch => _spriteBatch;
         public SpriteFont SpriteFont => _spriteFont;
-        public GraphicsDeviceManager GraphicsManager => _graphicsDeviceManager;
         public ContentManager Content => _contentManager;
 
         public int ScreenCount => _gameScreens.Count;
@@ -118,7 +117,6 @@ namespace SweenGame.Screens
             {
                 if (screen.ScreenState == ScreenState.Hidden)
                     continue;
-
                 screen.Draw(gameTime);
             }
         }
@@ -153,13 +151,18 @@ namespace SweenGame.Screens
             _spriteBatch.End();
         }
 
-        public void ClearScreens()
+        public void ClearBuffer()
+        {
+            base.GraphicsDevice.Clear(ClearOptions.Target, Color.Black, 0, 0);
+        }
+
+        public void RemoveAllScreens()
         {
             for (var i = _gameScreens.Count; i > 0;)
                 RemoveScreen(_gameScreens.ToList()[--i]);
         }
 
         public Game GetGame() => base.Game;
-        public GraphicsDevice GetGraphicsDevice() => base.GraphicsDevice;
+        public Viewport GetViewport() => base.GraphicsDevice.Viewport;
     }
 }

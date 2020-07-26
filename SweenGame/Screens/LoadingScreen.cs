@@ -33,7 +33,7 @@ namespace SweenGame.Screens
         public static void Load(EventHandler<EventArgs> loadNextScreen, bool loadingIsSlow)
         {
             var screenManager = ServiceLocator.Instance.GetService<IScreenManager>();
-            screenManager.ClearScreens();
+            screenManager.RemoveAllScreens();
 
             var loadingScreen = new LoadingScreen();
             loadingScreen.loadNextScreen = loadNextScreen;
@@ -55,14 +55,14 @@ namespace SweenGame.Screens
 
         public override void Draw(GameTime gameTime)
         {
-            _screenManager.GetGraphicsDevice().Clear(ClearOptions.Target, Color.Black, 0, 0);
+            _screenManager.ClearBuffer();
 
             if (ScreenState == ScreenState.Active && _screenManager.ScreenCount.Equals(1))
                 _otherScreensAreGone = true;
 
             if (_isSlowLoading)
             {
-                var viewport = _screenManager.GetGraphicsDevice().Viewport;
+                var viewport = _screenManager.GetViewport();
                 var viewportSize = new Vector2(viewport.Width, viewport.Height);
                 var textSize = _screenManager.SpriteFont.MeasureString(Constants.LoadingMessage);
                 var textPosition = (viewportSize - textSize) / 2;
